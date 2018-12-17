@@ -37,12 +37,7 @@
 		<link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 		<link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css')}}">
-		<style>
-		input[type=file] {
-			padding: 0;
-			border: none;
-		}
-	</style>
+		<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -130,7 +125,7 @@
 							<i class="fa fa-user"></i> <span>Profile</span>
 						</a>
 					</li>
-					<li class="treeview">
+					<li class="treeview @if(Route::is('all-form') || Route::is('single-form'))  menu-open @endif">
 						<a href="#">
 							<i class="fa fa-edit"></i> <span>Forms</span>
 							<span class="pull-right-container">
@@ -138,8 +133,8 @@
 							</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="{{ route('all-form')}}"><i class="fa fa-circle-o"></i> View All</a></li>
-							<li><a href="{{ route('single-form')}}"><i class="fa fa-circle-o"></i>Add New</a></li>
+							<li class="@if(Route::is('all-form'))  active @endif"><a href="{{ route('all-form')}}"><i class="fa fa-circle-o"></i> View All</a></li>
+							<li class="@if(Route::is('single-form'))  active @endif"><a href="{{ route('single-form')}}"><i class="fa fa-circle-o"></i>Add New</a></li>
 						</ul>
 					</li>
 					<li><a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
@@ -214,7 +209,7 @@
 			<div class="pull-right hidden-xs">
 				<b>Version</b> 2.4.0
 			</div>
-			<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+			<strong>Copyright &copy; {{ date('Y')}} <a href="#">DDI Forms</a>.</strong> All rights
 			reserved.
 		</footer>
 		<!-- /.control-sidebar -->
@@ -236,14 +231,8 @@
 	</script>
 	<!-- Bootstrap 3.3.7 -->
 	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-	<!-- Morris.js charts -->
-	<script src="{{ asset('bower_components/raphael/raphael.min.js') }}"></script>
-	<script src="{{ asset('bower_components/morris.js/morris.min.js') }}"></script>
 	<!-- Sparkline -->
 	<script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
-	<!-- jvectormap -->
-	<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-	<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 	<!-- jQuery Knob Chart -->
 	<script src="{{ asset('bower_components/jquery-knob/dist/jquery.knob.min.js') }}"></script>
 	<!-- daterangepicker -->

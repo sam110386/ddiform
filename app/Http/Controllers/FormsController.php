@@ -40,6 +40,12 @@ class FormsController extends Controller
 	}
 
 	public function save(Request $request){
+		echo "<pre>";
+		print_r($request->fields_json);
+		echo "</pre>";
+		$pageData = ['title' => 'Form'];
+		return view('Form.form',$pageData);		
+		/*die;
 		$validator = Validator::make($request->all(),
 			[
 				'name' => 'required|string',
@@ -48,7 +54,7 @@ class FormsController extends Controller
 		);
 		if ($validator->fails()) {
 			return back()->withErrors($validator)->withInput();
-		}		
+		}*/		
 	}
 	public function updateProfile(Request $request){
 		$valid = request()->validate([

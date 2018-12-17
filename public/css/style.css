@@ -1,0 +1,98 @@
+input[type=file] {padding: 0;border: none;}
+.menu-open .treeview-menu {
+    display: block;
+}
+
+.field-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: auto;
+}
+.field-list > li {
+  border-radius: 2px;
+  padding: 10px;
+  background: #f4f4f4;
+  margin-bottom: 2px;
+  border-left: 2px solid #e6e7e8;
+  color: #444;
+}
+.field-list > li:last-of-type {
+  margin-bottom: 0;
+}
+.field-list > li > input[type='checkbox'] {
+  margin: 0 10px 0 5px;
+}
+.field-list > li .text {
+  display: inline-block;
+  margin-left: 5px;
+  font-weight: 600;
+}
+.field-list > li .label {
+  margin-left: 10px;
+  font-size: 9px;
+}
+.field-list > li .tools {
+  /*display: none;*/
+  float: right;
+  color: #dd4b39;
+}
+.field-list > li .tools  .fa,
+.field-list > li .tools  .glyphicon,
+.field-list > li .tools  .ion {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.field-list > li:hover .tools {
+  display: inline-block;
+}
+.field-list > li.done {
+  color: #999;
+}
+.field-list > li.done .text {
+  text-decoration: line-through;
+  font-weight: 500;
+}
+.field-list > li.done .label {
+  background: #d2d6de !important;
+}
+.field-list .danger {
+  border-left-color: #dd4b39;
+}
+.field-list .warning {
+  border-left-color: #f39c12;
+}
+.field-list .info {
+  border-left-color: #00c0ef;
+}
+.field-list .success {
+  border-left-color: #00a65a;
+}
+.field-list .primary {
+  border-left-color: #3c8dbc;
+}
+.field-list .handle {
+  display: inline-block;
+  cursor: move;
+  margin: 0 5px;
+}
+.field-list .sort-highlight {
+    background: #ecf0f5;
+    border: 2px dashed #97c5ed;
+    margin-bottom: 10px;
+}
+
+#accordion .field.panel .row {
+    margin: 10px 0 0 0;
+    background: #fff;
+    padding: 10px 0;
+}
+.field_values_container{
+	display: none;
+}
+li.field {
+    border-left: 3px solid #0097bc !important;
+}
+li.field.field-error {
+    border-left: 3px solid #c23321 !important;
+}
