@@ -96,3 +96,6 @@ li.field {
 li.field.field-error {
     border-left: 3px solid #c23321 !important;
 }
+
+.form-actions a{margin-right: 10px;}
+.form-actions button{padding: 0; line-height: 0;}

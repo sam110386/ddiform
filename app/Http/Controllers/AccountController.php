@@ -28,12 +28,9 @@ class AccountController extends Controller
 	public function index()
 	{
 		$profile = Auth::user();
-		if(Storage::disk('user_uploads')->exists($profile->profile_picture)){
-			$profilePic = '/uploads/user/' . $profile->profile_picture ;
-		}else{
-			$profilePic = '/img/avatar5.png';
+		if(!$profile['avatar']){
+			$profile['avatar'] = '/img/avatar5.png';
 		}
-		$profile['profile_picture'] = $profilePic;
 		$pageData = ['title' => 'Dashboard','profile' => $profile];
 		return view('Account.dashboard',$pageData);
 	}
@@ -41,9 +38,9 @@ class AccountController extends Controller
 
 	public function view(){
 		$profile = Auth::user();
-		// if(!Storage::disk('user_uploads')->exists($profile->profile_picture)){
-		// 	$profile['profile_picture']  = '/img/avatar5.png';
-		// }
+		if(!$profile['avatar']){
+			$profile['avatar'] = '/img/avatar5.png';
+		}
 		$pageData = ['title' => 'Profile', 'description'=>'', 'profile' => $profile];
 		return view('Account.profile',$pageData);
 	}
@@ -52,19 +49,19 @@ class AccountController extends Controller
 		$valid = request()->validate([
 			'name' => 'required',
 			'phone' => 'nullable|numeric|digits_between:7,15',
-			'profile_picture' => 'nullable|image|max:1000|dimensions:min_width=150,min_height=150|mimes:jpeg,png,gif'
+			'avatar' => 'nullable|image|max:1024|dimensions:min_width=150,min_height=150|mimes:jpeg,png,gif'
 		]);
 
-		$uploadedFile = $request->file('profile_picture');
+		$uploadedFile = $request->file('avatar');
 		if($uploadedFile && $uploadedFile->isValid()){
 			$filename = time().$uploadedFile->getClientOriginalName();
 			$file = Storage::disk('user_uploads')->putFileAs('',$uploadedFile,$filename);
-			$data['profile_picture'] = '/uploads/user/'.$file;
+			$user['avatar'] = Storage::disk('user_uploads')->url($file);
 		}
 
-		$data['name'] = $request->name;
-		$data['phone'] = $request->phone;
-		if(User::findOrFail(Auth::user()->id)->update($data)){
+		$user['name'] = $request->name;
+		$user['phone'] = $request->phone;
+		if(User::findOrFail(Auth::user()->id)->update($user)){
 			$returnKey = 'success';
 			$returnMsg = 'Profile has been updated.';
 		}else{
@@ -92,8 +89,8 @@ class AccountController extends Controller
 		if ($validator->fails()) {
 			return back()->withErrors($validator)->withInput();
 		}
-		$data['password'] = bcrypt($request->new_password);
-		if(User::findOrFail(Auth::user()->id)->update($data)){
+		$user['password'] = bcrypt($request->new_password);
+		if(User::findOrFail(Auth::user()->id)->update($user)){
 			$returnKey = 'success';
 			$returnMsg = 'Password has been updated.';
 		}else{

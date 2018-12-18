@@ -8,8 +8,8 @@ $(document).ready(function(){
 		'                <span class="handle ui-sortable-handle">  '  + 
 		'                  <i class="fa fa-arrows"></i>  '  + 
 		'                </span>  '  + 
-		'                <span class="text">Field1</span>  '  + 
-		'                <small class="label label-default">2 mins</small>  '  + 
+		'                <span class="text">Field Name</span>  '  + 
+		'                <small class="label label-default">Text</small>  '  + 
 		'                <div class="tools">  '  + 
 		'                  <a data-toggle="collapse" data-parent="#accordion" href="#field_data_'+ fieldKey +'" aria-expanded="false">  '  + 
 		'                    <i class="fa fa-edit"></i>   '  + 
@@ -37,14 +37,14 @@ $(document).ready(function(){
 		'                    <div class="col-md-4">  '  + 
 		'                      <div class="form-group">  '  + 
 		'                        <label for="field_label_'+ fieldKey +'">Label <strong class="text-red">*</strong></label>  '  + 
-		'                        <input type="text" class="form-control field-label" id="field_label_'+ fieldKey +'" placeholder="Enter field label" name="field_label[\''+ fieldKey +'\']"  >  '  + 
+		'                        <input type="text" class="form-control field-label" id="field_label_'+ fieldKey +'" placeholder="Enter field label" name="field_label_[\''+ fieldKey +'\']"  >  '  + 
 		'                      </div>  '  + 
 		'                    </div>  '  + 
 		'                    <div class="col-md-4">  '  + 
 		'                      <div class="form-group">  '  + 
 		'                        <div class="form-group">  '  + 
 		'                          <label class="col-md-12">&nbsp;</label>  '  + 
-		'                          <label><input type="checkbox" class="minimal field-required" name="field_required[\''+ fieldKey +'\']" value="1"> &nbsp;Required</label>  '  + 
+		'                          <label><input type="checkbox" class="minimal field-required" name="field_required_[\''+ fieldKey +'\']" value="1"> &nbsp;Required</label>  '  + 
 		'                        </div>    '  + 
 		'                      </div>                      '  + 
 		'                    </div>  '  + 
@@ -97,7 +97,8 @@ $(document).ready(function(){
 		'                    <div class="col-md-8">  '  + 
 		'                      <div class="form-group">  '  + 
 		'                        <label for="field_image_'+ fieldKey +'">Field Image</label>  '  + 
-		'                        <input type="file" class="form-control form-image" id="field_image_'+ fieldKey +'" name="field_image_[\''+ fieldKey +'\']">  '  + 
+		'                        <input type="file" class="form-control field-image" accept="image/*" id="field_image_'+ fieldKey +'" name="field_image_[\''+ fieldKey +'\']">  '  + 
+		'												 <small>Maximum 1MB allowed.</small> ' + 
 		'                      </div>  '  + 
 		'                    </div>  '  + 
 		'                  </div>  '  + 
@@ -114,7 +115,7 @@ $(document).ready(function(){
 		text = $("option:selected", $this)
 		text = text[0].innerHTML;
 		console.log(text);
-		$this.parents("li.field small.label.label-default").html(text);
+		$this.parents("li.field").find('small.label.label-default').html(text);
 		if(val > 4 && val < 8 ){
 			$this.parents("li.field").find('.field_values_container').show();
 			$this.parents("li.field").find('.field_placeholder_container').hide();
@@ -124,6 +125,19 @@ $(document).ready(function(){
 		}else if(val > 7){
 			$this.parents("li.field").find('.field_values_container').hide();
 			$this.parents("li.field").find('.field_placeholder_container').hide();      
+		}
+	});
+
+  $(document).on("keyup",".field-label",function(e){
+    label = ($(this).val()) ? $(this).val(): "Field Name" ;
+    $(this).parents(".field.panel").children('.text').html( label );
+  });
+	
+	$(document).on("change",".form-image,.field-image ",function(e){
+		var file = this.files[0];
+		if(file.size > 1048576){
+			swal("", "The maximum file-size limit is 1MB", "error");
+			$(this).val('');
 		}
 	});
 
@@ -157,7 +171,7 @@ $(document).ready(function(){
 			fieldBefore = fld.find('.field-before').val();
 			fieldAfter = fld.find('.field-after').val();
 			fieldImagePos = fld.find('.field-image-pos').val();
-
+			fieldImage = fld.find('.prev-img').attr("href");
 			fields[fieldKey] = {fieldType: fieldType ,
 				label: fieldLabel,
 				required: fieldRequired,
@@ -167,16 +181,17 @@ $(document).ready(function(){
 				placeholder: fieldPlaceholder,
 				before: fieldBefore,
 				after: fieldAfter,
-				imagePos: fieldImagePos
+				imagePos: fieldImagePos,
+				image: fieldImage
 			};
 		});
 		var field_json = '';
 		for (var i in fields){
 			console.log(fields[i]);
-			field_json = field_json + i + ": " + JSON.stringify(fields[i]) + ",";
+			field_json = field_json + '"' + i + '": ' + JSON.stringify(fields[i]) + ',';
 		}
-		console.log(field_json);
-		$('#fields_json').val("["+ field_json.replace(/(^,)|(,$)/g, "") + "]");
+
+		$('#fields_json').val("{"+ field_json.replace(/(^,)|(,$)/g, "") + "}");
 		if(error){
 			return false;
 		}else{

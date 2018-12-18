@@ -27,12 +27,11 @@
 		<link rel="stylesheet" href="{{ asset('css/skins/_all-skins.min.css') }}">
 		<!-- Morris chart -->
 		<link rel="stylesheet" href="{{ asset('bower_components/morris.js/morris.css') }}">
-		<!-- jvectormap -->
-		<link rel="stylesheet" href="{{ asset('bower_components/jvectormap/jquery-jvectormap.css') }}">
 		<!-- Date Picker -->
 		<link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 		<!-- Daterange picker -->
 		<link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+		<link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
 		<!-- bootstrap wysihtml5 - text editor -->
 		<link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -62,13 +61,13 @@
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="{{Auth::user()->profile_picture }}" class="user-image" alt="{{Auth::user()->name }}">
+								<img src="{{Auth::user()->avatar }}" class="user-image" alt="{{Auth::user()->name }}">
 								<span class="hidden-xs">{{ Auth::user()->name }}</span>
 							</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
 								<li class="user-header">
-									<img src="{{Auth::user()->profile_picture }}" class="img-circle" alt="{{Auth::user()->name }}">
+									<img src="{{Auth::user()->avatar }}" class="img-circle" alt="{{Auth::user()->name }}">
 									<p>
 										{{ Auth::user()->name }}
 										<small>Member since {{ Auth::user()->created_at }}</small>
@@ -100,7 +99,7 @@
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="{{Auth::user()->profile_picture }}" class="img-circle" alt="{{Auth::user()->name }}">
+						<img src="{{Auth::user()->avatar }}" class="img-circle" alt="{{Auth::user()->name }}">
 					</div>
 					<div class="pull-left info">
 						<p>{{ Auth::user()->name }}</p>
@@ -207,7 +206,7 @@
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 			<div class="pull-right hidden-xs">
-				<b>Version</b> 2.4.0
+				<b>Version</b> 1.0.0
 			</div>
 			<strong>Copyright &copy; {{ date('Y')}} <a href="#">DDI Forms</a>.</strong> All rights
 			reserved.
@@ -244,6 +243,8 @@
 	<script src="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 	<!-- Slimscroll -->
 	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- Sweet Alert -->
+	<script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 	<!-- FastClick -->
 	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 	<!-- AdminLTE App -->

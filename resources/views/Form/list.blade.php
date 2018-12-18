@@ -9,14 +9,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.dataTable').DataTable({
-			"columns" : [
-				{"orderable": false},
-				null,
-				null,
-				null,
-			]
-		});
+		$('.dataTable').DataTable();
 	})
 </script>
 @endpush
@@ -24,39 +17,50 @@
 <div class="box">
 	<!-- /.box-header -->
 	<div class="box-body">
-		<table class="dataTable table table-bordered table-striped table-hover">
+		<table class="dataTable table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="check-all" /></th>
+					<th><input type="checkbox" id="check-all" class="minimal" /></th>
 					<th>Name</th>
 					<th>Url</th>
 					<th>Created At</th>
+					<th>Status</th>
 					<th>Action</th>
 				</tr>
 			</thead>	
 			<tbody>
 				@foreach($forms as $form)
 				<tr>
-					<td><input type="checkbox" name="keys[]" value="{{$form->form_key}}" /></td>
+					<td><input type="checkbox" name="keys[]" value="{{$form->form_key}}" class="minimal" /></td>
 					<td>{{$form->name}}</td>
-					<td>{{$form->form_key}}.{{URL::to('/')}}</td>
+					<td>{{$form->form_key}}.{{str_replace_first('http://','',route('home'))}}</td>
 					<td>{{$form->created_at}}</td>
-					<td><a href="javascript:;" class="deactivate-form" data-key="{{$form->form_key}}"><i class="fa fa-trash"></i></a>
-					</tr>
-					@endforeach
-				</tbody>
-				<tfoot>
-					<tr>
-						<th><input type="checkbox" id="check-all" /></th>
-						<th>Name</th>
-						<th>Url</th>
-						<th>Created At</th>
-						<th>Action</th>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-		<!-- /.box-body -->
+					<td><center class="@if($form->status) text-green @else text-red @endif" title="@if($form->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
+					<td class="form-actions">
+						<a class="pull-left" href="{{ route('single-form',$form->form_key) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+						<form class="pull-left" method="POST" action="{{ route('update-form_status',['key' => $form->form_key, 'status' => ($form->status) ? 0 : 1]) }}">
+							{{ csrf_field() }}
+							<input type="hidden" name="key" value="{{$form->form_key}}">
+							<input type="hidden" name="status" value="{{!$form->status}}">
+							<button title="@if($form->status) Deactivate @else Activate @endif" type="submit" class="btn btn-link @if($form->status) text-red @else text-green @endif"><i class="fa fa-power-off"></i></button>
+						</form>
+					</td>
+				</tr>					
+				@endforeach
+			</tbody>
+			<tfoot>
+				<tr>
+					<th><input type="checkbox" id="check-all" class="minimal" /></th>
+					<th>Name</th>
+					<th>Url</th>
+					<th>Created At</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
-	<!-- /.box -->
-	@endsection
+	<!-- /.box-body -->
+</div>
+<!-- /.box -->
+@endsection

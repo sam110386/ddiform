@@ -32,5 +32,6 @@ Route::group([
 	$router->get('/forms', 'FormsController@index')->name('all-form');
     $router->get('/form/{key?}', 'FormsController@edit')->name('single-form');
     $router->post('/form/{key?}', 'FormsController@save')->name('save-form');
+    $router->post('/form/{key}/{status}', 'FormsController@updateStatus')->name('update-form_status');
     
 });

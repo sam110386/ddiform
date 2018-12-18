@@ -9,7 +9,7 @@
 			</div>	
 			<div class="box-body box-profile">
 
-				<img class="profile-user-img img-responsive img-circle" src="{{ $profile->profile_picture }}" alt="{{ $profile->name }}">
+				<img class="profile-user-img img-responsive img-circle" src="{{ $profile->avatar }}" alt="{{ $profile->name }}">
 
 				<h3 class="profile-username text-center">{{ $profile->name }}</h3>
 
@@ -39,15 +39,16 @@
 							@endif
 						</div>
 					</div>					
-					<div class="form-group {{ $errors->has('profile_picture') ? ' has-error' : '' }}">
-						<label for="profile_picture" class="col-sm-4 control-label">Profile Picture</label>
+					<div class="form-group {{ $errors->has('avatar') ? ' has-error' : '' }}">
+						<label for="avatar" class="col-sm-4 control-label">Profile Picture</label>
 						<div class="col-sm-8">
-							<input type="file" class="form-control custom-file-input" id="profile_picture" name="profile_picture">
-							@if ($errors->has('profile_picture'))
+							<input type="file" class="form-control custom-file-input" id="avatar" name="avatar">
+							@if ($errors->has('avataravatar'))
 							<span class="help-block">
-								<strong>{{ $errors->first('profile_picture') }}</strong>
+								<strong>{{ $errors->first('avatar') }}</strong>
 							</span>
-							@endif							
+							@endif
+							<small>Maximum 1MB allowed.</small>
 						</div>
 					</div>
 					<div class="form-group">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\UserForm;
 
 class FormsController extends Controller
 {
@@ -35,79 +36,78 @@ class FormsController extends Controller
 
 
 	public function edit(Request $request){
-		$pageData = ['title' => 'Form'];
+		$form = new UserForm;
+		if($request->route('key')){
+			$form = UserForm::where('form_key',$request->route('key'))->get()->first();
+		}
+		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : false;
+		$pageData = ['title' => 'Form','form' => $form ];
 		return view('Form.form',$pageData);
 	}
 
 	public function save(Request $request){
-		echo "<pre>";
-		print_r($request->fields_json);
-		echo "</pre>";
-		$pageData = ['title' => 'Form'];
-		return view('Form.form',$pageData);		
-		/*die;
-		$validator = Validator::make($request->all(),
-			[
-				'name' => 'required|string',
-				'image' => 'nullable|image|max:1000|dimensions:min_width=150,min_height=150|mimes:jpeg,png,gif'
-			]
-		);
-		if ($validator->fails()) {
-			return back()->withErrors($validator)->withInput();
-		}*/		
-	}
-	public function updateProfile(Request $request){
-		$valid = request()->validate([
-			'name' => 'required',
-			'phone' => 'nullable|numeric|digits_between:7,15',
-			'profile_picture' => 'nullable|image|max:1000|dimensions:min_width=150,min_height=150|mimes:jpeg,png,gif'
-		]);
+		$form = [];
+		$form['name'] = $request->name;
+		$form['description'] = $request->description;
 
-		$uploadedFile = $request->file('profile_picture');
+		$form['columns_each_row'] = $request->columns_each_row;
+
+		$form['image_pos'] = $request->image_pos;
+		$form['hide'] = (isset($request->hide))  ? 1 : 0;
+		$form['email'] = (isset($request->email))  ? 1 : 0;
+		$form['success_message'] = $request->success_message;
+		
+		$uploadedFile = $request->file('image');
 		if($uploadedFile && $uploadedFile->isValid()){
 			$filename = time().$uploadedFile->getClientOriginalName();
-			$file = Storage::disk('user_uploads')->putFileAs('',$uploadedFile,$filename);
-			$data['profile_picture'] = $file;
+			$file = Storage::disk('form_uploads')->putFileAs('',$uploadedFile,$filename);
+			$form['image'] = Storage::disk('form_uploads')->url($file);
 		}
-
-		$data['name'] = $request->name;
-		$data['phone'] = $request->phone;
-		if(User::findOrFail(Auth::user()->id)->update($data)){
-			$returnKey = 'success';
-			$returnMsg = 'Profile has been updated.';
+		$fields = json_decode($request->fields_json,true);
+		if($request->field_image_){
+			foreach ($request->field_image_ as $key => $fieldImage) {
+				$uploadedFile = $fieldImage;
+				$filename = time().$uploadedFile->getClientOriginalName();
+				$file = Storage::disk('form_uploads')->putFileAs('',$uploadedFile,$filename);
+				$key = str_replace("'","", $key);
+				$fields[$key]['image'] = Storage::disk('form_uploads')->url($file);
+			}
+		}
+		$form['fields'] = json_encode($fields);
+		if(!$request->route('key')){
+			$form['user_id'] = Auth::user()->id; // Only if new form
+			$form['form_key'] = str_slug(str_random(16)); // Only if new form
+			if(UserForm::create($form)){
+				$returnKey = 'success';
+				$returnMsg = 'Form has been created.';
+			}else{
+				$returnKey = 'error';
+				$returnMsg = 'Something went wrong.Please try again! Error: Form-3000';          
+			}			
 		}else{
-			$returnKey = 'error';
-			$returnMsg = 'Profile not updated.';            
-		}
-		return redirect()->back()->with($returnKey, $returnMsg);
+			if(UserForm::where('form_key',$request->route('key'))->update($form)){
+				$returnKey = 'success';
+				$returnMsg = 'Form has been updated.';
+			}else{
+				$returnKey = 'error';
+				$returnMsg = 'Something went wrong.Please try again! Error: Form-3001';
+			}
+		}		
+		return redirect()->route('all-form')->with($returnKey, $returnMsg);	
 	}
 
 
-	public function updatePassword(Request $request){
-
-		$validator = Validator::make($request->all(),
-			[
-				'old_password' => 'required|string',
-				'new_password' => 'required|string|min:6|confirmed|different:old_password',
-				'new_password_confirmation' => 'required|same:new_password'
-			]
-		);
-
-		if(!Hash::check($request->old_password, Auth::user()->password)){
-			$validator->getMessageBag()->add('old_password', 'Invalid Old Password');
-			return redirect('account/profile')->withErrors($validator)->withInput();
-		}
-		if ($validator->fails()) {
-			return redirect('account/profile')->withErrors($validator)->withInput();
-		}
-		$data['password'] = bcrypt($request->new_password);
-		if(User::findOrFail(Auth::user()->id)->update($data)){
+	public function updateStatus(Request $request){
+		$form = ['status'=>$request->route('status')];
+			// var_dump($request->route('status')); die;
+		if(UserForm::where('form_key',$request->route('key'))->update($form)){
 			$returnKey = 'success';
-			$returnMsg = 'Password has been updated.';
+			$action  = ($request->route('status') == "1") ? "activated." : "deactivated.";
+			$returnMsg = "Form has been $action";
 		}else{
 			$returnKey = 'error';
-			$returnMsg = 'Password not updated.';            
-		}
-		return redirect()->back()->with($returnKey, $returnMsg);
+			$returnMsg = 'Something went wrong.Please try again! Error: Form-3002';
+		}	
+		return redirect()->route('all-form')->with($returnKey, $returnMsg);
 	}
 }
