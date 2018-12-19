@@ -97,5 +97,12 @@ li.field.field-error {
     border-left: 3px solid #c23321 !important;
 }
 
-.form-actions a{margin-right: 10px;}
+.form-actions a,.form-actions form{margin-right: 10px;}
 .form-actions button{padding: 0; line-height: 0;}
+
+.vcenter {
+   display: inline-block;
+   vertical-align: middle;
+   float: none;
+}
+.p-15{padding: 15px;}

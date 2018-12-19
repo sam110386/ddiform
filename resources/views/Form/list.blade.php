@@ -1,17 +1,6 @@
 @extends('layouts.app')
-@push('styles')
-<link href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-@endpush
-
 @push('scripts')
-<script type="text/javascript" src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.dataTable').DataTable();
-	})
-</script>
+<script type="text/javascript" src="{{ asset('js/pages/form.js') }}"></script>
 @endpush
 @section('content')
 <div class="box">
@@ -34,16 +23,24 @@
 					<td><input type="checkbox" name="keys[]" value="{{$form->form_key}}" class="minimal" /></td>
 					<td>{{$form->name}}</td>
 					<td>{{$form->form_key}}.{{str_replace_first('http://','',route('home'))}}</td>
-					<td>{{$form->created_at}}</td>
+					<td>{{$form->created_at->format('M d Y')}}</td>
 					<td><center class="@if($form->status) text-green @else text-red @endif" title="@if($form->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
 					<td class="form-actions">
 						<a class="pull-left" href="{{ route('single-form',$form->form_key) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-						<form class="pull-left" method="POST" action="{{ route('update-form_status',['key' => $form->form_key, 'status' => ($form->status) ? 0 : 1]) }}">
+						<form class="pull-left" method="POST" action="{{ route('update-form-status',['key' => $form->form_key, 'status' => ($form->status) ? 0 : 1]) }}">
 							{{ csrf_field() }}
 							<input type="hidden" name="key" value="{{$form->form_key}}">
 							<input type="hidden" name="status" value="{{!$form->status}}">
 							<button title="@if($form->status) Deactivate @else Activate @endif" type="submit" class="btn btn-link @if($form->status) text-red @else text-green @endif"><i class="fa fa-power-off"></i></button>
 						</form>
+						<form class="pull-left remove-form" id="remove-form-{{$form->form_key}}" method="POST" action="{{ route('remove-form',['key' => $form->form_key]) }}">
+							{{ csrf_field() }}
+							<input type="hidden" name="key" value="{{$form->form_key}}">
+							<input type="hidden" name="_method" value="delete" />
+							<button title="Remove" type="submit" class="btn btn-link text-red">
+								<i class="fa fa-trash"></i>
+							</button>
+						</form>						
 					</td>
 				</tr>					
 				@endforeach

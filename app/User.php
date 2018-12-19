@@ -34,5 +34,12 @@ class User extends Authenticatable
     public function forms()
     {
         return $this->hasMany('App\UserForm');
-    }    
+    }
+    /**
+     * Get the comments for the blog post.
+     */
+    public function templates()
+    {
+        return $this->hasMany('App\UserFormTemplate');
+    }        
 }

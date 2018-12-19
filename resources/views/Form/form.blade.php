@@ -5,7 +5,7 @@
 @section('content')
 <div class="box">
 	<div class="box-body">
-		<form class="form" method="POST" action="@if($form['form_key']){{ route('save-form',$form['form_key'])}}@else{{route('save-form')}}@endif" enctype="multipart/form-data">
+		<form class="form" method="POST" action="@if($form['form_key'] && Route::current()->getName() == 'single-form'){{ route('save-form',$form['form_key'])}}@else{{route('save-form')}}@endif" enctype="multipart/form-data">
 			{{ csrf_field() }}
 			<div class="row">
 				<div class="col-md-12">
@@ -48,8 +48,10 @@
 					<div class="form-group">					
 						<label for="image">Upload Image </label>
 						@if($form['image'])
-						&nbsp; &nbsp;<a href="{{$form['image']}}" target="_BLANK" class="btn btn-info btn-xs" >View</a>
-						@endif	
+						&nbsp; &nbsp;<a href="javascript:;" data-href="{{$form['image']}}" class="btn btn-info btn-xs img-view" >View</a>
+						&nbsp; &nbsp;<a href="javascript:;" class="btn btn-danger btn-xs remove-form-img" >remove</a> 
+						@endif
+						<input type="hidden" id="form-image-opt" name="form_image_opt" value="yes">
 						<input type="file" class="form-control form-image" id="image" name="image" accept="image/*" >
 						<small>Maximum 1MB allowed.</small>
 					</div>
@@ -182,7 +184,8 @@
 										<div class="form-group">  
 											<label for="field_image_{{$fieldKey}}">Field Image</label>
 											@if(isset($field['image']) && $field['image'] !="")
-											&nbsp; &nbsp;<a href="{{$field['image']}}" target="_BLANK" class="btn btn-info btn-xs prev-img" >View</a>
+											&nbsp; &nbsp;<a data-href="{{$field['image']}}" href="javascript:;" class="btn btn-info btn-xs img-view" >View</a>
+											&nbsp; &nbsp;<a href="javascript:;" class="btn btn-xs btn-danger remove-field-img">Remove</a>
 											@endif 
 											<input type="file" class="form-control field-image" accept="image/*" id="field_image_{{$fieldKey}}" name="field_image_['{{$fieldKey}}']">  
 											<small>Maximum 1MB allowed.</small>
@@ -200,11 +203,26 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<input type="hidden" id="fields_json" name="fields_json" value='{{$form["fields"]}}'>
-						<button type="button" class="btn btn-default add-field"><i class="fa fa-plus"></i> Add Field</button> &nbsp; &nbsp; <button type="submit" class="btn bg-blue">Save Form</button>
+						<button type="button" class="btn btn-default add-field"><i class="fa fa-plus"></i> Add Field</button> 
+						&nbsp; &nbsp; <button type="submit" name="saveform" class="btn bg-blue">Save Form</button>
+						@if(Route::current()->getName() == 'single-form')
+						&nbsp; &nbsp; <button type="submit" name="saveformtemplate" class="btn btn-primary" value="1">Save Form with Template</button>
+						@endif
 					</div>
+
 				</div>
 			</div>
 		</form>
+	</div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="ModalimageView">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<img src="" />
+			</div>
+		</div>
 	</div>
 </div>
 @endsection

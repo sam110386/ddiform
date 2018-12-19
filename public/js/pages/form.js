@@ -108,7 +108,7 @@ $(document).ready(function(){
 		$("ul#accordion li.field_"+fieldKey+ " a").trigger('click');
 	});
 
-	// detect field type
+	// Detect field type
 	$(document).on("change",".field-type", function(){
 		$this = $(this);
 		val = $this.val();
@@ -128,19 +128,58 @@ $(document).ready(function(){
 		}
 	});
 
-  $(document).on("keyup",".field-label",function(e){
-    label = ($(this).val()) ? $(this).val(): "Field Name" ;
-    $(this).parents(".field.panel").children('.text').html( label );
-  });
+	$(document).on("click",".remove-field-img",function(e){
+		$(this).siblings('a').data('href','').hide();
+		$(this).remove();
+	});
+	$(document).on("click",".img-view",function(e){
+		$('#form-image-preview').remove();
+		var img = $('<img class="img-responsive" id="form-image-preview">');
+		img.attr('src', $(this).data('href'));
+		img.appendTo('#ModalimageView .modal-body');
+		$('#ModalimageView').modal('show');
+	});
+
+	$(document).on("click",".remove-form-img",function(e){
+		$("#form-image-opt").val('no');
+		$(this).siblings('a').remove();
+		$(this).remove();
+	});
+
+	$(document).on("keyup",".field-label",function(e){
+		label = ($(this).val()) ? $(this).val(): "Field Name" ;
+		$(this).parents(".field.panel").children('.text').html( label );
+	});
 	
 	$(document).on("change",".form-image,.field-image ",function(e){
 		var file = this.files[0];
 		if(file.size > 1048576){
 			swal("", "The maximum file-size limit is 1MB", "error");
 			$(this).val('');
+		}else{
+			$("#form-image-opt").val('yes');
 		}
+
 	});
 
+	$(document).on('submit','.remove-form',function(e){
+		e.preventDefault();
+		var form = $(this).attr('id');
+		swal({
+			title: "Are you sure?",
+			text: "You will not be able to recover this form!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonClass: "btn-danger",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "No, cancel!",
+			closeOnConfirm: false,
+			closeOnCancel: true
+		},
+		function(isConfirm) {
+			if (isConfirm) $("#"+form)[0].submit();
+		});
+	});
 
 	$('.form').on('submit',function(){
 		var error = false;
@@ -171,7 +210,7 @@ $(document).ready(function(){
 			fieldBefore = fld.find('.field-before').val();
 			fieldAfter = fld.find('.field-after').val();
 			fieldImagePos = fld.find('.field-image-pos').val();
-			fieldImage = fld.find('.prev-img').attr("href");
+			fieldImage = fld.find('.img-view').data("href");
 			fields[fieldKey] = {fieldType: fieldType ,
 				label: fieldLabel,
 				required: fieldRequired,

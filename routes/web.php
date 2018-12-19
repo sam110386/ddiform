@@ -29,9 +29,16 @@ Route::group([
     $router->get('/profile', 'AccountController@view')->name('profile');
     $router->post('/profile', 'AccountController@updateProfile')->name('profile-info-save');
     $router->post('/password', 'AccountController@updatePassword')->name('profile-password-save');
-	$router->get('/forms', 'FormsController@index')->name('all-form');
+	$router->get('/forms', 'FormsController@index')->name('all-forms');
+    $router->get('/forms/new', 'FormsController@new')->name('new-form');
     $router->get('/form/{key?}', 'FormsController@edit')->name('single-form');
     $router->post('/form/{key?}', 'FormsController@save')->name('save-form');
-    $router->post('/form/{key}/{status}', 'FormsController@updateStatus')->name('update-form_status');
+    $router->post('/form/{key}/{status}', 'FormsController@updateStatus')->name('update-form-status');
+    $router->delete('/form/{key}', 'FormsController@destroy')->name('remove-form');
+
+
+    $router->get('/quick/form/{key}', 'FormsController@quickForm')->name('quick-form');
+    $router->get('/templates/', 'FormsController@listTemplates')->name('all-form-templates');
+    $router->post('/templates/{key}/{status}', 'FormsController@updateTemplateStatus')->name('update-template-status');
     
 });

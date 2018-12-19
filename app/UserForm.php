@@ -17,10 +17,18 @@ class UserForm extends Model
     ];
 
     /**
-     * Get the post that owns the comment.
+     * Get the user that owns the form.
      */
     public function user()
     {
     	return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the template for the form.
+     */
+    public function template()
+    {
+        return $this->hasOne('App\UserFormTemplate');
+    }  
 }
