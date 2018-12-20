@@ -1,3 +1,38 @@
+/* Loader */
+.loader-overley{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9990;
+  background: rgba(0,0,0,0.8);
+  right: 0;
+  bottom: 0;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  position: fixed;
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
+  transform: translate(-50%, -50%);  
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 input[type=file] {padding: 0;border: none;}
 .menu-open .treeview-menu {
     display: block;
@@ -87,9 +122,6 @@ input[type=file] {padding: 0;border: none;}
     background: #fff;
     padding: 10px 0;
 }
-.field_values_container{
-	display: none;
-}
 li.field {
     border-left: 3px solid #0097bc !important;
 }
@@ -106,3 +138,4 @@ li.field.field-error {
    float: none;
 }
 .p-15{padding: 15px;}
+

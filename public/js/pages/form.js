@@ -11,10 +11,10 @@ $(document).ready(function(){
 		'                <span class="text">Field Name</span>  '  + 
 		'                <small class="label label-default">Text</small>  '  + 
 		'                <div class="tools">  '  + 
-		'                  <a data-toggle="collapse" data-parent="#accordion" href="#field_data_'+ fieldKey +'" aria-expanded="false">  '  + 
+		'                  <a class="edit-field" data-toggle="collapse" data-parent="#accordion" href="#field_data_'+ fieldKey +'" aria-expanded="false">  '  + 
 		'                    <i class="fa fa-edit"></i>   '  + 
 		'                  </a>  '  + 
-		'                  <i class="fa fa-trash-o"></i>  '  + 
+		'                  <a href="javascript:;" class="text-red remove-field"><i class="fa fa-trash-o"></i></a>  '  + 
 		'                </div>  '  + 
 		'                <div id="field_data_'+ fieldKey +'" class="panel-collapse collapse">  '  + 
 		'                  <div class="row">  '  + 
@@ -105,7 +105,7 @@ $(document).ready(function(){
 		'                </div>'  + 
 		'              </li>   ' ;
 		$("ul#accordion").append(fieldHtlm);
-		$("ul#accordion li.field_"+fieldKey+ " a").trigger('click');
+		$("ul#accordion li.field_"+fieldKey+ " a.edit-field").trigger('click');
 	});
 
 	// Detect field type
@@ -114,7 +114,6 @@ $(document).ready(function(){
 		val = $this.val();
 		text = $("option:selected", $this)
 		text = text[0].innerHTML;
-		console.log(text);
 		$this.parents("li.field").find('small.label.label-default').html(text);
 		if(val > 4 && val < 8 ){
 			$this.parents("li.field").find('.field_values_container').show();
@@ -125,6 +124,17 @@ $(document).ready(function(){
 		}else if(val > 7){
 			$this.parents("li.field").find('.field_values_container').hide();
 			$this.parents("li.field").find('.field_placeholder_container').hide();      
+		}
+	});
+
+
+	$(document).on("ifClicked",".email-collection",function(e){
+		var chckValue = $('.email-collection').iCheck('update')[0].checked;
+		if(chckValue){
+			$('.name-collection').iCheck('uncheck');
+			$('.name-collection').attr("disabled", true).iCheck('update');
+		}else{
+			$('.name-collection').removeAttr('disabled').iCheck('update')
 		}
 	});
 
@@ -162,6 +172,28 @@ $(document).ready(function(){
 
 	});
 
+
+	$(document).on("click",".remove-field",function(e){
+		var field = $(this).parents('li.field');
+		swal({
+			title: "Are you sure?",
+			text: "You will not be able to recover this field!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonClass: "btn-danger",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: false,
+			closeOnCancel: true,
+		},
+		function(isConfirm) {
+			if (isConfirm){
+				field.remove();
+				swal({title: "",text:"Field deleted!", type:"success",timer: 1500});
+			}
+		});
+	});
+
 	$(document).on('submit','.remove-form',function(e){
 		e.preventDefault();
 		var form = $(this).attr('id');
@@ -172,7 +204,7 @@ $(document).ready(function(){
 			showCancelButton: true,
 			confirmButtonClass: "btn-danger",
 			confirmButtonText: "Yes, delete it!",
-			cancelButtonText: "No, cancel!",
+			cancelButtonText: "Cancel",
 			closeOnConfirm: false,
 			closeOnCancel: true
 		},

@@ -80,6 +80,9 @@ class FormsController extends Controller
 		$form['hide'] = $formData['hide'];
 		$form['email'] = $formData['email'];
 		$form['success_message'] = $formData['success_message'];
+		$form['email_collection'] = $formData['email_collection'];
+		$form['name_collection'] = $formData['name_collection'];	
+		$form['submit_text'] = $formData['submit_text'];	
 		if($userForm  = UserForm::create($form)){
 			$returnKey = 'success';
 			$returnMsg = 'Form has been created.';
@@ -98,12 +101,12 @@ class FormsController extends Controller
 		$form['image_pos'] = $request->image_pos;
 		$form['hide'] = (isset($request->hide))  ? 1 : 0;
 		$form['email'] = (isset($request->email))  ? 1 : 0;
+		$form['email_collection'] = (isset($request->email_collection))  ? 1 : 0;
+		$form['name_collection'] = (isset($request->name_collection))  ? 1 : 0;
 		$form['success_message'] = $request->success_message;
-		
+		$form['submit_text'] = $request->submit_text;
 		if($request->form_image_opt == 'yes'){
 			$uploadedFile = $request->file('image');
-
-			
 			if($uploadedFile && $request->form_image_opt == 'yes' && $uploadedFile->isValid()){
 				$filename = time().$uploadedFile->getClientOriginalName();
 				$file = Storage::disk('form_uploads')->putFileAs('',$uploadedFile,$filename);

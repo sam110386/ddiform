@@ -30,7 +30,7 @@
 					<div class="col-xs-8">
 						<div class="checkbox icheck">
 							<label>
-								<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+								<input type="checkbox" name="remember" class="" {{ old('remember') ? 'checked' : '' }}> Remember Me
 							</label>
 						</div>
 					</div>

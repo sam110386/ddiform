@@ -60,7 +60,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
-						<label for="columns_each_row">Columns each row</label>
+						<label for="columns_each_row">Field(s) each row</label>
 						<select class="form-control select2" style="width:100%;" name="columns_each_row" id="columns_each_row">
 							<option value="col-md-12" @if($form["columns_each_row"] == "col-md-12") selected="selected" @endif>1</option>
 							<option value="col-md-6" @if($form["columns_each_row"] == "col-md-6") selected="selected" @endif >2</option>
@@ -69,6 +69,12 @@
 						</select>
 					</div>
 				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="submit_text">Submit Button Text</label>
+						<input type="text" placeholder="Enter Submit button Text" class="form-control" name="submit_text" id="submit_text" value="{{ $form['submit_text'] }}"/>
+					</div>
+				</div>				
 				<div class="col-md-3">
 					<div class="form-group">
 					</div>
@@ -80,7 +86,19 @@
 					<div class="form-group">
 						<label><input type="checkbox" class="minimal" name="email" value="1" @if($form["email"] == 1) checked="checked" @endif> &nbsp;Email notification</label>
 					</div>					
-				</div>						
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+					</div>
+					<div class="form-group">
+						<label>
+							<input type="checkbox" class="minimal email-collection" name="email_collection" @if($form["email_collection"] == 1) checked="checked" @endif value="1"> &nbsp;Email collection
+						</label>
+					</div>
+					<div class="form-group">
+						<label><input type="checkbox" class="minimal name-collection" name="name_collection" value="1" @if($form["name_collection"] == 1) checked="checked" @endif @if($form["email_collection"] == 0) disabled="disabled" @endif > &nbsp;First name<small>(For Email collection)</small></label>
+					</div>					
+				</div>	
 			</div>
 			<div class="row form-group">
 				<!-- /.col -->
@@ -97,10 +115,10 @@
 							<span class="text">{{$field['label']}}</span>
 							<small class="label label-default">{{$fieldTypes[$field['fieldType']]}}</small>
 							<div class="tools">
-								<a data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
+								<a class="edit-field" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
 									<i class="fa fa-edit"></i> 
 								</a>
-								<i class="fa fa-trash-o"></i>
+								<a href="javascript:;" class="text-red remove-field"><i class="fa fa-trash-o"></i></a>
 							</div>
 							<div id="field_data_{{$fieldKey}}" class="panel-collapse collapse">
 								<div class="row">
@@ -148,11 +166,11 @@
 										</div>
 									</div>
 									<div class="col-md-4">
-										<div class="form-group field_placeholder_container"> 
+										<div class="form-group field_placeholder_container" style="@if($field['fieldType'] > 4 ) display:none @endif"> 
 											<label for="field_placeholder_{{$fieldKey}}">Placeholder</label>
 											<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Field Placeholder (Optional)" value="{{$field['placeholder']}}"> 
 										</div>
-										<div class="form-group field_values_container" > 
+										<div class="form-group field_values_container " style="@if(in_array($field['fieldType'],[1,2,3,4,8,9])) display:none @endif" > 
 											<label for="field_values_{{$fieldKey}}">Values <strong class="text-red">*</strong></label> 
 											<input type="text" class="form-control field-values" name="field_values_['{{$fieldKey}}']" id="field_values_{{$fieldKey}}" placeholder="Field values (Comma seprated. eg. value one,value two,value three)" value="{{$field['values']}}">
 										</div>                 

@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
+	<!-- Frontend css -->
+	<link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
+
 </head>
 <body class="hold-transition">
 	<div id="app">
@@ -85,7 +88,23 @@
 			</div>
 		</div>
 	</nav>
+	@if(session('success'))
+	<div class="alert alert-dismissible alert-success">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{session('success')}}
+	</div>
+	@endif
+
+	@if(session('error'))
+	<div class="alert alert-dismissible alert-danger">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{session('error')}}
+	</div>
+	@endif
 	@yield('content')
+</div>
+<div class="loader-overley">
+	<div class="loader"></div>
 </div>
 
 
@@ -96,16 +115,8 @@
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
-<script>
-	$(function () {
-		$('input').iCheck({
-			checkboxClass: 'icheckbox_square-blue',
-			radioClass: 'iradio_square-blue',
-			increaseArea: '20%' /* optional */
-		});
-	});
-</script>
-
+@stack('scripts')
+<script src="{{ asset('js/common.js') }}"></script>
 </body>
 </html>
 
