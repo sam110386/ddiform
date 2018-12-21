@@ -34,29 +34,7 @@
 					</div>
 				</div>				
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="image_pos">Image Position</label>
-						<select class="form-control select2" style="width:100%;" id="image_pos" name="image_pos">
-							<option value="0" @if($form["image_pos"] == 0) selected="selected" @endif>Before Form</option>
-							<option value="1" @if($form["image_pos"] == 1) selected="selected" @endif  >After Form</option>
-						</select>
-					</div>
-				</div>	
-				<div class="col-md-6">
-					<div class="form-group">					
-						<label for="image">Upload Image </label>
-						@if($form['image'])
-						&nbsp; &nbsp;<a href="javascript:;" data-href="{{$form['image']}}" class="btn btn-info btn-xs img-view" >View</a>
-						&nbsp; &nbsp;<a href="javascript:;" class="btn btn-danger btn-xs remove-form-img" >remove</a> 
-						@endif
-						<input type="hidden" id="form-image-opt" name="form_image_opt" value="yes">
-						<input type="file" class="form-control form-image" id="image" name="image" accept="image/*" >
-						<small>Maximum 1MB allowed.</small>
-					</div>
-				</div>							
-			</div>
+
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
@@ -74,32 +52,75 @@
 						<label for="submit_text">Submit Button Text</label>
 						<input type="text" placeholder="Enter Submit button Text" class="form-control" name="submit_text" id="submit_text" value="{{ $form['submit_text'] }}"/>
 					</div>
-				</div>				
+				</div>
 				<div class="col-md-3">
 					<div class="form-group">
+						<label for="image_pos">Banner Position</label>
+						<select class="form-control select2" style="width:100%;" id="image_pos" name="image_pos">
+							<option value="0" @if($form["image_pos"] == 0) selected="selected" @endif>Before Form</option>
+							<option value="1" @if($form["image_pos"] == 1) selected="selected" @endif  >After Form</option>
+						</select>
 					</div>
-					<div class="form-group">
-						<label>
-							<input type="checkbox" class="minimal" name="hide" value="1" @if($form["hide"] == 1) checked="checked" @endif> &nbsp;Hide form after submit successfuly
-						</label>
+				</div>	
+				<div class="col-md-3">
+					<div class="form-group">					
+						<label for="image">Upload Banner</label>
+						@if($form['image'])
+						&nbsp; &nbsp;<a href="javascript:;" data-href="{{$form['image']}}" class="btn btn-info btn-xs img-view" >View</a>
+						&nbsp; &nbsp;<a href="javascript:;" class="btn btn-danger btn-xs remove-form-img" >remove</a> 
+						@endif
+						<input type="hidden" id="form-image-opt" name="form_image_opt" value="yes">
+						<input type="file" class="form-control form-image" id="image" name="image" accept="image/*" >
+						<small>Maximum 1MB allowed.</small>
 					</div>
+				</div>				
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label><input type="checkbox" class="minimal" name="email" value="1" @if($form["email"] == 1) checked="checked" @endif> &nbsp;Email notification</label>
 					</div>					
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
+						<label>
+							<input type="checkbox" class="minimal" name="hide" value="1" @if($form["hide"] == 1) checked="checked" @endif> &nbsp;Hide form after submit successfuly
+						</label>
 					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>
+							<input type="checkbox" class="minimal" name="auto_response" value="1" @if($form["auto_response"] == 1) checked="checked" @endif> &nbsp;Show the stats automatically after submission
+						</label>
+					</div>					
+					
+				</div>					
+			</div>
+			<div class="row">
+				<div class="col-md-3">
 					<div class="form-group">
 						<label>
 							<input type="checkbox" class="minimal email-collection" name="email_collection" @if($form["email_collection"] == 1) checked="checked" @endif value="1"> &nbsp;Email collection
 						</label>
 					</div>
+				</div>
+				<div class="col-md-3">
 					<div class="form-group">
 						<label><input type="checkbox" class="minimal name-collection" name="name_collection" value="1" @if($form["name_collection"] == 1) checked="checked" @endif @if($form["email_collection"] == 0) disabled="disabled" @endif > &nbsp;First name<small>(For Email collection)</small></label>
 					</div>					
-				</div>	
+				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group email_collection_title" @if($form["email_collection"] == 0) style="display:none;" @endif>
+						<label for="email_collection_title">Email Collection Title</label>
+						<input type="text" placeholder="Email Collection Title" class="form-control" name="email_collection_title" id="email_collection_title" value="{{ $form['email_collection_title'] }}"/>
+					</div>
+				</div>
+			</div>		
 			<div class="row form-group">
 				<!-- /.col -->
 				<!-- /.col -->				

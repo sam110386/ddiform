@@ -83,6 +83,8 @@ class FormsController extends Controller
 		$form['email_collection'] = $formData['email_collection'];
 		$form['name_collection'] = $formData['name_collection'];	
 		$form['submit_text'] = $formData['submit_text'];	
+		$form['email_collection_title'] = $formData['email_collection_title'];	
+		$form['auto_response'] = $formData['auto_response'];	
 		if($userForm  = UserForm::create($form)){
 			$returnKey = 'success';
 			$returnMsg = 'Form has been created.';
@@ -95,9 +97,7 @@ class FormsController extends Controller
 		$form = [];
 		$form['name'] = $request->name;
 		$form['description'] = $request->description;
-
 		$form['columns_each_row'] = $request->columns_each_row;
-
 		$form['image_pos'] = $request->image_pos;
 		$form['hide'] = (isset($request->hide))  ? 1 : 0;
 		$form['email'] = (isset($request->email))  ? 1 : 0;
@@ -105,6 +105,8 @@ class FormsController extends Controller
 		$form['name_collection'] = (isset($request->name_collection))  ? 1 : 0;
 		$form['success_message'] = $request->success_message;
 		$form['submit_text'] = $request->submit_text;
+		$form['email_collection_title'] = $request->email_collection_title;	
+		$form['auto_response'] = (isset($request->auto_response))  ? 1 : 0;
 		if($request->form_image_opt == 'yes'){
 			$uploadedFile = $request->file('image');
 			if($uploadedFile && $request->form_image_opt == 'yes' && $uploadedFile->isValid()){

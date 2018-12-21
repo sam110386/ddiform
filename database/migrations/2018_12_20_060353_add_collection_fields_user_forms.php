@@ -16,7 +16,9 @@ class AddCollectionFieldsUserForms extends Migration
         Schema::table('user_forms', function (Blueprint $table) {
             $table->boolean('email_collection')->default(0)->after('status');
             $table->boolean('name_collection')->default(0)->after('email_collection');
-            $table->string('submit_text')->default('Submit')->after('name_collection');
+            $table->string('email_collection_title')->nullable()->after('name_collection');
+            $table->string('submit_text')->default('Submit')->after('email_collection_title');
+            $table->boolean('auto_response')->default(0)->after('submit_text');
         });
     }
 

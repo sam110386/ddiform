@@ -20,8 +20,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
-Route::post('/form/{key}','FormResponsesController@saveEmail')->name('save-email-collection');
-Route::post('/form/{key}','FormResponsesController@saveForm')->name('client-save-form');
+Route::post('/email/collection','FormResponsesController@saveEmail')->name('save-email-collection');
+Route::post('/data/collection','FormResponsesController@saveForm')->name('save-form-data');
 // Route::get('/account', 'AccountController@index')->name('account');
 Route::group([
     'prefix'        => 'account',

@@ -27,6 +27,8 @@
 	<link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
+	<!-- Sweet Alert -->
+	<link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
 	<!-- Frontend css -->
 	<link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
 
@@ -115,6 +117,11 @@
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+<!-- Sweet Alert -->
+<script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+<!-- Validate Form -->
+<script src="{{ asset('js/v-form.js') }}"></script>
+
 @stack('scripts')
 <script src="{{ asset('js/common.js') }}"></script>
 </body>

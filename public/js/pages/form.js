@@ -133,8 +133,11 @@ $(document).ready(function(){
 		if(chckValue){
 			$('.name-collection').iCheck('uncheck');
 			$('.name-collection').attr("disabled", true).iCheck('update');
+			$('.email_collection_title input').val('');
+			$('.email_collection_title').slideUp();
 		}else{
 			$('.name-collection').removeAttr('disabled').iCheck('update')
+			$('.email_collection_title').slideDown();
 		}
 	});
 

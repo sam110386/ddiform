@@ -20,7 +20,10 @@ $(document).ready(function(){
 			zIndex              : 999999
 		});
 	}
-
+	$(document).on("change",".custom-file-input input[type=file]",function(e){
+		var file = this.files[0];
+		$(this).prev('.custom-file-label-before').html(file.name);
+	});
 });
 
 $(window).on('load',function(){

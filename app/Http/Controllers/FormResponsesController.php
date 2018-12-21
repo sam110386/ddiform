@@ -54,7 +54,7 @@ class FormResponsesController extends Controller
 		$fieldId = ($field['id']) ? $field['id'] : str_slug(str_random(5));
 		$required = ($field['required'] == 1) ? ' vf-required ' : '' ;
 		$requiredText = ($field['required'] == 1) ? " <small class='text-red'>*</small>" : '' ;
-		$fieldHtml .= "<div class='form-group'>";
+		$fieldHtml .= "<div class='form-group error-heading custom-file-input'>";
 		$fieldHtml .= "<label for='{$fieldId}'>{$field['label']} {$requiredText} </label>";
 		
 		// Name Field
@@ -110,7 +110,8 @@ class FormResponsesController extends Controller
 		// File Field
 		elseif ($field['fieldType'] == 8 ||  $field['fieldType'] == 9) {
 			$filter = ($field['fieldType'] == 8) ? "accept=image/*" : "" ;
-			$fieldHtml .= "<input name='{$key}' type='file' class=' {$required} {$field['fclass']}'  placeholder='{$field['placeholder']}' id='{$fieldId}'/>";
+			$fieldHtml .= "<label for='{$fieldId}' class='custom-file-label-before form-control'></label>";
+			$fieldHtml .= "<input name='{$key}' type='file' class='{$required} {$field['fclass']}'  placeholder='{$field['placeholder']}' id='{$fieldId}'/>";
 		}		
 
 		$fieldHtml .= "</div>";
@@ -118,11 +119,13 @@ class FormResponsesController extends Controller
 	}
 
 	public function saveForm(Request $request){
-
+		return response()->json(['status'=>true,'message'=>'form stored.']);
 	}
 
 	public function saveEmail(Request $request){
-
+		$name= $request->name;
+		$email = $request->email;
+		return response()->json(['status'=>true,'message'=>'Email stored.']);
 	}	
 
 }
