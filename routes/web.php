@@ -20,8 +20,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
-Route::post('/email/collection','FormResponsesController@saveEmail')->name('save-email-collection');
-Route::post('/data/collection','FormResponsesController@saveForm')->name('save-form-data');
+Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name('save-email-collection');
+Route::post('/data/save/{key}','FormResponsesController@saveForm')->name('save-form-data');
+
 // Route::get('/account', 'AccountController@index')->name('account');
 Route::group([
     'prefix'        => 'account',
@@ -41,7 +42,11 @@ Route::group([
 
 
     $router->get('/quick/form/{key}', 'FormsController@quickForm')->name('quick-form');
-    $router->get('/templates/', 'FormsController@listTemplates')->name('all-form-templates');
+    $router->get('/templates', 'FormsController@listTemplates')->name('all-form-templates');
     $router->post('/templates/{key}/{status}', 'FormsController@updateTemplateStatus')->name('update-template-status');
+
+
+    $router->get('/response/form/', 'FormResponsesController@index')->name('response-list');
+    $router->get('/response/form/{key}', 'FormResponsesController@responseList')->name('response-data-list');
     
 });

@@ -30,5 +30,14 @@ class UserForm extends Model
     public function template()
     {
         return $this->hasOne('App\UserFormTemplate');
-    }  
+    }
+
+    /**
+     * Get responses for the form.
+     */
+    public function responses()
+    {
+        return $this->hasMany('App\UserFormResponse','form_key','form_key');
+    }
+
 }

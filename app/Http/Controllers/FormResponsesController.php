@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use App\User;
 use App\UserForm;
-use App\UserFormTemplate;
+use App\UserFormResponse;
 
 class FormResponsesController extends Controller
 {
@@ -31,10 +30,23 @@ class FormResponsesController extends Controller
 	public function index()
 	{
 		$forms = Auth::user()->forms->where('is_deleted',0);
-		$pageData = ['title' => 'Forms','description' => 'List','forms' => $forms];
-		return view('Form.list',$pageData);
+		$pageData = ['title' => 'Form Response','description' => 'List','forms' => $forms];
+		return view('Form.Response.response',$pageData);
 	}
 
+
+
+	public function responseList(Request $request){
+		$form = Auth::user()->forms->where('is_deleted',0)->where('form_key',$request->route('key'))->first();
+		if(!$form)
+			return view('Components.notfound');
+		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : [];
+		//$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : [];
+
+
+		$pageData = ['title' => 'Form Response','description' => 'List - '.$form->name,'form' => $form];
+		return view('Form.Response.data',$pageData);
+	}
 	public function render(Request $request){
 		$form = new UserForm;
 		if($request->route('key'))
@@ -102,7 +114,7 @@ class FormResponsesController extends Controller
 			$values = ($field['values']) ? explode(',', $field['values']) : [] ;
 			for($s=0; $s<count($values); $s++) {
 				$fieldHtml .= "<div class='row'><div class='col-md-12'>";
-				$fieldHtml .= "<label><input type='checkbox' class='minimal {$required} {$field['fclass']}' name='{$key}' value='{$values[$s]}' /> &nbsp; {$values[$s]}</label>";
+				$fieldHtml .= "<label><input type='checkbox' class='minimal {$required} {$field['fclass']}' name='{$key}[]' value='{$values[$s]}' /> &nbsp; {$values[$s]}</label>";
 				$fieldHtml .= "</div></div>";
 			}
 		}
@@ -111,7 +123,7 @@ class FormResponsesController extends Controller
 		elseif ($field['fieldType'] == 8 ||  $field['fieldType'] == 9) {
 			$filter = ($field['fieldType'] == 8) ? "accept=image/*" : "" ;
 			$fieldHtml .= "<label for='{$fieldId}' class='custom-file-label-before form-control'></label>";
-			$fieldHtml .= "<input name='{$key}' type='file' class='{$required} {$field['fclass']}'  placeholder='{$field['placeholder']}' id='{$fieldId}'/>";
+			$fieldHtml .= "<input name='files[{$key}]' type='file' class='{$required} {$field['fclass']}'  placeholder='{$field['placeholder']}' id='{$fieldId}'/>";
 		}		
 
 		$fieldHtml .= "</div>";
@@ -119,12 +131,48 @@ class FormResponsesController extends Controller
 	}
 
 	public function saveForm(Request $request){
-		return response()->json(['status'=>true,'message'=>'form stored.']);
+		$formKey = $request->route('key');
+		// print_r($request->file('dvvd89swh'));
+		$fd = ($request->fd) ? json_decode($request->fd, true) : [];
+		$fd=(!empty($fd)) ? array_filter($fd,function($arr){ return $arr['name'] != '_token'; }) : '' ;
+		$formData = [];
+		foreach ($fd as $fieldData) {
+			$fname = str_replace("[]",'', $fieldData['name']);
+			if(in_array($fname, array_keys($formData))){
+				$formData[$fname] = $formData[$fname] .",".$fieldData['value'];
+			}else{
+				$formData[$fname] = $fieldData['value'];
+
+			}
+		}
+		if($request->files):
+			$files = $request->file('files');
+			foreach ($files as $key => $file) {
+				$filename = time().$file->getClientOriginalName();
+				$file = Storage::disk('form_uploads')->putFileAs('',$file,$filename);
+				$formData[$key] = Storage::disk('form_uploads')->url($file);
+			}
+		endif;
+		$formResponse = [];
+		$formResponse['form_key']=$formKey;
+		$formResponse['data_key']=str_slug(str_random(16));
+		$formResponse['data']=json_encode($formData);
+		$formResponse['remote_address']= $_SERVER['REMOTE_ADDR'];
+		if(UserFormResponse::create($formResponse)){
+			$status=true;
+			$message= "Form has been submitted successfully.";
+		}else{
+			$status=false;
+			$message= "Something went wrong! Please try again."	;		
+		}
+		return response()->json(['status'=>$status,'message'=>$message]);
 	}
 
 	public function saveEmail(Request $request){
+		$formKey = $request->route('key');
 		$name= $request->name;
 		$email = $request->email;
+
 		return response()->json(['status'=>true,'message'=>'Email stored.']);
 	}	
 

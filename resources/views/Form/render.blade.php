@@ -20,7 +20,7 @@
 						</div>
 						<!-- /.box-header -->
 						<!-- form start -->
-						<form id="email-collection-form" class="form-horizontal email-collection-form" action="{{route('save-email-collection')}}">
+						<form id="email-collection-form" class="form-horizontal email-collection-form" action="{{route('save-email-collection',$form['form_key'])}}">
 							{{ csrf_field() }}
 							<div class="box-body">
 								@if($form['name_collection'])
@@ -67,15 +67,15 @@
 				</div>
 			</div>
 			@endif
-			<form id="ddi-form" class="ddi-form" action="{{route('save-form-data')}}" method="POST" enctype="multipart/form-data">
+			<form id="ddi-form" class="ddi-form" action="{{route('save-form-data',$form['form_key'])}}" method="POST" enctype="multipart/form-data">
 				{{ csrf_field() }}
 				<div class="row">
 					<?php $fieldsCount = 0; ?>
-					@if($form->columns_each_row= 'col-md-6')
+					@if($form->columns_each_row == 'col-md-6')
 					<?php $fieldsEachRow = 2; ?>
-					@elseif($form->columns_each_row= 'col-md-4')
+					@elseif($form->columns_each_row == 'col-md-4')
 					<?php $fieldsEachRow = 3; ?>
-					@elseif($form->columns_each_row= 'col-md-3')
+					@elseif($form->columns_each_row == 'col-md-3')
 					<?php $fieldsEachRow = 4; ?>
 					@else
 					<?php $fieldsEachRow = 1; ?>
