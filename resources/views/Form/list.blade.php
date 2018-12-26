@@ -22,7 +22,8 @@
 				<tr>
 					<td><input type="checkbox" name="keys[]" value="{{$form->form_key}}" class="minimal" /></td>
 					<td>{{$form->name}}</td>
-					<td>{{$form->form_key}}.{{str_replace_first('http://','',route('home'))}}</td>
+					<td>{{route('home')}}/{{$form->form_key}}</td>
+					<!-- <td>{{$form->form_key}}.{{str_replace_first('http://','',route('home'))}}</td> -->
 					<td>{{$form->created_at->format('M d Y')}}</td>
 					<td><center class="@if($form->status) text-green @else text-red @endif" title="@if($form->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
 					<td class="form-actions">

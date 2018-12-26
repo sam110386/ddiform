@@ -19,7 +19,7 @@ use Illuminate\Routing\Router;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
+Route::get('/{key}','FormResponsesController@render')->name('render-form');
 Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name('save-email-collection');
 Route::post('/data/save/{key}','FormResponsesController@saveForm')->name('save-form-data');
 

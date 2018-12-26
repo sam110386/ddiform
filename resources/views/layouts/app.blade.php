@@ -134,14 +134,14 @@
 						<ul class="treeview-menu">
 							<li class="@if(Route::is('quick-form') || Route::is('single-form') || Route::is('new-form'))  active @endif"><a href="{{ route('new-form')}}"><i class="fa fa-plus"></i>New Form</a></li>
 							<li class="@if(Route::is('all-forms'))  active @endif"><a href="{{ route('all-forms')}}"><i class="fa fa-file-text"></i>All Forms</a></li>
-							<li class="@if(Route::is('all-form-templates'))  active @endif"><a href="{{ route('all-form-templates')}}"><i class="fa fa-file-image-o"></i>Form Templates</a></li>							
+							<li class="@if(Route::is('all-form-templates'))  active @endif"><a href="{{ route('all-form-templates')}}"><i class="fa fa-file-image-o"></i>Form Templates</a></li>
+							<li class="@if(Route::is('all-form-templates'))  active @endif"><a href="{{ route('response-list')}}"><i class="fa fa-file-text"></i>Form Responses</a></li>						
 						</ul>
 					</li>
 					<li><a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
-					<li class="header">HELP</li>
-					<li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+					<!-- <li class="header">HELP</li> -->
+					<!-- <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
 					<li>
-						<!-- search form -->
 						<form action="#" method="get" class="sidebar-form">
 							<div class="input-group">
 								<input type="text" name="q" class="form-control" placeholder="Search...">
@@ -151,9 +151,9 @@
 								</span>
 							</div>
 						</form>
-						<!-- /.search form -->
+					
 
-					</li>
+					</li> -->
 				</ul>
 			</section>
 			<!-- /.sidebar -->
