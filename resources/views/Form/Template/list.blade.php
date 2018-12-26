@@ -6,7 +6,7 @@
 		<table class="dataTable table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="check-all" class="minimal" /></th>
+					<th>#</th>
 					<th>Name</th>
 					<th>Created At</th>
 					<th>Status</th>
@@ -16,7 +16,7 @@
 			<tbody>
 				@foreach($templates as $template)
 				<tr>
-					<td><input type="checkbox" name="keys[]" value="{{$template->template_key}}" class="minimal" /></td>
+					<td>{{$loop->iteration}}</td>
 					<td>{{$template->name}}</td>
 					<td>{{$template->created_at->format('M d Y')}}</td>
 					<td><center class="@if($template->status) text-green @else text-red @endif" title="@if($template->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
@@ -33,7 +33,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th><input type="checkbox" id="check-all" class="minimal" /></th>
+					<th>#</th>
 					<th>Name</th>
 					<th>Created At</th>
 					<th>Status</th>

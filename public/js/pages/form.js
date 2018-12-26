@@ -66,7 +66,7 @@ $(document).ready(function(){
 		'                        <label for="field_placeholder_'+ fieldKey +'">Placeholder</label>  '  + 
 		'                        <input type="text" class="form-control field-placeholder" name="field_placeholder_[\''+ fieldKey +'\']" id="field_placeholder_'+ fieldKey +'" placeholder="Field Placeholder (Optional)">  '  + 
 		'                      </div>  '  + 
-		'                      <div class="form-group field_values_container" >  '  + 
+		'                      <div class="form-group field_values_container" style="display:none">  '  + 
 		'                        <label for="field_values_'+ fieldKey +'">Values <strong class="text-red">*</strong></label>  '  + 
 		'                        <input type="text" class="form-control field-values" name="field_values_[\''+ fieldKey +'\']" id="field_values_'+ fieldKey +'" placeholder="Field values (Comma seprated. eg. value one,value two,value three)">  '  + 
 		'                      </div>                      '  + 
@@ -105,6 +105,11 @@ $(document).ready(function(){
 		'                </div>'  + 
 		'              </li>   ' ;
 		$("ul#accordion").append(fieldHtlm);
+		$('input[type="checkbox"], input[type="radio"]').iCheck({
+			checkboxClass: 'icheckbox_square-blue',
+			radioClass   : 'iradio_square-blue',
+			increaseArea: '20%'
+		});		
 		$("ul#accordion li.field_"+fieldKey+ " a.edit-field").trigger('click');
 	});
 
@@ -237,10 +242,17 @@ $(document).ready(function(){
 				$("ul#accordion li.field_"+fieldKey+ " a.collapsed").trigger('click');
 				error = true;
 			}
+
 			fieldRequired = (fld.find('.field-required').is(":checked")) ? true : false ;
 			fieldClass = fld.find('.field-class').val();
 			fieldId = fld.find('.field-id').val();
-			fieldValues =fld.find('.field-values').val();
+			fieldValues = (fld.find('.field-values').val()) ? $.trim(fld.find('.field-values').val()) : false;
+			if($.inArray(fieldType,["5","6","7"]) >= 0 && !fieldValues){
+				fld.find('.field-values').parent('.form-group').addClass("has-error");
+				$("li.field_" + fieldKey).addClass('field-error');
+				$("ul#accordion li.field_"+fieldKey+ " a.collapsed").trigger('click');
+				error = true;
+			}
 			fieldPlaceholder = fld.find('.field-placeholder').val();              
 			fieldBefore = fld.find('.field-before').val();
 			fieldAfter = fld.find('.field-after').val();

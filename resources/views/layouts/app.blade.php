@@ -124,7 +124,7 @@
 							<i class="fa fa-user"></i> <span>Profile</span>
 						</a>
 					</li>
-					<li class="treeview @if(Route::is('all-forms') || Route::is('quick-form') || Route::is('new-form') || Route::is('single-form') || Route::is('all-form-templates'))  menu-open @endif">
+					<li class="treeview @if (Route::is('response-email-list') || Route::is('response-data-list') || Route::is('response-list') || Route::is('all-forms') || Route::is('quick-form') || Route::is('new-form') || Route::is('single-form') || Route::is('all-form-templates'))  menu-open @endif">
 						<a href="#">
 							<i class="fa fa-edit"></i> <span>Forms</span>
 							<span class="pull-right-container">
@@ -135,34 +135,16 @@
 							<li class="@if(Route::is('quick-form') || Route::is('single-form') || Route::is('new-form'))  active @endif"><a href="{{ route('new-form')}}"><i class="fa fa-plus"></i>New Form</a></li>
 							<li class="@if(Route::is('all-forms'))  active @endif"><a href="{{ route('all-forms')}}"><i class="fa fa-file-text"></i>All Forms</a></li>
 							<li class="@if(Route::is('all-form-templates'))  active @endif"><a href="{{ route('all-form-templates')}}"><i class="fa fa-file-image-o"></i>Form Templates</a></li>
-							<li class="@if(Route::is('all-form-templates'))  active @endif"><a href="{{ route('response-list')}}"><i class="fa fa-file-text"></i>Form Responses</a></li>						
+							<li class="@if(Route::is('response-email-list') || Route::is('response-list') || Route::is('response-data-list'))  active @endif"><a href="{{ route('response-list')}}"><i class="fa fa-list-alt"></i>Form Responses</a></li>						
 						</ul>
 					</li>
 					<li><a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
-					<!-- <li class="header">HELP</li> -->
-					<!-- <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-					<li>
-						<form action="#" method="get" class="sidebar-form">
-							<div class="input-group">
-								<input type="text" name="q" class="form-control" placeholder="Search...">
-								<span class="input-group-btn">
-									<button type="submit" name="" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-									</button>
-								</span>
-							</div>
-						</form>
-					
-
-					</li> -->
 				</ul>
 			</section>
-			<!-- /.sidebar -->
 		</aside>
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-
 			<section class="content-header">
 				<h1>
 					@if(isset($title))

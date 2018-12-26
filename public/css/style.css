@@ -138,4 +138,8 @@ li.field.field-error {
    float: none;
 }
 .p-15{padding: 15px;}
-
+.m-t-50{margin-top: 50px;}
+.response.table tbody td > p {
+    height: 20px;
+    overflow: hidden;
+}

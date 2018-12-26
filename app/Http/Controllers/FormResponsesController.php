@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\UserForm;
 use App\UserFormResponse;
+use App\UserFormEmailCollection;
+
 
 class FormResponsesController extends Controller
 {
@@ -31,33 +33,39 @@ class FormResponsesController extends Controller
 	{
 		$forms = Auth::user()->forms->where('is_deleted',0);
 		$pageData = ['title' => 'Form Response','description' => 'List','forms' => $forms];
-		return view('Form.Response.response',$pageData);
+		return view('Form.Response.list',$pageData);
 	}
 
-
+	public function responseEmailCollectionList(Request $request){
+		$form = $form = Auth::user()->forms->where('form_key',$request->route('key'))->first();
+		
+		$pageData = ['title' => 'Email Collection','description' => 'List -'.$form->name,'collections' => $form->emailCollection];
+		return view('Form.Response.emails',$pageData);
+	}
 
 	public function responseList(Request $request){
 		$form = Auth::user()->forms->where('is_deleted',0)->where('form_key',$request->route('key'))->first();
 		if(!$form)
 			return view('Components.notfound');
 		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : [];
-		//$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : [];
 
 
 		$pageData = ['title' => 'Form Response','description' => 'List - '.$form->name,'form' => $form];
 		return view('Form.Response.data',$pageData);
 	}
 	public function render(Request $request){
-		$form = new UserForm;
+		$form = false;
 		if($request->route('key'))
-			$form = UserForm::where('form_key',$request->route('key'))->get()->first();
-		
+			$form = UserForm::where('form_key',$request->route('key'))->get()->first();		
 		if(!$form)
-			return view('Components.frontnotfound');
+			return view('Form.Render.notfound');
+		if($form->is_deleted == 1 || $form->status == 0)
+			return view('Form.Render.expired');
+
 		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : false;
 		// echo "<pre>"; print_r($form); die;
 		$pageData = ['title' => 'Form','form' => $form];
-		return view('Form.render',$pageData);
+		return view('Form.Render.form',$pageData);
 	}
 
 
@@ -132,7 +140,6 @@ class FormResponsesController extends Controller
 
 	public function saveForm(Request $request){
 		$formKey = $request->route('key');
-		// print_r($request->file('dvvd89swh'));
 		$fd = ($request->fd) ? json_decode($request->fd, true) : [];
 		$fd=(!empty($fd)) ? array_filter($fd,function($arr){ return $arr['name'] != '_token'; }) : '' ;
 		$formData = [];
@@ -145,7 +152,7 @@ class FormResponsesController extends Controller
 
 			}
 		}
-		if($request->files):
+		if($request->hasFile('files')):
 			$files = $request->file('files');
 			foreach ($files as $key => $file) {
 				$filename = time().$file->getClientOriginalName();
@@ -158,22 +165,50 @@ class FormResponsesController extends Controller
 		$formResponse['data_key']=str_slug(str_random(16));
 		$formResponse['data']=json_encode($formData);
 		$formResponse['remote_address']= $_SERVER['REMOTE_ADDR'];
-		if(UserFormResponse::create($formResponse)){
-			$status=true;
-			$message= "Form has been submitted successfully.";
+		if($response = UserFormResponse::create($formResponse)){
+			$status = true;
+			$message = $response->form->success_message;
 		}else{
-			$status=false;
+			$status = false;
 			$message= "Something went wrong! Please try again."	;		
 		}
 		return response()->json(['status'=>$status,'message'=>$message]);
 	}
 
 	public function saveEmail(Request $request){
-		$formKey = $request->route('key');
-		$name= $request->name;
-		$email = $request->email;
+		$form = UserForm::where('form_key',$request->route('key'))->get()->first();
+		$emailCollection = [];
+		$emailCollection['user_id'] = $form->user_id;
+		$emailCollection['form_key'] = $request->route('key');
+		$emailCollection['email'] = $request->email;
 
-		return response()->json(['status'=>true,'message'=>'Email stored.']);
+		if ($request->has('name')) {
+			$emailCollection['name'] = $request->name;
+		}
+		if($response = UserFormEmailCollection::create($emailCollection)){
+			$status = true;
+			$message = 'Email stored.';
+		}else{
+			$status = false;
+			$message= "Something went wrong! Please try again."	;		
+		}		
+
+		return response()->json(['status'=>true,'message'=>$message]);
 	}	
 
+
+	public function getResponseChartData(Request $request){
+		$form = UserForm::where('form_key',$request->route('key'))->get()->first();
+		echo $totalRes = $form->responses->count();
+		$chartField = json_decode($form->fields,true);
+		$chartField = array_filter($chartField,function($arr){ return in_array($arr['fieldType'],[5,6,7]); });
+		foreach ($chartField as $key => $field) {
+			$options = ($field['values']) ? explode(',',$field['values']) : [];
+			$options =  array_flip($options);
+			$options = array_map(function($arr){return 0;}, $options);
+			$chartField[$key]['options'] = $options;
+		}
+		echo "<pre>";
+		print_r($chartField);
+	}
 }

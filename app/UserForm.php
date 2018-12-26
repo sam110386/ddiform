@@ -13,7 +13,7 @@ class UserForm extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'form_key', 'name','description','fields','columns_each_row', 'image', 'image_pos', 'hide','email','success_message','status','name_collection','email_collection','submit_text','email_collection_title','auto_response'
+        'user_id', 'form_key', 'name','description','fields','columns_each_row', 'image', 'image_pos', 'hide','email','success_message','status','name_collection','email_collection','submit_text','email_collection_title','auto_response','is_deleted'
     ];
 
     /**
@@ -38,6 +38,14 @@ class UserForm extends Model
     public function responses()
     {
         return $this->hasMany('App\UserFormResponse','form_key','form_key');
+    }
+
+    /**
+     * Get email collection for the form.
+     */
+    public function emailCollection()
+    {
+        return $this->hasMany('App\UserFormEmailCollection','form_key','form_key');
     }
 
 }

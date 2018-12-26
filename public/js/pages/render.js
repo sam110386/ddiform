@@ -1,19 +1,16 @@
 var emailCollected = false;
 $(document).ready(function(){
-	$(document).on('click','.get-response',function(){
-		$(this).hide();
-		$(this).siblings('p').hide();
-		showResponse();
+	$(document).on('click','.get-response',function(){		
+		$(this).fadeOut();
+		$(this).siblings('p').fadeOut();
+		checkEmailCollection();
 	});
 
 });
 
-function showResponse(){
-	$('.other-user-reposnse').append('<div class="chart" id="response-chart" style="height: 300px; position: relative;">user responses</div>');
-}
 // Common AJAX Method
 var callAjax = function (config,callBack){
-	$('.loader-overley').show();
+	$('.loader-overley').fadeIn();
 	$.ajax(config).done(callBack);
 }
 
@@ -40,17 +37,14 @@ var saveEmail = function(){
 		method: "post",
 		data: $('.email-collection-form').serialize(),
 		cache: false,
-		// contentType: false,
-		// processData: false,
 		dataType: 'json',		
 	};
-
 	callAjax(config,function(res) {
-		$('.loader-overley').hide();
+		$('.loader-overley').fadeOut();
 		if(res.status){
 			emailCollected = true;
-			$('.form-overlay').hide();
-			$('.ddi-form-container').show();
+			$(".email-collection-form-container").fadeOut();
+			showResponse();
 		}else{
 			reloadNotification("",res.message);
 		}
@@ -60,10 +54,6 @@ var saveEmail = function(){
 
 // save form data
 var saveData =  function(){
-	if(emailCollection == 1 && !emailCollected){
-		reloadNotification("","Something went wrong! Please refresh page and try again.");
-		return false;
-	}
 	var formData = new FormData($(this)[0]);
 	var data = JSON.stringify($(this).serializeArray());
 	formData.append('fd',data);
@@ -74,22 +64,46 @@ var saveData =  function(){
 		cache: false,
 		contentType: false,
 		processData: false,
-	};	
+	};
+	$('.user-reposnse').html('');
 	callAjax(config,function(res) {
-		$('.loader-overley').hide();
+		$('.loader-overley').fadeOut();
 		if(!res.status) reloadNotification("",res.message);
-		$('#ddi-form').hide();
-		if(autoResponse == 1 ){
-			showResponse();
+		$('.ddi-form-container').fadeOut();
+		$('.user-reposnse').append("<div class='success-message'><h3>" + res.message + "</h3></div>");
+		if(autoResponse == 1){
+			checkEmailCollection();
 			return;
 		}
-		$('#ddi-form').after(
+		$('.user-reposnse').append(
 			"<div class='text-center'>" +
 			"<p>Do you want to see other user’s response?</p>" +
 			"<button class='btn btn-info get-response'>Yes</button>" +
+			"<p>&nbsp;</p>" +
 			"</div>"
 			);
+		$(".response-container").fadeIn();
 	});
+}
+
+function checkEmailCollection(){
+	if(emailCollection == 1){
+		$(".response-container").fadeOut();
+		$('.email-collection-form-container').fadeIn();
+		return;
+	}
+	showResponse();
+}
+
+function showResponse(){
+	if(emailCollection == 1 && !emailCollected){
+		reloadNotification("","Something went wrong! Please refresh page and try again.");
+		return false;
+	}
+	$('.loader-overley').fadeIn();
+	$('.user-reposnse').append('<div class="chart" id="response-chart" style="height: 300px; position: relative;">user responses</div>');
+	$(".response-container").fadeIn();
+	$('.loader-overley').fadeOut();
 }
 
 $(window).on('load',function(){

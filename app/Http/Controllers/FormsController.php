@@ -107,7 +107,7 @@ class FormsController extends Controller
 		$form['submit_text'] = $request->submit_text;
 		$form['email_collection_title'] = $request->email_collection_title;	
 		$form['auto_response'] = (isset($request->auto_response))  ? 1 : 0;
-		if($request->form_image_opt == 'yes'){
+		if($request->form_image_opt == 'yes' && $request->hasFile('image')){
 			$uploadedFile = $request->file('image');
 			if($uploadedFile && $request->form_image_opt == 'yes' && $uploadedFile->isValid()){
 				$filename = time().$uploadedFile->getClientOriginalName();

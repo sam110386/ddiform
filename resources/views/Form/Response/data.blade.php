@@ -7,48 +7,63 @@
 <div class="box">
 	<!-- /.box-header -->
 	<div class="box-body">
-		<table class="dataTable table table-bordered table-hover">
-			<thead>
-				<tr>
-					@foreach($form['fields_arr'] as $field)
-
-					<th>{{$field['label']}}</th>
+		<div class="table-responsive">
+			<table class="dataTable table response table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						@foreach($form['fields_arr'] as $field)
+						@if($loop->iteration > 5) @break @endif
+						<th>{{$field['label']}}</th>
+						@endforeach
+						<th>Created At</th>
+						<th>View</th>
+					</tr>
+				</thead>	
+				<tbody>
+					@foreach($form->responses as $i =>  $response)
+					@push('scripts')
+					<script> dataList[{{$i}}] = @json($response->data)</script>
+					@endpush				
+					<tr>
+						<td>{{$loop->iteration}}</td>
+						@foreach($form['fields_arr'] as $key => $field)
+						@if($loop->iteration > 5) @break @endif
+						<td>
+							@isset(json_decode($response->data, true)[$key])
+							@if(in_array($field['fieldType'], [8,9]) )
+							<a target="_BLANK" class="@if($field['fieldType']==8) modal-img-view @endif" href="{{json_decode($response->data, true)[$key]}}" data-href="{{json_decode($response->data, true)[$key]}}">
+								<i class="fa @if($field['fieldType']==8) fa-picture-o @else fa-file @endif"></i>
+							</a>
+							@else
+							<p>
+								{{json_decode($response->data, true)[$key]}}
+							</p>
+							@endif
+							@endisset
+						</td>
+						@endforeach
+						<td>{{$response->created_at->format('M d Y')}}</td>
+						<td>
+							<a href="#" class="data-model form-data" data-modeldata='{{$i}}' data-toggle="modal" data-date="{{$response->created_at->format('M d Y')}}" data-target="#form-data-model"><i class="fa fa-eye"></i>
+							</a>
+						</td>
+					</tr>
 					@endforeach
-					<th>Action</th>
-				</tr>
-			</thead>	
-			<tbody>
-				@foreach($form->responses as $i =>  $response)
-				@push('scripts')
-				<script> dataList[{{$i}}] = @json($response->data)</script>
-				@endpush				
-				<tr>
-					@foreach($form['fields_arr'] as $key => $field)
-					<td>
-						@if(in_array($field['fieldType'], [8,9]) )
-						<a target="_BLANK" class="@if($field['fieldType']==8) modal-img-view @endif" href="{{json_decode($response->data, true)[$key]}}" data-href="{{json_decode($response->data, true)[$key]}}">
-							<i class="fa @if($field['fieldType']==8) fa-picture-o @else fa-file @endif">
-							</i>
-						</a>
-						@else
-						
-						<p>{{json_decode($response->data, true)[$key]}}<p>
-						@endif
-					</td>
-					@endforeach
-					<td><a href="#" class="data-model form-data" data-modeldata='{{$i}}' data-toggle="modal" data-target="#form-data-model"><i class="fa fa-eye"></i></a></td>
-				</tr>
-				@endforeach
-			</tbody>
-			<tfoot>
-				<tr>
-					@foreach($form['fields_arr'] as $field)
-					<th>{{$field['label']}}</th>
-					@endforeach
-					<th>Action</th>
-				</tr>
-			</tfoot>
-		</table>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>#</th>
+						@foreach($form['fields_arr'] as $field)
+						@if($loop->iteration > 5) @break @endif
+						<th>{{$field['label']}}</th>
+						@endforeach
+						<th>Created At</th>
+						<th>View</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 	</div>
 	<!-- /.box-body -->
 </div>
@@ -80,7 +95,7 @@
 					</div>
 				</div>
 				<div class="form-data-container">
-					
+
 				</div>
 			</div>
 			<div class="modal-footer">

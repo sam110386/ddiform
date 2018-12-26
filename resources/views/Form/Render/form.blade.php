@@ -1,58 +1,13 @@
-@extends('layouts.default')
+@extends('layouts.form')
 @push('scripts')
 <script type="text/javascript" src="{{ asset('js/pages/render.js') }}"></script>
 <script  type="text/javascript">
-	var emailCollection = parseInt("{{$form['name_collection']}}");
+	var emailCollection = parseInt("{{$form['email_collection']}}");
 	var autoResponse = parseInt("{{$form['auto_response']}}");
 </script>
 @endpush
 @section('content')
-@if($form['email_collection'])
-<!-- Start email collection form -->
-<div class="form-overlay">
-	<div class="form-overlay-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">{{$form['email_collection_title']}}</h3>
-						</div>
-						<!-- /.box-header -->
-						<!-- form start -->
-						<form id="email-collection-form" class="form-horizontal email-collection-form" action="{{route('save-email-collection',$form['form_key'])}}">
-							{{ csrf_field() }}
-							<div class="box-body">
-								@if($form['name_collection'])
-								<div class="form-group error-heading">
-									<label for="collection-name" class="col-sm-2 control-label">Name <small class="text-red">*</small></label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control vf-required" id="collection-name" placeholder="Name" name="name">
-									</div>
-								</div>
-								@endif
-								<div class="form-group error-heading">
-									<label for="collection-email" class="col-sm-2 control-label">Email <small class="text-red">*</small></label>
-									<div class="col-sm-10">
-										<input type="email" class="form-control vf-required" id="collection-email" placeholder="Email" name="email">
-									</div>
-								</div>
-							</div>
-							<!-- /.box-body -->
-							<div class="box-footer text-center">
-								<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
-							</div>
-							<!-- /.box-footer -->
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End email collection form -->
-@endif
-<div class="container ddi-form-container" @if($form['name_collection'] == 1) style="display:none;" @endif>
+<div class="container ddi-form-container">
 	<div class="box">
 		<div class="box-header with-border">
 			<h3 class="box-title">{{$form->name}}</h3>
@@ -103,20 +58,68 @@
 						<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
 					</div>
 				</div>
-			</form>
-			<div class="row">
-				<div class="col-md-12 text-center other-user-reposnse">
-					<!--  -->
-				</div>
-			</div>			
+			</form>			
 			@if($form['image'] && $form['image_pos'] == 1)
 			<div class="row">
 				<div class="col-md-12">
 					<img src="{{$form['image']}}" class="img-responsive" />
 				</div>
 			</div>
-			@endif			
+			@endif		
 		</div>
+	</div>
+</div>
+@if($form['email_collection'])
+<!-- Start email collection form -->
+<div class="container email-collection-form-container" style="display:none;">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">{{$form['email_collection_title']}}</h3>
+				</div>
+				<!-- /.box-header -->
+				<!-- form start -->
+				<form id="email-collection-form" class="form-horizontal email-collection-form" action="{{route('save-email-collection',$form['form_key'])}}">
+					{{ csrf_field() }}
+					<div class="box-body">
+						@if($form['name_collection'])
+						<div class="form-group error-heading">
+							<label for="collection-name" class="col-sm-2 control-label">Name <small class="text-red">*</small></label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control vf-required" id="collection-name" placeholder="Name" name="name">
+							</div>
+						</div>
+						@endif
+						<div class="form-group error-heading">
+							<label for="collection-email" class="col-sm-2 control-label">Email <small class="text-red">*</small></label>
+							<div class="col-sm-10">
+								<input type="email" class="form-control vf-required" id="collection-email" placeholder="Email" name="email">
+							</div>
+						</div>
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer text-center">
+						<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
+					</div>
+					<!-- /.box-footer -->
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End email collection form -->
+@endif
+<div class="container response-container" style="display:none;">
+	<div class="box">
+		<div class="box-header with-border">
+			<h3 class="box-title">{{$form->name}} - Other user's response</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center user-reposnse">
+				asdhakjsdh kasjhd kasjhdkjas
+			</div>
+		</div>	
 	</div>
 </div>
 @endsection

@@ -41,5 +41,13 @@ class User extends Authenticatable
     public function templates()
     {
         return $this->hasMany('App\UserFormTemplate');
-    }        
+    } 
+
+    /**
+     * Get email collection for the form.
+     */
+    public function emailCollection()
+    {
+        return $this->hasMany('App\UserFormEmailCollection');
+    }           
 }

@@ -34,7 +34,7 @@ $(document).ready(function(){
 		$('#ModalimageView').modal('show');
 	});
 
-	$(document).on("click",".form-data",function(e){	
+	$(document).on("click",".form-data",function(e){
 		$("#form-data-model .page-loader-wrapper").show();
 		data =  JSON.parse(dataList[parseInt($(this).data("modeldata"))]);
 		var html='<table class="table table-hover table-bordered table-striped">';
@@ -44,6 +44,7 @@ $(document).ready(function(){
 		$.each(dataKeys,function(key,field){
 			html = html + "<tr><th>"+ dataKeys[key]['label'] +"</th><td>"+ data[key] +"</td></tr>";
 		});
+			html = html + "<tr><th>Created At</th><td>"+ $(this).data("date") +"</td></tr>";
 		html = html + '</table>';
 		$("#form-data-model .modal-body .form-data-container").html(html);
 		$("#form-data-model .page-loader-wrapper").hide();
