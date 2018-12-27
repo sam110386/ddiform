@@ -22,7 +22,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
 Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name('save-email-collection');
 Route::post('/data/save/{key}','FormResponsesController@saveForm')->name('save-form-data');
-Route::get('/response/chart/{key}','FormResponsesController@getResponseChartData')->name('form-response-chart');
+Route::match(['get', 'post'],'/response/chart/{key}','FormResponsesController@getResponseChartData')->name('form-response-chart');
 // Route::get('/account', 'AccountController@index')->name('account');
 Route::group([
     'prefix'        => 'account',

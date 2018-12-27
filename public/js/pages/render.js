@@ -65,19 +65,20 @@ var saveData =  function(){
 		contentType: false,
 		processData: false,
 	};
-	$('.user-reposnse').html('');
+	$('.success-message').remove();
+	$('.user-reposnse .chart').html('');
 	callAjax(config,function(res) {
 		$('.loader-overley').fadeOut();
 		if(!res.status) reloadNotification("",res.message);
-		$('.ddi-form-container').fadeOut();
-		$('.user-reposnse').append("<div class='success-message'><h3>" + res.message + "</h3></div>");
+		if(formHide == 1) $('.ddi-form-container').fadeOut();
+		$('.user-reposnse').prepend("<div class='success-message text-center'><h3>" + res.message + "</h3></div>");
 		if(autoResponse == 1){
 			checkEmailCollection();
 			return;
 		}
 		$('.user-reposnse').append(
 			"<div class='text-center'>" +
-			"<p>Do you want to see other user’s response?</p>" +
+			"<p>"+ responseText + "</p>" +
 			"<button class='btn btn-info get-response'>Yes</button>" +
 			"<p>&nbsp;</p>" +
 			"</div>"
@@ -101,11 +102,55 @@ function showResponse(){
 		return false;
 	}
 	$('.loader-overley').fadeIn();
-	$('.user-reposnse').append('<div class="chart" id="response-chart" style="height: 300px; position: relative;">user responses</div>');
+	var config = {
+		url: $('#response-form').attr('action'),
+		method: "post",
+		data: $('#response-form').serialize(),
+		cache: false,
+		dataType: 'json',		
+	};
+	callAjax(config,function(res) {
+		$('.loader-overley').fadeOut();
+		if(res.status){
+			genarateChart(res.data);
+		}else{
+			reloadNotification("",res.message);
+		}
+	});	
+}
+function genarateChart(chartData){
+	barChartData = [];
+	if(!$.isEmptyObject(chartData)){
+		$.each(chartData,function(key,data){
+			chart = '<div class="col-md-10 col-md-offset-1">';
+			chart += '<h3>'+ data.label +'</h3>';
+			chart += '<div class="single-chart">';
+			$.each(data['options'],function(i,val){
+				chart += '<div class="progress" data-toggle="tooltip" data-placement="top" title="'+ i +' '+ val +'%">'+
+				'<span class="pull-right p-r-10">'+ i +'</span>'+
+				'<div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="'+ val +'" aria-valuemin="0" aria-valuemax="100" style="width: '+ val +'%;background: '+ getRandomColor() +';">' +
+				'<span class="pull-left p-l-10">'+ val +'%</span>' +
+				'</div>' + 
+				'</div>';
+			});						
+			chart += '</div>';
+			chart += '</div>';
+			$('.user-reposnse .chart').append(chart);
+		})
+	}
+	$('[data-toggle="tooltip"]').tooltip();
 	$(".response-container").fadeIn();
-	$('.loader-overley').fadeOut();
+
 }
 
+function getRandomColor() {
+	var letters = '0123456789A01345';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
 $(window).on('load',function(){
 	$("#email-collection-form").vf({errorShow: false,onValid: saveEmail});
 	$("#ddi-form").vf({errorShow: false,onValid: saveData});

@@ -143,3 +143,4 @@ li.field.field-error {
     height: 20px;
     overflow: hidden;
 }
+textarea.form-description{min-height: 108px;}

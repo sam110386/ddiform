@@ -4,6 +4,8 @@
 <script  type="text/javascript">
 	var emailCollection = parseInt("{{$form['email_collection']}}");
 	var autoResponse = parseInt("{{$form['auto_response']}}");
+	var formHide = parseInt("{{$form->hide}}");
+	var responseText = "{{$form->response_text}}";
 </script>
 @endpush
 @section('content')
@@ -110,16 +112,22 @@
 </div>
 <!-- End email collection form -->
 @endif
-<div class="container response-container" style="display:none;">
+<div class="container response-container m-b-50 " style="display:none;">
 	<div class="box">
 		<div class="box-header with-border">
 			<h3 class="box-title">{{$form->name}} - Other user's response</h3>
 		</div>
 		<div class="row">
-			<div class="col-md-12 text-center user-reposnse">
-				asdhakjsdh kasjhd kasjhdkjas
+			<div class="col-md-12 user-reposnse">
+				<div class="chart p-b-50">
+				</div>
 			</div>
 		</div>	
 	</div>
+</div>
+<div class="hidden">
+	<form id="response-form" action="{{route('form-response-chart',$form['form_key'])}}">
+		{{csrf_field()}}
+	</form>
 </div>
 @endsection

@@ -191,15 +191,15 @@ class FormResponsesController extends Controller
 		}else{
 			$status = false;
 			$message= "Something went wrong! Please try again."	;		
-		}		
-
+		}
 		return response()->json(['status'=>true,'message'=>$message]);
 	}	
 
 
 	public function getResponseChartData(Request $request){
 		$form = UserForm::where('form_key',$request->route('key'))->get()->first();
-		echo $totalRes = $form->responses->count();
+		$responses = $form->responses; 
+		$totalRes = count($responses);
 		$chartField = json_decode($form->fields,true);
 		$chartField = array_filter($chartField,function($arr){ return in_array($arr['fieldType'],[5,6,7]); });
 		foreach ($chartField as $key => $field) {
@@ -208,7 +208,55 @@ class FormResponsesController extends Controller
 			$options = array_map(function($arr){return 0;}, $options);
 			$chartField[$key]['options'] = $options;
 		}
-		echo "<pre>";
-		print_r($chartField);
+		$chartField = $this->processResponsesForChart($responses,$chartField);
+		$chartData = $this->finalizeChartData($chartField,$totalRes);
+		if($chartData){
+			return response()->json(['status'=>true,'data'=>$chartData]);
+		}else{
+			return response()->json(['status'=>false,'message'=> "Somthing went wrong while preparing chart. Please try again."]);
+		}
+	}
+
+	public function	processResponsesForChart($responses,$chartField){
+		foreach ($responses as $response) {
+			$responseData = json_decode($response->data,true);
+			$chartField = $this->checkResponseForChart($responseData,$chartField);
+		}
+		return $chartField;
+	}
+
+	public function checkResponseForChart($response,$chartField){
+		foreach ($response as $key => $value) {
+			if(in_array($key, array_keys($chartField))){
+				$chartField=$this->fetchChartValue($chartField,$key,$value);
+			}
+		}
+		return $chartField;
+	}
+
+	public function fetchChartValue($chartField,$key,$value){
+		if($chartField[$key]['fieldType']==7){
+			$values = explode(',',$value);
+			foreach ($values as $val) {
+				$chartField[$key]['options'][$val]++;
+			}	
+		}else{
+			$chartField[$key]['options'][$value]++;
+		}
+		return $chartField;
+	}
+
+	public	function finalizeChartData($chartField,$totalRes){
+		$chartData =[];
+		foreach ($chartField as $key => $value) {
+			$chartData[$key]['label'] = $value['label'];
+			$chartData[$key]['options'] =  array_map(function($val)use($totalRes){
+				$percentage = (($val*100)/$totalRes);
+				$percentage  = (is_float($percentage)) ? number_format((float)$percentage, 2, '.', '') : $percentage ;
+				return $percentage;
+			},
+			$value['options']);
+		}
+		return $chartData;
 	}
 }

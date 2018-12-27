@@ -49,7 +49,7 @@ class FormsController extends Controller
 	public function edit(Request $request){
 		$form = new UserForm;
 		if($request->route('key'))
-			$form = UserForm::where('form_key',$request->route('key'))->get()->first();
+			$form = UserForm::where('form_key',$request->route('key'))->where('is_deleted',0)->get()->first();
 		
 		if(!$form)
 			return view('Components.notfound');
@@ -84,7 +84,9 @@ class FormsController extends Controller
 		$form['name_collection'] = $formData['name_collection'];	
 		$form['submit_text'] = $formData['submit_text'];	
 		$form['email_collection_title'] = $formData['email_collection_title'];	
-		$form['auto_response'] = $formData['auto_response'];	
+		$form['auto_response'] = $formData['auto_response'];
+		$form['response_text'] = $formData['response_text'];
+
 		if($userForm  = UserForm::create($form)){
 			$returnKey = 'success';
 			$returnMsg = 'Form has been created.';
@@ -107,6 +109,7 @@ class FormsController extends Controller
 		$form['submit_text'] = $request->submit_text;
 		$form['email_collection_title'] = $request->email_collection_title;	
 		$form['auto_response'] = (isset($request->auto_response))  ? 1 : 0;
+		$form['response_text'] = $request->response_text;
 		if($request->form_image_opt == 'yes' && $request->hasFile('image')){
 			$uploadedFile = $request->file('image');
 			if($uploadedFile && $request->form_image_opt == 'yes' && $uploadedFile->isValid()){

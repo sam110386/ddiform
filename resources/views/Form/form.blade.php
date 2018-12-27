@@ -23,15 +23,19 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Description</label>
-						<textarea class="form-control" rows="3" placeholder="Enter form description" name="description">{{ $form['description'] }}</textarea>
+						<label for="description">Description</label>
+						<textarea class="form-control form-description" placeholder="Enter form description" name="description" id="description">{{ $form['description'] }}</textarea>
 					</div>	
 				</div>
 				<div class="col-md-6">	
 					<div class="form-group">
-						<label>Message on submit</label>
-						<textarea class="form-control" rows="3" placeholder="Enter form description" name="success_message">{{ $form['success_message'] }}</textarea>
+						<label for="success_message">Message on submit</label>
+						<input id="success_message" type="text" class="form-control" rows="3" placeholder="Enter thank you message" name="success_message" value="{{ $form['success_message'] }}" />
 					</div>
+					<div class="form-group">
+						<label for="response_text">User response Question</label>
+						<input type="text" id="response_text" class="form-control" rows="3" placeholder="User response question" name="response_text" value="{{ $form['response_text'] }}" />
+					</div>					
 				</div>				
 			</div>
 
