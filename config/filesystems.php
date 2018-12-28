@@ -72,6 +72,12 @@ return [
             'url' => env('APP_URL').'/uploads/user',
             'visibility' => 'public'
         ],
+        'admin' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/uploads/user',
+            'url' => env('APP_URL').'/uploads/user',
+            'visibility' => 'public'
+        ],        
         'form_uploads' => [
             'driver' => 'local',
             'root'   => public_path() . '/uploads/form',

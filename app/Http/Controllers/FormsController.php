@@ -49,7 +49,7 @@ class FormsController extends Controller
 	public function edit(Request $request){
 		$form = new UserForm;
 		if($request->route('key'))
-			$form = UserForm::where('form_key',$request->route('key'))->where('is_deleted',0)->get()->first();
+			$form = UserForm::where('user_id',Auth::user()->id)->where('form_key',$request->route('key'))->where('is_deleted',0)->get()->first();
 		
 		if(!$form)
 			return view('Components.notfound');
@@ -193,7 +193,7 @@ class FormsController extends Controller
 
 	public function updateTemplateStatus(Request $request){
 		$form = ['status'=>$request->route('status')];
-			// var_dump($request->route('status')); die;
+
 		if(UserFormTemplate::where('template_key',$request->route('key'))->update($form)){
 			$returnKey = 'success';
 			$action  = ($request->route('status') == "1") ? "activated." : "deactivated.";

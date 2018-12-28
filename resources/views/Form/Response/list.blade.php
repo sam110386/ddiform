@@ -1,6 +1,4 @@
 @extends('layouts.app')
-@push('scripts')
-@endpush
 @section('content')
 <div class="box">
 	<!-- /.box-header -->
