@@ -238,7 +238,8 @@
 	@stack('scripts')
 	<script type="text/javascript" src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>	
-
+	<script type="text/javascript" src="//cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+	
 	<!-- AdminLTE App -->
 	<script src="{{ asset('js/adminlte.min.js') }}"></script>
 	<script src="{{ asset('js/common.js') }}"></script>

@@ -38,6 +38,14 @@ input[type=file] {padding: 0;border: none;}
     display: block;
 }
 
+
+/* COMMON CSS */
+.p-15{padding: 15px;}
+.p-r-10{padding-right: 10px;}
+.p-l-10{padding-left: 10px;}
+.m-t-50{margin-top: 50px;}
+/* END */
+
 .field-list {
   margin: 0;
   padding: 0;
@@ -137,10 +145,17 @@ li.field.field-error {
    vertical-align: middle;
    float: none;
 }
-.p-15{padding: 15px;}
-.m-t-50{margin-top: 50px;}
+
+
+
 .response.table tbody td > p {
     height: 20px;
     overflow: hidden;
 }
 textarea.form-description{min-height: 108px;}
+.single-chart {border: 1px solid #ccc; padding: 0 5px;}
+.single-chart span{mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;
+font-weight: bold;}
+.single-chart .progress{margin-bottom: 5px;}
+.single-chart .progress:first-child{margin-top:5px;}
+.single-chart .progress .chart-option{position: absolute;right: 20px;}

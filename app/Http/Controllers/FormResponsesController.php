@@ -49,8 +49,8 @@ class FormResponsesController extends Controller
 			return view('Components.notfound');
 		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : [];
 
-
-		$pageData = ['title' => 'Form Response','description' => 'List - '.$form->name,'form' => $form];
+		$chartData = $this->getResponseChartData($request);
+		$pageData = ['title' => 'Form Response','description' => 'List - '.$form->name,'form' => $form, 'chartData' => $chartData->original['data']];
 		return view('Form.Response.data',$pageData);
 	}
 	public function render(Request $request){
@@ -258,5 +258,9 @@ class FormResponsesController extends Controller
 			$value['options']);
 		}
 		return $chartData;
+	}
+
+	public static function generateRandomColorCode(){
+		return substr(str_shuffle('1234567890ABCDEF'),0,6);
 	}
 }

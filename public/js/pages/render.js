@@ -127,12 +127,12 @@ function genarateChart(chartData){
 			chart += '<div class="single-chart">';
 			$.each(data['options'],function(i,val){
 				chart += '<div class="progress" data-toggle="tooltip" data-placement="top" title="'+ i +' '+ val +'%">'+
-				'<span class="pull-right p-r-10">'+ i +'</span>'+
+				'<span class="pull-right p-r-10 chart-option">'+ i +'</span>'+
 				'<div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="'+ val +'" aria-valuemin="0" aria-valuemax="100" style="width: '+ val +'%;background: '+ getRandomColor() +';">' +
 				'<span class="pull-left p-l-10">'+ val +'%</span>' +
 				'</div>' + 
 				'</div>';
-			});						
+			});
 			chart += '</div>';
 			chart += '</div>';
 			$('.user-reposnse .chart').append(chart);

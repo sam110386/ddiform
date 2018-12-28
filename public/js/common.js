@@ -1,8 +1,4 @@
 $(document).ready(function(){
-
-
-	
-
 	if($('input[type="checkbox"]').length || $('input[type="radio"]').length){
 		$('input[type="checkbox"], input[type="radio"]').iCheck({
 			checkboxClass: 'icheckbox_square-blue',
@@ -44,15 +40,28 @@ $(document).ready(function(){
 		$.each(dataKeys,function(key,field){
 			html = html + "<tr><th>"+ dataKeys[key]['label'] +"</th><td>"+ data[key] +"</td></tr>";
 		});
-			html = html + "<tr><th>Created At</th><td>"+ $(this).data("date") +"</td></tr>";
+		html = html + "<tr><th>Created At</th><td>"+ $(this).data("date") +"</td></tr>";
 		html = html + '</table>';
 		$("#form-data-model .modal-body .form-data-container").html(html);
 		$("#form-data-model .page-loader-wrapper").hide();
 	});		
 });
-
+function getRandomColor() {
+	var letters = '0123456789A01345';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
 $(window).on('load',function(){
 	if($(".loader-overley").length) $(".loader-overley").hide();
 	if($(".alert-dismissible").length) $('.alert-dismissible').delay(5000).slideUp(1000);
 	if($('.dataTable').length) $('.dataTable').DataTable();
+	$('.dataTable-responses').DataTable( {
+		initComplete: function(settings, json) {
+			$('.dataTables_length').append(' &nbsp;<button class="btn btn-sm btn-info view-stats" data-toggle="modal" data-target="#form-stats-model">View Stats</button>');
+		}
+	});
+	$('[data-toggle="tooltip"]').tooltip();
 })

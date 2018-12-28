@@ -8,7 +8,7 @@
 	<!-- /.box-header -->
 	<div class="box-body">
 		<div class="table-responsive">
-			<table class="dataTable table response table-bordered table-hover">
+			<table class="dataTable-responses table response table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -100,6 +100,34 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="form-stats-model" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">{{$form['name']}} <button type="button" class="btn btn-link pull-right" data-dismiss="modal">X</button></h3>
+			</div>			
+			<div class="modal-body">
+				<div class="chart">
+					@foreach($chartData as $data)
+					<div class="col-md-12">
+						<h4>{{$data['label']}}</h4>
+						<div class="single-chart">
+							@foreach($data['options'] as $i => $val)
+							<div class="progress" data-toggle="tooltip" data-placement="top" title="{{$i}} {{$val}}%">
+								<span class="chart-option pull-right p-r-10">{{$i}}</span>
+								<div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="{{$val}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$val}}%;background:#<?php echo FormResponsesController::generateRandomColorCode(); ?>;">
+									<span class="pull-left p-l-10">{{$val}}%</span>
+								</div>
+							</div>
+							@endforeach						
+						</div>
+					</div> 
+					@endforeach
+				</div>
 			</div>
 		</div>
 	</div>
