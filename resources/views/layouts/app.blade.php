@@ -138,6 +138,17 @@
 							<li class="@if(Route::is('response-email-list') || Route::is('response-list') || Route::is('response-data-list'))  active @endif"><a href="{{ route('response-list')}}"><i class="fa fa-list-alt"></i>Form Responses</a></li>						
 						</ul>
 					</li>
+					<li class="treeview @if(Route::is('convertkit-integration'))  menu-open @endif">
+						<a href="#">
+							<i class="fa fa-edit"></i> <span>Integrations</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class="@if(Route::is('convertkit-integration'))  active @endif"><a href="{{ route('convertkit-integration')}}"><i class="fa fa-cogs"></i>Convert Kit</a></li>
+						</ul>						
+					</li>
 					<li><a href="{{ route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
 				</ul>
 			</section>

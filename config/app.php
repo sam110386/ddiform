@@ -226,7 +226,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'FormResponsesController' =>  App\Http\Controllers\FormResponsesController::class
-
     ],
-
+    'convert_kit_url' =>  env('CONVERT_KIT_API_URL', 'https://api.convertkit.com/v3/'),
 ];

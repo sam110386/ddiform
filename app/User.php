@@ -49,5 +49,14 @@ class User extends Authenticatable
     public function emailCollection()
     {
         return $this->hasMany('App\UserFormEmailCollection');
-    }           
+    }     
+
+    /**
+     * Get User Convert Kit credentials.
+     */
+    public function convertKit()
+    {
+        return $this->hasOne('App\UserConvertKit');
+    }   
+          
 }

@@ -13,7 +13,7 @@ class UserFormEmailCollection extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'form_key', 'name','email'
+        'user_id', 'form_key', 'name','email','status','cron'
     ];
 
 

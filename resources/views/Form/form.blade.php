@@ -116,6 +116,15 @@
 						<label><input type="checkbox" class="minimal name-collection" name="name_collection" value="1" @if($form["name_collection"] == 1) checked="checked" @endif @if($form["email_collection"] == 0) disabled="disabled" @endif > &nbsp;First name<small>(For Email collection)</small></label>
 					</div>					
 				</div>
+				@if($convKitForms)
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>
+							<input type="checkbox" class="minimal convert-kit-opt" name="convert_kit_opt" value="1" @if($form["convert_kit_opt"] == 1) checked="checked" @endif> &nbsp; Save Emails on convertKit
+						</label>
+					</div>
+				</div>	
+				@endif			
 			</div>
 			<div class="row">
 				<div class="col-md-6">
@@ -124,6 +133,19 @@
 						<input type="text" placeholder="Email Collection Title" class="form-control" name="email_collection_title" id="email_collection_title" value="{{ $form['email_collection_title'] }}"/>
 					</div>
 				</div>
+				@if($convKitForms)
+				<div class="col-md-6">
+					<div class="form-group convert_kit_form_id" @if($form["convert_kit_opt"] == 0) style="display:none;" @endif>
+						<label for="convert_kit_form_id">Select Convert kit Form</label>
+						<select class="form-control" name="convert_kit_form_id" id="convert_kit_form_id">
+							<option value="">-- Select Form --</option>
+							@foreach($convKitForms as $convKitForm)
+								<option value="{{$convKitForm['id']}}" @if($convKitForm['id']==$form['convert_kit_form_id']) selected="seleced" @endif>{{$convKitForm['name']}}</option>
+							@endforeach
+						</select>
+					</div>					
+				</div>
+				@endif
 			</div>		
 			<div class="row form-group">
 				<!-- /.col -->

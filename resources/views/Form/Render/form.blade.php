@@ -57,7 +57,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
+						<button type="submit" class="btn btn-primary">
+							@if($form['submit_text'])
+							{{$form['submit_text']}}
+							@else
+							Submit
+							@endif
+						</button>
 					</div>
 				</div>
 			</form>			

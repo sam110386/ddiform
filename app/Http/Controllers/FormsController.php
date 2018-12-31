@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use \Examinecom\ConvertKit\ConvertKit;
 use App\User;
 use App\UserForm;
 use App\UserFormTemplate;
@@ -54,7 +55,18 @@ class FormsController extends Controller
 		if(!$form)
 			return view('Components.notfound');
 		$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : false;
-		$pageData = ['title' => 'Form','form' => $form ];
+		
+		// Convert kit forms
+		$convKitCred = Auth::user()->convertKit;
+		if($convKitCred && $convKitCred->api_key && $convKitCred->api_secret){
+			$convertClient =  new ConvertKit($convKitCred->api_key,$convKitCred->api_secret);
+			$convKitForms = $convertClient->forms()->all(); 
+			$convKitForms = (isset($convKitForms['forms'])) ? $convKitForms['forms'] : false;
+		}else{
+			$convKitForms = false;
+		}
+
+		$pageData = ['title' => 'Form','form' => $form,"convKitForms" => $convKitForms];
 		return view('Form.form',$pageData);
 	}
 	public function quickForm(Request $request){
@@ -86,6 +98,8 @@ class FormsController extends Controller
 		$form['email_collection_title'] = $formData['email_collection_title'];	
 		$form['auto_response'] = $formData['auto_response'];
 		$form['response_text'] = $formData['response_text'];
+		$form['convert_kit_opt'] = $formData['convert_kit_opt'];
+		$form['convert_kit_form_id'] = $formData['convert_kit_form_id'];
 
 		if($userForm  = UserForm::create($form)){
 			$returnKey = 'success';
@@ -96,6 +110,10 @@ class FormsController extends Controller
 		return redirect()->route($route,$params)->with($returnKey, $returnMsg);
 	}
 	public function save(Request $request){
+		$valid = request()->validate([
+			'name' => 'required'
+		]);
+
 		$form = [];
 		$form['name'] = $request->name;
 		$form['description'] = $request->description;
@@ -105,6 +123,8 @@ class FormsController extends Controller
 		$form['email'] = (isset($request->email))  ? 1 : 0;
 		$form['email_collection'] = (isset($request->email_collection))  ? 1 : 0;
 		$form['name_collection'] = (isset($request->name_collection))  ? 1 : 0;
+		$form['convert_kit_opt'] = (isset($request->convert_kit_opt))  ? 1 : 0;
+		$form['convert_kit_form_id'] = $request->convert_kit_form_id;
 		$form['success_message'] = $request->success_message;
 		$form['submit_text'] = $request->submit_text;
 		$form['email_collection_title'] = $request->email_collection_title;	
@@ -117,9 +137,9 @@ class FormsController extends Controller
 				$file = Storage::disk('form_uploads')->putFileAs('',$uploadedFile,$filename);
 				$form['image'] = Storage::disk('form_uploads')->url($file);
 			}
-		}else{
-			$form['image'] = "";
 		}
+		if($request->form_image_opt == 'no')
+			$form['image'] = "";
 		$fields = json_decode($request->fields_json,true);
 		if($request->field_image_){
 			foreach ($request->field_image_ as $key => $fieldImage) {
@@ -200,7 +220,7 @@ class FormsController extends Controller
 			$returnMsg = "Template has been $action";
 		}else{
 			$returnKey = 'error';
-			$returnMsg = 'Something went wrong.Please try again! Error: Template-4002';
+			$returnMsg = 'Something went wrong.Please try again! Error: TemplateForm-4002';
 		}	
 		return redirect()->route('all-form-templates')->with($returnKey, $returnMsg);
 	}

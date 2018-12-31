@@ -138,13 +138,30 @@ $(document).ready(function(){
 		if(chckValue){
 			$('.name-collection').iCheck('uncheck');
 			$('.name-collection').attr("disabled", true).iCheck('update');
+
+			$(".convert-kit-opt").iCheck("uncheck");
+			$(".convert-kit-opt").attr("disabled", true).iCheck('update');
+
 			$('.email_collection_title input').val('');
-			$('.email_collection_title').slideUp();
+			$('.convert_kit_form_id select option').removeAttr('selected');
+			$('.email_collection_title,.convert_kit_form_id').slideUp();
 		}else{
-			$('.name-collection').removeAttr('disabled').iCheck('update')
+			$('.name-collection').removeAttr('disabled').iCheck('update');
+			$('.convert-kit-opt').removeAttr('disabled').iCheck('update');
 			$('.email_collection_title').slideDown();
 		}
 	});
+
+	$(document).on("ifClicked",".convert-kit-opt",function(e){
+		var chckValue = $('.convert-kit-opt').iCheck('update')[0].checked;
+		if(chckValue){
+			$('.convert_kit_form_id select option').removeAttr('selected');
+			$('.convert_kit_form_id').slideUp();			
+		}else{
+			$('.convert_kit_form_id').slideDown();
+		}
+	});
+
 
 	$(document).on("click",".remove-field-img",function(e){
 		$(this).siblings('a').data('href','').hide();
@@ -226,6 +243,12 @@ $(document).ready(function(){
 		$("*").removeClass('has-error');
 		if($("#name").val() == ""){
 			$("#name").parent('.form-group').addClass("has-error");
+			error =  true;
+		}
+
+		var chckValue = $('.convert-kit-opt').iCheck('update')[0].checked;
+		if($("#convert_kit_form_id").val() == ""){
+			$("#convert_kit_form_id").parent('.form-group').addClass("has-error");
 			error =  true;
 		}
 		$('#fields_json').val('');

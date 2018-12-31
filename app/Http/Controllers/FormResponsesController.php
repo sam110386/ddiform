@@ -185,6 +185,9 @@ class FormResponsesController extends Controller
 		if ($request->has('name')) {
 			$emailCollection['name'] = $request->name;
 		}
+		if($form->convert_kit_opt){
+			$emailCollection['cron'] = 1;
+		}
 		if($response = UserFormEmailCollection::create($emailCollection)){
 			$status = true;
 			$message = 'Email stored.';
