@@ -18,6 +18,11 @@ class CronController extends Controller
 
 	public function processEmailsForConvertKit(){
 		$emails = UserFormEmailCollection::where('cron',1)->where('status',0)->get();
+		if(!$emails->count()){
+			echo "No new record found.";
+			die;
+		}
+		echo "CRON START";
 		foreach ($emails as $email) {
 			$name = $email->name;
 			$emailId = $email->email;
@@ -45,6 +50,7 @@ class CronController extends Controller
 			}
 			echo "<br><<<<>>>><<<<>>>><<<<>>>><<<<>>>><<<<>>>><<<<>>>><br><br><br>";
 		}
+		echo "<br><br>CRON END";
 		die;
 	}
 }

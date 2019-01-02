@@ -3,12 +3,20 @@
 <script type="text/javascript" src="{{ asset('js/pages/form.js') }}"></script>
 @endpush
 @section('content')
-<div class="box">
-	<div class="box-body">
-		<form class="form" method="POST" action="@if($form['form_key'] && Route::current()->getName() == 'single-form'){{ route('save-form',$form['form_key'])}}@else{{route('save-form')}}@endif" enctype="multipart/form-data">
-			{{ csrf_field() }}
-			<div class="row">
-				<div class="col-md-12">
+<form class="form" method="POST" action="@if($form['form_key'] && Route::current()->getName() == 'single-form'){{ route('save-form',$form['form_key'])}}@else{{route('save-form')}}@endif" enctype="multipart/form-data">
+	{{ csrf_field() }}
+	<div class="row">
+		<div class="col-md-7">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title text-uppercase">Form details</h3>
+					<div class="pull-right box-tools">
+						<button type="button" class="btn btn-default btn-collapse btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+							<i class="fa fa-chevron-down"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body">
 					<div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
 						<label for="name">Name <strong class="text-red">*</strong></label>
 						<input type="text" class="form-control" id="name" placeholder="Enter form name" value="@if(old('name')){{old('name')}}@else{{ $form['name'] }}@endif" name="name">
@@ -18,16 +26,10 @@
 						</span>
 						@endif
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
 					<div class="form-group">
 						<label for="description">Description</label>
 						<textarea class="form-control form-description" placeholder="Enter form description" name="description" id="description">{{ $form['description'] }}</textarea>
-					</div>	
-				</div>
-				<div class="col-md-6">	
+					</div>				
 					<div class="form-group">
 						<label for="success_message">Message on submit</label>
 						<input id="success_message" type="text" class="form-control" rows="3" placeholder="Enter thank you message" name="success_message" value="{{ $form['success_message'] }}" />
@@ -35,38 +37,11 @@
 					<div class="form-group">
 						<label for="response_text">User response Question</label>
 						<input type="text" id="response_text" class="form-control" rows="3" placeholder="User response question" name="response_text" value="{{ $form['response_text'] }}" />
-					</div>					
-				</div>				
-			</div>
-
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="columns_each_row">Field(s) each row</label>
-						<select class="form-control select2" style="width:100%;" name="columns_each_row" id="columns_each_row">
-							<option value="col-md-12" @if($form["columns_each_row"] == "col-md-12") selected="selected" @endif>1</option>
-							<option value="col-md-6" @if($form["columns_each_row"] == "col-md-6") selected="selected" @endif >2</option>
-							<option value="col-md-4" @if($form["columns_each_row"] == "col-md-4") selected="selected" @endif>3</option>
-							<option value="col-md-3" @if($form["columns_each_row"] == "col-md-3") selected="selected" @endif>4</option>
-						</select>
 					</div>
-				</div>
-				<div class="col-md-3">
 					<div class="form-group">
 						<label for="submit_text">Submit Button Text</label>
 						<input type="text" placeholder="Enter Submit button Text" class="form-control" name="submit_text" id="submit_text" value="{{ $form['submit_text'] }}"/>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="image_pos">Banner Position</label>
-						<select class="form-control select2" style="width:100%;" id="image_pos" name="image_pos">
-							<option value="0" @if($form["image_pos"] == 0) selected="selected" @endif>Before Form</option>
-							<option value="1" @if($form["image_pos"] == 1) selected="selected" @endif  >After Form</option>
-						</select>
-					</div>
-				</div>	
-				<div class="col-md-3">
 					<div class="form-group">					
 						<label for="image">Upload Banner</label>
 						@if($form['image'])
@@ -76,210 +51,312 @@
 						<input type="hidden" id="form-image-opt" name="form_image_opt" value="yes">
 						<input type="file" class="form-control form-image" id="image" name="image" accept="image/*" >
 						<small>Maximum 1MB allowed.</small>
-					</div>
-				</div>				
-
+					</div>															
+				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-3">
+		</div>
+		<div class="col-md-5">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title text-uppercase">Form Controls</h3>
+					<div class="pull-right box-tools">
+						<button type="button" class="btn btn-default btn-collapse btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+							<i class="fa fa-chevron-down"></i>
+						</button>
+					</div>				
+				</div>			
+				<div class="box-body">		
 					<div class="form-group">
-						<label><input type="checkbox" class="minimal" name="email" value="1" @if($form["email"] == 1) checked="checked" @endif> &nbsp;Email notification</label>
+						<label for="columns_each_row">Field(s) each row</label>
+						<select class="form-control select2" style="width:100%;" name="columns_each_row" id="columns_each_row">
+							<option value="col-md-12" @if($form["columns_each_row"] == "col-md-12") selected="selected" @endif>1</option>
+							<option value="col-md-6" @if($form["columns_each_row"] == "col-md-6") selected="selected" @endif >2</option>
+							<option value="col-md-4" @if($form["columns_each_row"] == "col-md-4") selected="selected" @endif>3</option>
+							<option value="col-md-3" @if($form["columns_each_row"] == "col-md-3") selected="selected" @endif>4</option>
+						</select>
 					</div>					
-				</div>
-				<div class="col-md-3">
 					<div class="form-group">
-						<label>
-							<input type="checkbox" class="minimal" name="hide" value="1" @if($form["hide"] == 1) checked="checked" @endif> &nbsp;Hide form after submit successfuly
-						</label>
+						<label for="image_pos">Banner Position</label>
+						<select class="form-control select2" style="width:100%;" id="image_pos" name="image_pos">
+							<option value="0" @if($form["image_pos"] == 0) selected="selected" @endif>Before Form</option>
+							<option value="1" @if($form["image_pos"] == 1) selected="selected" @endif  >After Form</option>
+						</select>
 					</div>
-				</div>
-				<div class="col-md-6">
 					<div class="form-group">
-						<label>
-							<input type="checkbox" class="minimal" name="auto_response" value="1" @if($form["auto_response"] == 1) checked="checked" @endif> &nbsp;Show the stats automatically after submission
-						</label>
-					</div>					
-					
-				</div>					
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>
-							<input type="checkbox" class="minimal email-collection" name="email_collection" @if($form["email_collection"] == 1) checked="checked" @endif value="1"> &nbsp;Email collection
-						</label>
+						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="email" value="1" @if($form["email"] == 1) checked="checked" @endif>
+						<label> &nbsp;Email notification</label>
+						<span data-toggle="tooltip" title="" data-original-title="You will notify when anyone submit form"><i class="fa fa-question-circle"></i></span>
 					</div>
-				</div>
-				<div class="col-md-3">
 					<div class="form-group">
-						<label><input type="checkbox" class="minimal name-collection" name="name_collection" value="1" @if($form["name_collection"] == 1) checked="checked" @endif @if($form["email_collection"] == 0) disabled="disabled" @endif > &nbsp;First name<small>(For Email collection)</small></label>
-					</div>					
-				</div>
-				@if($convKitForms)
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>
-							<input type="checkbox" class="minimal convert-kit-opt" name="convert_kit_opt" value="1" @if($form["convert_kit_opt"] == 1) checked="checked" @endif> &nbsp; Save Emails on convertKit
-						</label>
+						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="auto_response" value="1" @if($form["auto_response"] == 1) checked="checked" @endif>
+						<label> &nbsp;Do Not Show Results</label>
 					</div>
-				</div>	
-				@endif			
-			</div>
-			<div class="row">
-				<div class="col-md-6">
+					<div class="form-group">
+						<input type="checkbox" class="switch email-collection" data-toggle="toggle"  data-onstyle="success" data-offstyle="danger" name="email_collection" value="1" @if($form["email_collection"] == 1) checked="checked" @endif>
+						<label> &nbsp;Email collection</label>
+					</div>
 					<div class="form-group email_collection_title" @if($form["email_collection"] == 0) style="display:none;" @endif>
 						<label for="email_collection_title">Email Collection Title</label>
 						<input type="text" placeholder="Email Collection Title" class="form-control" name="email_collection_title" id="email_collection_title" value="{{ $form['email_collection_title'] }}"/>
 					</div>
-				</div>
-				@if($convKitForms)
-				<div class="col-md-6">
+					<div class="form-group">
+						<input type="checkbox" class="switch name-collection" name="name_collection" value="1" @if($form["name_collection"] == 1) checked="checked" @endif @if($form["email_collection"] == 0) disabled="disabled" @endif  data-toggle="toggle" data-onstyle="success" data-offstyle="danger">						
+						<label>&nbsp;First name<small>(For Email collection)</small></label>
+					</div>
+					@if($convKitForms)
+					<div class="form-group">
+						<input type="checkbox" class="switch convert-kit-opt" name="convert_kit_opt" value="1" @if($form["convert_kit_opt"] == 1) checked="checked" @endif  @if($form["email_collection"] == 0) disabled="disabled" @endif data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+						<label> &nbsp; Save Emails on convertKit</label>
+					</div>
 					<div class="form-group convert_kit_form_id" @if($form["convert_kit_opt"] == 0) style="display:none;" @endif>
 						<label for="convert_kit_form_id">Select Convert kit Form</label>
 						<select class="form-control" name="convert_kit_form_id" id="convert_kit_form_id">
 							<option value="">-- Select Form --</option>
 							@foreach($convKitForms as $convKitForm)
-								<option value="{{$convKitForm['id']}}" @if($convKitForm['id']==$form['convert_kit_form_id']) selected="seleced" @endif>{{$convKitForm['name']}}</option>
+							<option value="{{$convKitForm['id']}}" @if($convKitForm['id']==$form['convert_kit_form_id']) selected="seleced" @endif>{{$convKitForm['name']}}</option>
 							@endforeach
 						</select>
 					</div>					
+					@endif											
 				</div>
-				@endif
-			</div>		
-			<div class="row form-group">
-				<!-- /.col -->
-				<!-- /.col -->				
-				<div class="col-md-12">
-					<ul id="accordion" class="field-list ui-sortable">
-						@if ($form['fields_arr'])
-						@php $fieldTypes= [1=>'Text',2=>'Email',3=>'Phone',4=>'Textarea',5=>'Select/Dropdown',6=>'Radio',7=>'Checkbox',8=>'Image',9=>'File']; @endphp
-						@foreach($form['fields_arr'] as $fieldKey => $field)
-						<li data-key="{{$fieldKey}}" style="" class="field panel field_{{$fieldKey}}">
+			</div>
+		</div>
+	</div>
+
+	<div class="row form-group">				
+		<div class="col-md-7">
+			<ul id="accordion" class="field-list ui-sortable">
+				@if ($form['fields_arr'])
+				@php $fieldTypes= [1=>'Text',2=>'Email',3=>'Phone',4=>'Textarea',5=>'Select/Dropdown',6=>'Radio',7=>'Checkbox',8=>'Image',9=>'File']; @endphp
+				@foreach($form['fields_arr'] as $fieldKey => $field)
+				<li data-key="{{$fieldKey}}" style="" class="field field_{{$fieldKey}}">
+					<div class="box">
+						<div class="box-header">
 							<span class="handle ui-sortable-handle">
 								<i class="fa fa-arrows"></i>
 							</span>
-							<span class="text">{{$field['label']}}</span>
-							<small class="label label-default">{{$fieldTypes[$field['fieldType']]}}</small>
-							<div class="tools">
-								<a class="edit-field" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
-									<i class="fa fa-edit"></i> 
+							<h3 class="box-title text-uppercase"><span class="text">{{$field['label']}}</span> <small class="label label-default">{{$fieldTypes[$field['fieldType']]}}</small></h3>
+							<div class="pull-right box-tools">
+								<a class="edit-field btn btn-default btn-collapse btn-sm" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
+									<i class="fa fa-chevron-down"></i>
 								</a>
-								<a href="javascript:;" class="text-red remove-field"><i class="fa fa-trash-o"></i></a>
+								<a href="javascript:;" class="text-red remove-field btn btn-danger btn-collapse btn-sm"><i class="fa fa-trash-o"></i></a>
 							</div>
-							<div id="field_data_{{$fieldKey}}" class="panel-collapse collapse">
-								<div class="row">
-									<div class="col-md-4"> 
-										<div class="form-group"> 
-											<label for="field_type_{{$fieldKey}}">Field Type</label>
-											<select class="form-control select2 field-type" style="width:100%;" name="field_type['{{$fieldKey}}']" id="field_type_{{$fieldKey}}">
-												<option value="1" @if($field['fieldType']==1) selected="selected" @endif>Text</option>
-												<option value="2" @if($field['fieldType']==2) selected="selected" @endif>Email</option>
-												<option value="3" @if($field['fieldType']==3) selected="selected" @endif>Phone</option>
-												<option value="4" @if($field['fieldType']==4) selected="selected" @endif>Textarea</option>
-												<option value="5" @if($field['fieldType']==5) selected="selected" @endif>Select/Dropdown</option>
-												<option value="6" @if($field['fieldType']==6) selected="selected" @endif>Radio</option>
-												<option value="7" @if($field['fieldType']==7) selected="selected" @endif>Checkbox</option>
-												<option value="8" @if($field['fieldType']==8) selected="selected" @endif>Image</option>
-												<option value="9" @if($field['fieldType']==9) selected="selected" @endif>File</option> 
-											</select> 
-										</div> 
+						</div>		
+						<div id="field_data_{{$fieldKey}}" class="box-body panel-collapse collapse">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group"> 
+										<label for="field_label_{{$fieldKey}}">Question <strong class="text-red">*</strong></label> 
+										<input type="text" class="form-control field-label" id="field_label_{{$fieldKey}}" placeholder="Enter field label" name="field_label_['{{$fieldKey}}']" value="{{$field['label']}}" > 
 									</div>
-									<div class="col-md-4">
-										<div class="form-group"> 
-											<label for="field_label_{{$fieldKey}}">Label <strong class="text-red">*</strong></label> 
-											<input type="text" class="form-control field-label" id="field_label_{{$fieldKey}}" placeholder="Enter field label" name="field_label_['{{$fieldKey}}']" value="{{$field['label']}}" > 
-										</div>
+								</div>
+							</div>
+							<div class="row">								
+								<div class="col-md-9"> 
+									<div class="form-group"> 
+										<label for="field_type_{{$fieldKey}}">Question Type</label>
+										<select class="form-control select2 field-type" style="width:100%;" name="field_type['{{$fieldKey}}']" id="field_type_{{$fieldKey}}">
+											<option value="1" @if($field['fieldType']==1) selected="selected" @endif>Text</option>
+											<option value="2" @if($field['fieldType']==2) selected="selected" @endif>Email</option>
+											<option value="3" @if($field['fieldType']==3) selected="selected" @endif>Phone</option>
+											<option value="4" @if($field['fieldType']==4) selected="selected" @endif>Textarea</option>
+											<option value="5" @if($field['fieldType']==5) selected="selected" @endif>Select/Dropdown</option>
+											<option value="6" @if($field['fieldType']==6) selected="selected" @endif>Radio</option>
+											<option value="7" @if($field['fieldType']==7) selected="selected" @endif>Checkbox</option>
+											<option value="8" @if($field['fieldType']==8) selected="selected" @endif>Image</option>
+											<option value="9" @if($field['fieldType']==9) selected="selected" @endif>File</option> 
+										</select> 
 									</div> 
-									<div class="col-md-4">
-										<div class="form-group"> 
-											<div class="form-group"> 
-												<label class="col-md-12">&nbsp;</label> 
-												<label><input type="checkbox" class="minimal field-required" name="field_required_['{{$fieldKey}}']" value="1" @if($field["required"] == 1) checked="checked" @endif> &nbsp;Required</label> 
-											</div> 
-										</div>   
-									</div> 
-									<div class="clearfix"></div>
-									<div class="col-md-4">
-										<div class="form-group"> 
-											<label for="field_id_{{$fieldKey}}">Id </label>
-											<input type="text" class="form-control field-id" id="field_id_{{$fieldKey}}" placeholder="Field ID (Optional)" name="field_id_['{{$fieldKey}}']" value="{{$field['id']}}"> 
+								</div>
+								<div class="col-md-3">
+									<div class="form-group"> 
+										<div class="form-group">
+											<label class="col-md-12">&nbsp;</label> 
+											<input type="checkbox" class="switch field-required" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="field_required_['{{$fieldKey}}']" value="1" @if($field["required"] == 1) checked="checked" @endif >
+											<label> &nbsp;Required</label>
 										</div> 
-									</div> 
-									<div class="col-md-4"> 
-										<div class="form-group">  
-											<label for="field_class_{{$fieldKey}}">Class</label> 
-											<input type="text" class="form-control field-class" name="field_class_['{{$fieldKey}}']" id="field_class_{{$fieldKey}}" placeholder="Field Class (Optional)" value="{{$field['fclass']}}">
-										</div>
+									</div>   
+								</div> 
+								<div class="clearfix"></div>
+								<div class="col-md-12">
+									<div class="form-group field_placeholder_container" style="@if($field['fieldType'] > 4 ) display:none @endif"> 
+										<label for="field_placeholder_{{$fieldKey}}">Placeholder</label>
+										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Field Placeholder (Optional)" value="{{$field['placeholder']}}"> 
 									</div>
-									<div class="col-md-4">
-										<div class="form-group field_placeholder_container" style="@if($field['fieldType'] > 4 ) display:none @endif"> 
-											<label for="field_placeholder_{{$fieldKey}}">Placeholder</label>
-											<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Field Placeholder (Optional)" value="{{$field['placeholder']}}"> 
-										</div>
-										<div class="form-group field_values_container " style="@if(in_array($field['fieldType'],[1,2,3,4,8,9])) display:none @endif" > 
-											<label for="field_values_{{$fieldKey}}">Values <strong class="text-red">*</strong></label> 
-											<input type="text" class="form-control field-values" name="field_values_['{{$fieldKey}}']" id="field_values_{{$fieldKey}}" placeholder="Field values (Comma seprated. eg. value one,value two,value three)" value="{{$field['values']}}">
-										</div>                 
-									</div> 
-									<div class="clearfix"></div>  
-									<div class="col-md-6">  
-										<div class="form-group">  
-											<label for="field_before_{{$fieldKey}}">Before Text</label>  
-											<textarea class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Field (Optional)">{{$field['before']}}</textarea>  
-										</div>                      
+									<div class="form-group field_values_container " style="@if(in_array($field['fieldType'],[1,2,3,4,8,9])) display:none @endif" > 
+										<label for="field_values_{{$fieldKey}}">Options <strong class="text-red">*</strong></label> 
+										<?php $options = explode(',',$field['values']); ?>
+										@foreach($options as $option)
+										<div class="option">
+											<input type="text" class="form-control field-values" name="field_values_['{{$fieldKey}}']" id="field_values_{{$fieldKey}}" placeholder="Option" value="{{$option}}">
+											@if (!$loop->first)
+											<a href="javascript:;" class="text-red remove-option btn btn-danger btn-collapse btn-sm"><i class="fa fa-minus"></i></a>
+											@endif
+										</div>										
+										@endforeach
+										<a href="javascript:;" class="add-option btn btn-default btn-collapse btn-sm">
+											<i class="fa fa-plus"></i>
+										</a>										
+									</div> 									
+								</div> 
+								<div class="clearfix"></div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_before_{{$fieldKey}}">Before Text</label>  
+										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Field (Optional)" value="{{$field['before']}}">
+									</div>                      
+								</div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_after_{{$fieldKey}}">After Text</label>  
+										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)" value="{{$field['after']}}">
+									</div>                          
+								</div>                    
+								<div class="clearfix"></div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_image_pos_{{$fieldKey}}">Field Image Position</label>  
+										<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_{{$fieldKey}}" name="field_image_pos_['{{$fieldKey}}']">  
+											<option value="0" @if($field['imagePos'] == 0) selected="selected" @endif >Before Form</option>  
+											<option value="1" @if($field['imagePos'] == 1) selected="selected" @endif >After Form</option>  
+										</select>  
 									</div>  
-									<div class="col-md-6">  
-										<div class="form-group">  
-											<label for="field_after_{{$fieldKey}}">After Text</label>  
-											<textarea id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)">{{$field['after']}}</textarea>  
-										</div>                          
-									</div>                    
-									<div class="clearfix"></div>  
-									<div class="col-md-4">  
-										<div class="form-group">  
-											<label for="field_image_pos_{{$fieldKey}}">Field Image Position</label>  
-											<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_{{$fieldKey}}" name="field_image_pos_['{{$fieldKey}}']">  
-												<option value="0" @if($field['imagePos'] == 0) selected="selected" @endif >Before Form</option>  
-												<option value="1" @if($field['imagePos'] == 1) selected="selected" @endif >After Form</option>  
-											</select>  
-										</div>  
-									</div>    
-									<div class="col-md-8">  
-										<div class="form-group">  
-											<label for="field_image_{{$fieldKey}}">Field Image</label>
-											@if(isset($field['image']) && $field['image'] !="")
-											&nbsp; &nbsp;<a data-href="{{$field['image']}}" href="javascript:;" class="btn btn-info btn-xs img-view" >View</a>
-											&nbsp; &nbsp;<a href="javascript:;" class="btn btn-xs btn-danger remove-field-img">Remove</a>
-											@endif 
-											<input type="file" class="form-control field-image" accept="image/*" id="field_image_{{$fieldKey}}" name="field_image_['{{$fieldKey}}']">  
-											<small>Maximum 1MB allowed.</small>
-										</div>  
+								</div>    
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_image_{{$fieldKey}}">Field Image</label>
+										@if(isset($field['image']) && $field['image'] !="")
+										&nbsp; &nbsp;<a data-href="{{$field['image']}}" href="javascript:;" class="btn btn-info btn-xs img-view" >View</a>
+										&nbsp; &nbsp;<a href="javascript:;" class="btn btn-xs btn-danger remove-field-img">Remove</a>
+										@endif 
+										<input type="file" class="form-control field-image" accept="image/*" id="field_image_{{$fieldKey}}" name="field_image_['{{$fieldKey}}']">
+										<small>Maximum 1MB allowed.</small>
 									</div>  
 								</div>  
-							</div>
-						</li> 
-						@endforeach
-						@endif
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="hidden" id="fields_json" name="fields_json" value='{{$form["fields"]}}'>
-						<button type="button" class="btn btn-default add-field"><i class="fa fa-plus"></i> Add Field</button> 
-						&nbsp; &nbsp; <button type="submit" name="saveform" class="btn bg-blue">Save Form</button>
-						@if(Route::current()->getName() == 'single-form')
-						&nbsp; &nbsp; <button type="submit" name="saveformtemplate" class="btn btn-primary" value="1">Save Form with Template</button>
-						@endif
-					</div>
+							</div>  
+						</div>
 
-				</div>
-			</div>
-		</form>
+					</div>
+				</li> 
+				@endforeach
+				@else
+				<?php $fieldKey = str_slug(str_random(9)); ?>
+				<li data-key="{{$fieldKey}}" style="" class="field field_{{$fieldKey}}">
+					<div class="box">
+						<div class="box-header">
+							<span class="handle ui-sortable-handle">
+								<i class="fa fa-arrows"></i>
+							</span>
+							<h3 class="box-title text-uppercase"><span class="text">New Field</span> <small class="label label-default">Text</small></h3>
+							<div class="pull-right box-tools">
+								<a class="edit-field btn btn-default btn-collapse btn-sm" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
+									<i class="fa fa-chevron-down"></i>
+								</a>
+							</div>
+						</div>		
+						<div id="field_data_{{$fieldKey}}" class="box-body panel-collapse collapse in">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group"> 
+										<label for="field_label_{{$fieldKey}}">Question <strong class="text-red">*</strong></label> 
+										<input type="text" class="form-control field-label" id="field_label_{{$fieldKey}}" placeholder="Enter question" name="field_label_['{{$fieldKey}}']" value="" > 
+									</div>
+								</div>
+							</div>
+							<div class="row">								
+								<div class="col-md-9"> 
+									<div class="form-group"> 
+										<label for="field_type_{{$fieldKey}}">Question Type</label>
+										<select class="form-control select2 field-type" style="width:100%;" name="field_type['{{$fieldKey}}']" id="field_type_{{$fieldKey}}">
+											<option value="1">Text</option>
+											<option value="2">Email</option>
+											<option value="3">Phone</option>
+											<option value="4">Textarea</option>
+											<option value="5">Select/Dropdown</option>
+											<option value="6">Radio</option>
+											<option value="7">Checkbox</option>
+											<option value="8">Image</option>
+											<option value="9">File</option> 
+										</select> 
+									</div> 
+								</div>
+								<div class="col-md-3">
+									<div class="form-group"> 
+										<div class="form-group">
+											<label class="col-md-12">&nbsp;</label> 
+											<input type="checkbox" class="switch field-required" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="field_required_['{{$fieldKey}}']" value="1" >
+											<label> &nbsp;Required</label>
+										</div> 
+									</div>   
+								</div> 
+								<div class="clearfix"></div>
+								<div class="col-md-12">
+									<div class="form-group field_placeholder_container"> 
+										<label for="field_placeholder_{{$fieldKey}}">Question default value</label>
+										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Question Placeholder (Optional)" value=""> 
+									</div>
+									<div class="form-group field_values_container " style="display:none" > 
+										<label for="field_values_{{$fieldKey}}">Options <strong class="text-red">*</strong></label>
+										<div class="option">
+											<input type="text" class="form-control field-values" name="field_values_['{{$fieldKey}}']" id="field_values_{{$fieldKey}}" placeholder="Option">
+										</div>
+										<a href="javascript:;" class="add-option btn btn-default btn-collapse btn-sm">
+											<i class="fa fa-plus"></i>
+										</a>
+									</div>                 
+								</div> 
+								<div class="clearfix"></div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_before_{{$fieldKey}}">Before Text</label>  
+										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Field (Optional)" value="">
+									</div>                      
+								</div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_after_{{$fieldKey}}">After Text</label>  
+										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)" value="">
+									</div>                          
+								</div>                    
+								<div class="clearfix"></div>  
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_image_pos_{{$fieldKey}}">Field Image Position</label>  
+										<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_{{$fieldKey}}" name="field_image_pos_['{{$fieldKey}}']">  
+											<option value="0">Before Form</option>  
+											<option value="1">After Form</option>  
+										</select>  
+									</div>  
+								</div>    
+								<div class="col-md-6">  
+									<div class="form-group">  
+										<label for="field_image_{{$fieldKey}}">Field Image</label>
+										<input type="file" class="form-control field-image" accept="image/*" id="field_image_{{$fieldKey}}" name="field_image_['{{$fieldKey}}']"> 
+										<small>Maximum 1MB allowed.</small>
+									</div>  
+								</div>  
+							</div>  
+						</div>
+					</div>
+				</li> 				
+				@endif
+			</ul>
+		</div>
 	</div>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="hidden" id="fields_json" name="fields_json" value=''>
+				<button type="button" class="btn btn-default add-field"><i class="fa fa-plus"></i> Add Field</button> 
+				&nbsp; &nbsp; <button type="submit" name="saveform" class="btn bg-blue">Save Form</button>
+				@if(Route::current()->getName() == 'single-form')
+				&nbsp; &nbsp; <button type="submit" name="saveformtemplate" class="btn btn-primary" value="1">Save Form with Template</button>
+				@endif
+			</div>
+		</div>
+	</div>
+</form>
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalimageView">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

@@ -111,7 +111,8 @@ class FormsController extends Controller
 	}
 	public function save(Request $request){
 		$valid = request()->validate([
-			'name' => 'required'
+			'name' => 'required',
+			'submit_text' => 'required'
 		]);
 
 		$form = [];
@@ -126,7 +127,7 @@ class FormsController extends Controller
 		$form['convert_kit_opt'] = (isset($request->convert_kit_opt))  ? 1 : 0;
 		$form['convert_kit_form_id'] = $request->convert_kit_form_id;
 		$form['success_message'] = $request->success_message;
-		$form['submit_text'] = $request->submit_text;
+		$form['submit_text'] = ($request->submit_text) ?  $request->submit_text : "submit";
 		$form['email_collection_title'] = $request->email_collection_title;	
 		$form['auto_response'] = (isset($request->auto_response))  ? 1 : 0;
 		$form['response_text'] = $request->response_text;

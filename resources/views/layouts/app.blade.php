@@ -34,6 +34,10 @@
 	<link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+
+	<!-- Bootstrap Toggle/Switch -->
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 	<link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
@@ -246,6 +250,10 @@
 	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 	<!-- iCheck -->
 	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+	
+	<!-- Bootstrap Toggle/Switch -->
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 	@stack('scripts')
 	<script type="text/javascript" src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>	

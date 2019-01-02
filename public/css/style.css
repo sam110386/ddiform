@@ -35,7 +35,7 @@
 
 input[type=file] {padding: 0;border: none;}
 .menu-open .treeview-menu {
-    display: block;
+  display: block;
 }
 
 
@@ -120,42 +120,85 @@ input[type=file] {padding: 0;border: none;}
   margin: 0 5px;
 }
 .field-list .sort-highlight {
-    background: #ecf0f5;
-    border: 2px dashed #97c5ed;
-    margin-bottom: 10px;
+  background: #ecf0f5;
+  border: 2px dashed #97c5ed;
+  margin-bottom: 10px;
 }
 
 #accordion .field.panel .row {
-    margin: 10px 0 0 0;
-    background: #fff;
-    padding: 10px 0;
+  margin: 10px 0 0 0;
+  background: #fff;
+  padding: 10px 0;
 }
-li.field {
-    border-left: 3px solid #0097bc !important;
-}
-li.field.field-error {
-    border-left: 3px solid #c23321 !important;
-}
+/*li.field {
+  border-left: 3px solid #0097bc !important;
+}*/
+/*li.field.field-error {
+  border-left: 3px solid #c23321 !important;
+}*/
 
 .form-actions a,.form-actions form{margin-right: 10px;}
 .form-actions button{padding: 0; line-height: 0;}
 
 .vcenter {
-   display: inline-block;
-   vertical-align: middle;
-   float: none;
+ display: inline-block;
+ vertical-align: middle;
+ float: none;
 }
 
 
 
 .response.table tbody td > p {
-    height: 20px;
-    overflow: hidden;
+  height: 20px;
+  overflow: hidden;
 }
 textarea.form-description{min-height: 108px;}
 .single-chart {border: 1px solid #ccc; padding: 0 5px;}
-.single-chart span{mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;
-font-weight: bold;}
+.single-chart span{mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;font-weight: bold;}
 .single-chart .progress{margin-bottom: 5px;}
 .single-chart .progress:first-child{margin-top:5px;}
 .single-chart .progress .chart-option{position: absolute;right: 20px;}
+
+
+/*2019 01 02*/
+.content-wrapper{background-color: #f8f8f8;}
+.box-shadow,.box{box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);}
+.box > hr{margin: 0;}
+.box .box-header{border-bottom: 1px solid #dedede;}
+.btn-collapse,.btn-collapse:active,.btn-collapse:hover ,.btn-collapse:focus {
+  background: transparent;
+  border: 1px solid #3C8DBC;
+  color: #3C8DBC;
+  border-radius: 40px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+a.btn-collapse ,a.btn-collapse:hover,a.btn-collapse:active,a.btn-collapse:focus{padding: 5px 7.5px;}
+label{font-weight: 400;}
+a.btn-collapse:hover{background: #3C8DBC; color: #fff !important;}
+.form-control {
+  height: auto;
+  border-radius: .1rem;
+  outline: initial !important;
+  box-shadow: none !important;
+  padding: 10px;
+  line-height: 1.5;
+  border: 1px solid #d7d7d7;
+  background: #fff;
+  color: #616161;
+}
+.field-list > li.field{border: none; background: transparent;padding: 0;}
+li.field .box-body {padding: 15px;}
+li.field .remove-field,li.field .remove-field:active,li.field .remove-field:hover,li.field .remove-field:focus{font-size: 15px;
+padding: 3px 8px;border: #dd4b39 1px solid;}
+a.remove-field:hover{background: #dd4b39; color: #fff !important;}
+.custom-file input[type="file"] {display: none;}
+li.field .box-header {padding: 15px;}
+input[type="file"] {height: 40px;}
+.field.field-error .box {border-color: #dd4b39;}
+.field_values_container .option{position: relative;margin-bottom: 10px;}
+.field_values_container .option a.remove-option{position: absolute;
+right: 5px;top: 6px;border: #dd4b39 1px solid;}
+.field_values_container .option a.remove-option:hover,.field_values_container .option a.remove-option:active,.field_values_container .option a.remove-option:focus{color: #fff; background: #dd4b39;}
