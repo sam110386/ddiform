@@ -59,3 +59,11 @@ Route::group([
     $router->post('/integration/convertkit/', 'ConvertKitController@save')->name('convertkit-integration-save');
 
 });
+
+
+Route::group([
+    'prefix'        => 'cron',
+], function (Router $router) {
+    // Account Routes
+    $router->get('/convertkit/email/send', 'CronController@processEmailsForConvertKit')->name('send-email-convertkit');
+});
