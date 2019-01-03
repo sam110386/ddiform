@@ -83,6 +83,9 @@ class AdminFormsController extends Controller{
         $chartField = array_filter($chartField,function($arr){ return in_array($arr['fieldType'],[5,6,7]); });
         foreach ($chartField as $key => $field) {
             $options = ($field['values']) ? explode(',',$field['values']) : [];
+            $options = array_map(function($arr){
+                return trim($arr);  
+            }, $options);            
             $options =  array_flip($options);
             $options = array_map(function($arr){return 0;}, $options);
             $chartField[$key]['options'] = $options;
@@ -141,9 +144,11 @@ class AdminFormsController extends Controller{
         if($chartField[$key]['fieldType']==7){
             $values = explode(',',$value);
             foreach ($values as $val) {
+                $val = trim($val);
                 $chartField[$key]['options'][$val]++;
             }   
         }else{
+            $value = trim($value);
             $chartField[$key]['options'][$value]++;
         }
         return $chartField;

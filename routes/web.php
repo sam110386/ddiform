@@ -17,6 +17,9 @@
 use Illuminate\Routing\Router;
 
 Auth::routes();
+// Logout exception
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
+
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');

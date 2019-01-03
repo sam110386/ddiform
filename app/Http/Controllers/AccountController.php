@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\UserForm;
+use App\Http\Controllers\FormResponsesController;
 class AccountController extends Controller
 {
 	/**
@@ -31,10 +33,19 @@ class AccountController extends Controller
 		if(!$profile['avatar']){
 			$profile['avatar'] = '/img/avatar5.png';
 		}
-		$pageData = ['title' => 'Dashboard','profile' => $profile];
+		$recentForms = $this->getRecentForm(5);
+		$pageData = ['title' => 'Dashboard','profile' => $profile,'recentForms' =>$recentForms];
 		return view('Account.dashboard',$pageData);
 	}
 
+	private function getRecentForm($limit = 5){
+		$forms = UserForm::where('status',1)->where('is_deleted',0)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->take($limit)->get();
+		foreach ($forms as  $form) {
+			$FormResponses = new FormResponsesController();
+			$form->formChart = $FormResponses->chartForDashboard($form->form_key);
+		}
+		return $forms;
+	}
 
 	public function view(){
 		$profile = Auth::user();

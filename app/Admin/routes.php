@@ -20,4 +20,10 @@ Route::group([
     $router->post('/form/{key}/{status}', 'AdminFormsController@updateFormStatus')->name('admin-update-form-status');
     $router->delete('/form/{key}', 'AdminFormsController@destroyForm')->name('admin-remove-form');    
 
+    $router->get('/forms/my', 'FormsController@index')->name('admin-forms');
+    $router->get('/forms/new', 'FormsController@new')->name('admin-new-form');
+    $router->get('/form/{key?}', 'FormsController@edit')->name('admin-single-form');
+    $router->post('/form/{key?}', 'FormsController@save')->name('admin-save-form');
+
+
 });

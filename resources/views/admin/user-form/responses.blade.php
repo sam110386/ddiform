@@ -26,7 +26,7 @@
 						<td>
 							@isset(json_decode($response->data, true)[$key])
 							@if(in_array($field['fieldType'], [8,9]) )
-							<a target="_BLANK" class="@if($field['fieldType']==8) modal-img-view @endif" href="{{json_decode($response->data, true)[$key]}}" data-href="{{json_decode($response->data, true)[$key]}}">
+							<a target="_BLANK" class="@if($field['fieldType']==8) modal-img-view @endif" href="@if($field['fieldType']==8)javascript:;@else{{json_decode($response->data, true)[$key]}}@endif" data-href="{{json_decode($response->data, true)[$key]}}">
 								<i class="fa @if($field['fieldType']==8) fa-picture-o @else fa-file @endif"></i>
 							</a>
 							@else
