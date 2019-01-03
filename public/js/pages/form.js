@@ -256,7 +256,7 @@ $(document).on('click','.remove-option',function(){
 			$("#submit_text").parent('.form-group').addClass("has-error");
 			error =  true;
 		}
-		var chckValue = $('.convert-kit-opt').iCheck('update')[0].checked;
+		var chckValue = $('.convert-kit-opt').prop('checked');
 		if(chckValue && $("#convert_kit_form_id").val() == ""){
 			$("#convert_kit_form_id").parent('.form-group').addClass("has-error");
 			error =  true;
@@ -287,7 +287,7 @@ $(document).on('click','.remove-option',function(){
 			}
 			var options = [];
 			fld.find('.field-values').each(function(i,option){
-				options.push(option.value);
+				if(option.value && $.trim(option.value)) options.push($.trim(option.value));
 			});
 			fieldValues = options.join(', ');
 
