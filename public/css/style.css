@@ -154,7 +154,7 @@ input[type=file] {padding: 0;border: none;}
 }
 textarea.form-description{min-height: 108px;}
 .single-chart {border: 1px solid #ccc; padding: 0 5px;}
-.single-chart span{mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;font-weight: bold;}
+.single-chart span{/*mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;*/ color:#000; font-weight: bold;}
 .single-chart .progress{margin-bottom: 5px;}
 .single-chart .progress:first-child{margin-top:5px;}
 .single-chart .progress .chart-option{position: absolute;right: 20px;}
@@ -179,7 +179,7 @@ a.btn-collapse ,a.btn-collapse:hover,a.btn-collapse:active,a.btn-collapse:focus{
 label{font-weight: 400;}
 a.btn-collapse:hover{background: #3C8DBC; color: #fff !important;}
 .form-control {
-  height: auto;
+  height: auto !important;
   border-radius: .1rem;
   outline: initial !important;
   box-shadow: none !important;

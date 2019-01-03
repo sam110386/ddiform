@@ -44,7 +44,7 @@ var saveEmail = function(){
 		if(res.status){
 			emailCollected = true;
 			$(".email-collection-form-container").fadeOut();
-			showResponse();
+			displayChart();
 		}else{
 			reloadNotification("",res.message);
 		}
@@ -70,20 +70,21 @@ var saveData =  function(){
 	callAjax(config,function(res) {
 		$('.loader-overley').fadeOut();
 		if(!res.status) reloadNotification("",res.message);
-		if(formHide == 1) $('.ddi-form-container').fadeOut();
-		$('.user-reposnse').prepend("<div class='success-message text-center'><h3>" + res.message + "</h3></div>");
-		if(autoResponse == 1){
-			checkEmailCollection();
-			return;
+		var thankYouHtml = "<div class='success-message text-center'><h3>" + res.message + "</h3></div>";
+		if(showResponse == 1){
+			$('.user-reposnse').prepend(thankYouHtml);
+			$('.ddi-form-container').remove();
+			$('.user-reposnse').append(
+				"<div class='text-center'>" +
+				"<p>"+ responseText + "</p>" +
+				"<button class='btn btn-info get-response'>Yes</button>" +
+				"<p>&nbsp;</p>" +
+				"</div>"
+				);
+			$(".response-container").fadeIn();
+		}else{
+			$('.ddi-form-container .box-body').html(thankYouHtml);
 		}
-		$('.user-reposnse').append(
-			"<div class='text-center'>" +
-			"<p>"+ responseText + "</p>" +
-			"<button class='btn btn-info get-response'>Yes</button>" +
-			"<p>&nbsp;</p>" +
-			"</div>"
-			);
-		$(".response-container").fadeIn();
 	});
 }
 
@@ -93,10 +94,10 @@ function checkEmailCollection(){
 		$('.email-collection-form-container').fadeIn();
 		return;
 	}
-	showResponse();
+	displayChart();
 }
 
-function showResponse(){
+function displayChart(){
 	if(emailCollection == 1 && !emailCollected){
 		reloadNotification("","Something went wrong! Please refresh page and try again.");
 		return false;
@@ -128,7 +129,7 @@ function genarateChart(chartData){
 			$.each(data['options'],function(i,val){
 				chart += '<div class="progress" data-toggle="tooltip" data-placement="top" title="'+ i +' '+ val +'%">'+
 				'<span class="pull-right p-r-10 chart-option">'+ i +'</span>'+
-				'<div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="'+ val +'" aria-valuemin="0" aria-valuemax="100" style="width: '+ val +'%;background: '+ getRandomColor() +';">' +
+				'<div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="'+ val +'" aria-valuemin="0" aria-valuemax="100" style="width: '+ val +'%;background: #'+ getRandomColor() +';">' +
 				'<span class="pull-left p-l-10">'+ val +'%</span>' +
 				'</div>' + 
 				'</div>';
@@ -141,15 +142,6 @@ function genarateChart(chartData){
 	$('[data-toggle="tooltip"]').tooltip();
 	$(".response-container").fadeIn();
 
-}
-
-function getRandomColor() {
-	var letters = '0123456789A01345';
-	var color = '#';
-	for (var i = 0; i < 6; i++) {
-		color += letters[Math.floor(Math.random() * 16)];
-	}
-	return color;
 }
 $(window).on('load',function(){
 	$("#email-collection-form").vf({errorShow: false,onValid: saveEmail});

@@ -67,7 +67,7 @@
 				</div>			
 				<div class="box-body">		
 					<div class="form-group">
-						<label for="columns_each_row">Field(s) each row</label>
+						<label for="columns_each_row">Question(s) each row</label>
 						<select class="form-control select2" style="width:100%;" name="columns_each_row" id="columns_each_row">
 							<option value="col-md-12" @if($form["columns_each_row"] == "col-md-12") selected="selected" @endif>1</option>
 							<option value="col-md-6" @if($form["columns_each_row"] == "col-md-6") selected="selected" @endif >2</option>
@@ -88,7 +88,7 @@
 						<span data-toggle="tooltip" title="" data-original-title="You will notify when anyone submit form"><i class="fa fa-question-circle"></i></span>
 					</div>
 					<div class="form-group">
-						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="auto_response" value="1" @if($form["auto_response"] == 1) checked="checked" @endif>
+						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="auto_response" value="1" @if($form["auto_response"] == 0) checked="checked" @endif>
 						<label> &nbsp;Do Not Show Results</label>
 					</div>
 					<div class="form-group">
@@ -140,7 +140,9 @@
 								<a class="edit-field btn btn-default btn-collapse btn-sm" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
 									<i class="fa fa-chevron-down"></i>
 								</a>
+								@if (!$loop->first)
 								<a href="javascript:;" class="text-red remove-field btn btn-danger btn-collapse btn-sm"><i class="fa fa-trash-o"></i></a>
+								@endif
 							</div>
 						</div>		
 						<div id="field_data_{{$fieldKey}}" class="box-body panel-collapse collapse">
@@ -216,16 +218,16 @@
 								<div class="clearfix"></div>  
 								<div class="col-md-6">  
 									<div class="form-group">  
-										<label for="field_image_pos_{{$fieldKey}}">Field Image Position</label>  
+										<label for="field_image_pos_{{$fieldKey}}">Image Position</label>  
 										<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_{{$fieldKey}}" name="field_image_pos_['{{$fieldKey}}']">  
-											<option value="0" @if($field['imagePos'] == 0) selected="selected" @endif >Before Form</option>  
-											<option value="1" @if($field['imagePos'] == 1) selected="selected" @endif >After Form</option>  
+											<option value="0" @if($field['imagePos'] == 0) selected="selected" @endif >Before Question</option>  
+											<option value="1" @if($field['imagePos'] == 1) selected="selected" @endif >After Question</option>  
 										</select>  
 									</div>  
 								</div>    
 								<div class="col-md-6">  
 									<div class="form-group">  
-										<label for="field_image_{{$fieldKey}}">Field Image</label>
+										<label for="field_image_{{$fieldKey}}">Question Image</label>
 										@if(isset($field['image']) && $field['image'] !="")
 										&nbsp; &nbsp;<a data-href="{{$field['image']}}" href="javascript:;" class="btn btn-info btn-xs img-view" >View</a>
 										&nbsp; &nbsp;<a href="javascript:;" class="btn btn-xs btn-danger remove-field-img">Remove</a>
@@ -248,7 +250,7 @@
 							<span class="handle ui-sortable-handle">
 								<i class="fa fa-arrows"></i>
 							</span>
-							<h3 class="box-title text-uppercase"><span class="text">New Field</span> <small class="label label-default">Text</small></h3>
+							<h3 class="box-title text-uppercase"><span class="text">New Question</span> <small class="label label-default">Text</small></h3>
 							<div class="pull-right box-tools">
 								<a class="edit-field btn btn-default btn-collapse btn-sm" data-toggle="collapse" data-parent="#accordion" href="#field_data_{{$fieldKey}}" aria-expanded="false">
 									<i class="fa fa-chevron-down"></i>
@@ -310,28 +312,28 @@
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_before_{{$fieldKey}}">Before Text</label>  
-										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Field (Optional)" value="">
+										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Question (Optional)" value="">
 									</div>                      
 								</div>  
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_after_{{$fieldKey}}">After Text</label>  
-										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)" value="">
+										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Question (Optional)" value="">
 									</div>                          
 								</div>                    
 								<div class="clearfix"></div>  
 								<div class="col-md-6">  
 									<div class="form-group">  
-										<label for="field_image_pos_{{$fieldKey}}">Field Image Position</label>  
+										<label for="field_image_pos_{{$fieldKey}}"> Image Position</label>  
 										<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_{{$fieldKey}}" name="field_image_pos_['{{$fieldKey}}']">  
-											<option value="0">Before Form</option>  
-											<option value="1">After Form</option>  
+											<option value="0">Before Question</option>  
+											<option value="1">After Question</option>  
 										</select>  
 									</div>  
 								</div>    
 								<div class="col-md-6">  
 									<div class="form-group">  
-										<label for="field_image_{{$fieldKey}}">Field Image</label>
+										<label for="field_image_{{$fieldKey}}">Question Image</label>
 										<input type="file" class="form-control field-image" accept="image/*" id="field_image_{{$fieldKey}}" name="field_image_['{{$fieldKey}}']"> 
 										<small>Maximum 1MB allowed.</small>
 									</div>  
@@ -348,7 +350,7 @@
 		<div class="col-md-12">
 			<div class="form-group">
 				<input type="hidden" id="fields_json" name="fields_json" value=''>
-				<button type="button" class="btn btn-default add-field"><i class="fa fa-plus"></i> Add Field</button> 
+				<button type="button" class="btn btn-info add-field"><i class="fa fa-plus"></i> Add Question</button> 
 				&nbsp; &nbsp; <button type="submit" name="saveform" class="btn bg-blue">Save Form</button>
 				@if(Route::current()->getName() == 'single-form')
 				&nbsp; &nbsp; <button type="submit" name="saveformtemplate" class="btn btn-primary" value="1">Save Form with Template</button>

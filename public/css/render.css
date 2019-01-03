@@ -79,8 +79,7 @@
 }
 
 .single-chart {border: 1px solid #ccc; padding: 0 5px;}
-.single-chart span{mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;
-font-weight: bold;}
+.single-chart span{/*mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;*/color:#000;font-weight: bold;}
 .single-chart .progress{margin-bottom: 5px;}
 .single-chart .progress:first-child{margin-top:5px;}
 .single-chart .progress .chart-option{position: absolute;right: 20px;}

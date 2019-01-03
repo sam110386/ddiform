@@ -208,7 +208,11 @@ class FormResponsesController extends Controller
 		$chartField = array_filter($chartField,function($arr){ return in_array($arr['fieldType'],[5,6,7]); });
 		foreach ($chartField as $key => $field) {
 			$options = ($field['values']) ? explode(',',$field['values']) : [];
+			$options = array_map(function($arr){
+				return trim($arr);	
+			}, $options);
 			$options =  array_flip($options);
+			
 			$options = array_map(function($arr){return 0;}, $options);
 			$chartField[$key]['options'] = $options;
 		}
@@ -242,9 +246,11 @@ class FormResponsesController extends Controller
 		if($chartField[$key]['fieldType']==7){
 			$values = explode(',',$value);
 			foreach ($values as $val) {
+				$val = trim($val);
 				$chartField[$key]['options'][$val]++;
-			}	
+			}
 		}else{
+			$value = trim($value);
 			$chartField[$key]['options'][$value]++;
 		}
 		return $chartField;
@@ -265,6 +271,9 @@ class FormResponsesController extends Controller
 	}
 
 	public static function generateRandomColorCode(){
-		return substr(str_shuffle('1234567890ABCDEF'),0,6);
+		// $colors = ['FFFFFF','FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF','C0C0C0','808080','800000','808000','008000','800080','008080','000080','DC143C','FF0000','FF6347','FF7F50','CD5C5C','F08080','E9967A','FA8072','FFA07A','FF4500','FF8C00','FFA500','FFD700','B8860B','DAA520','EEE8AA','BDB76B','F0E68C','808000','FFFF00','9ACD32','556B2F','6B8E23','7CFC00','7FFF00','ADFF2F','006400','008000','228B22','00FF00','32CD32','90EE90','98FB98','8FBC8F','00FA9A','00FF7F','2E8B57','66CDAA','3CB371','20B2AA','2F4F4F','008080','008B8B','00FFFF','00FFFF','00CED1','40E0D0','48D1CC','7FFFD4','5F9EA0','4682B4','6495ED','00BFFF','1E90FF','191970','000080','00008B','0000CD','0000FF','4169E1','8A2BE2','4B0082','483D8B','6A5ACD','7B68EE','9370DB','8B008B','9400D3','9932CC','BA55D3','800080','D8BFD8','DDA0DD','EE82EE','FF00FF','DA70D6','C71585','DB7093','FF1493'];
+		$colors = ['FF0000','00FF00','0000FF','FFFF00','FF00FF','FF4500','FFD700','7CFC00','00FF00','0000CD','8A2BE2','FF00FF','800080','FF1493','CC00CC','9803FC','037FFC'];
+		return $colors[array_rand($colors)];
+		// return substr(str_shuffle('123045607889'),0,6);
 	}
 }

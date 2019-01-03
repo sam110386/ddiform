@@ -3,8 +3,7 @@
 <script type="text/javascript" src="{{ asset('js/pages/render.js') }}"></script>
 <script  type="text/javascript">
 	var emailCollection = parseInt("{{$form['email_collection']}}");
-	var autoResponse = parseInt("{{$form['auto_response']}}");
-	var formHide = parseInt("{{$form->hide}}");
+	var showResponse = parseInt("{{$form['auto_response']}}");
 	var responseText = "{{$form->response_text}}";
 </script>
 @endpush
@@ -24,6 +23,11 @@
 				</div>
 			</div>
 			@endif
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>{!! nl2br(e($form->description)) !!}</p>
+				</div>
+			</div>
 			<form id="ddi-form" class="ddi-form" action="{{route('save-form-data',$form['form_key'])}}" method="POST" enctype="multipart/form-data">
 				{{ csrf_field() }}
 				<div class="row">
@@ -39,6 +43,9 @@
 					@endif
 					@foreach($form->fields_arr as $key => $field)
 					<div class="{{$form->columns_each_row}}">
+						@if($field['before'])
+						<p>{{$field['before']}}</p>
+						@endif
 						@if(isset($field['image']) && $field['imagePos'] == 0)
 						<div class="form-group ">
 							<img src="{{$field['image']}}" class="img-responsive" />
@@ -46,8 +53,13 @@
 						@endif
 						<?php echo FormResponsesController::generateField($key,$field); $fieldsCount++; ?>
 						@if(isset($field['image']) && $field['imagePos'] == 1)
-						<img src="{{$field['image']}}" class="img-responsive" />
-						@endif					
+						<div class="form-group ">
+							<img src="{{$field['image']}}" class="img-responsive" />
+						</div>					
+						@endif
+						@if($field['after'])
+						<p>{{$field['after']}}</p>
+						@endif							
 					</div>
 					@if($fieldsEachRow == $fieldsCount)
 					<div class="clearfix"></div>
@@ -57,13 +69,15 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary">
-							@if($form['submit_text'])
-							{{$form['submit_text']}}
-							@else
-							Submit
-							@endif
-						</button>
+						<div class="form-group ">
+							<button type="submit" class="btn btn-primary">
+								@if($form['submit_text'])
+								{{$form['submit_text']}}
+								@else
+								Submit
+								@endif
+							</button>
+						</div>
 					</div>
 				</div>
 			</form>			
@@ -121,7 +135,7 @@
 <div class="container response-container m-b-50 " style="display:none;">
 	<div class="box">
 		<div class="box-header with-border">
-			<h3 class="box-title">{{$form->name}} - Other user's response</h3>
+			<h3 class="box-title">{{$form->name}} - Results</h3>
 		</div>
 		<div class="row">
 			<div class="col-md-12 user-reposnse">

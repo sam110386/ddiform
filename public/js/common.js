@@ -47,21 +47,20 @@ $(document).ready(function(){
 	});		
 });
 function getRandomColor() {
-	var letters = '0123456789A01345';
-	var color = '#';
-	for (var i = 0; i < 6; i++) {
-		color += letters[Math.floor(Math.random() * 16)];
-	}
+	var colors = ['FF0000','00FF00','0000FF','FFFF00','FF00FF','FF4500','FFD700','7CFC00','00FF00','0000CD','8A2BE2','FF00FF','800080','FF1493','CC00CC','9803FC','037FFC'];
+	color = colors[Math.floor(Math.random() * colors.length)];
 	return color;
 }
 $(window).on('load',function(){
 	if($(".loader-overley").length) $(".loader-overley").hide();
 	if($(".alert-dismissible").length) $('.alert-dismissible').delay(5000).slideUp(1000);
 	if($('.dataTable').length) $('.dataTable').DataTable();
-	$('.dataTable-responses').DataTable( {
-		initComplete: function(settings, json) {
-			$('.dataTables_length').append(' &nbsp;<button class="btn btn-sm btn-info view-stats" data-toggle="modal" data-target="#form-stats-model">View Stats</button>');
-		}
-	});
+	if($('.dataTable-responses').length){
+		$('.dataTable-responses').DataTable( {
+			initComplete: function(settings, json) {
+				$('.dataTables_length').append(' &nbsp;<button class="btn btn-sm btn-info view-stats" data-toggle="modal" data-target="#form-stats-model">View Stats</button>');
+			}
+		});
+	}
 	$('[data-toggle="tooltip"]').tooltip();
 })

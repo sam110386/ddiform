@@ -10,7 +10,7 @@ $(document).ready(function(){
 		' 			<span class="handle ui-sortable-handle">'+
 		' 				<i class="fa fa-arrows"></i>'+
 		' 			</span>'+
-		' 			<h3 class="box-title text-uppercase"><span class="text">New Field</span> <small class="label label-default">Text</small></h3>'+
+		' 			<h3 class="box-title text-uppercase"><span class="text">New Question</span> <small class="label label-default">Text</small></h3>'+
 		' 			<div class="pull-right box-tools">'+
 		' 				<a class="edit-field btn btn-default btn-collapse btn-sm" data-toggle="collapse" data-parent="#accordion" href="#field_data_'+ fieldKey +'" aria-expanded="false">'+
 		' 					<i class="fa fa-chevron-down"></i>'+
@@ -85,7 +85,7 @@ $(document).ready(function(){
 		' 				<div class="clearfix"></div>  '+
 		' 				<div class="col-md-6">  '+
 		' 					<div class="form-group">  '+
-		' 						<label for="field_image_pos_'+ fieldKey +'">Field Image Position</label>  '+
+		' 						<label for="field_image_pos_'+ fieldKey +'">Question Image Position</label>  '+
 		' 						<select class="form-control select2 field-image-pos" style="width:100%;" id="field_image_pos_'+ fieldKey +'" name="field_image_pos_['+ fieldKey +']">  '+
 		' 							<option value="0">Before Form</option>  '+
 		' 							<option value="1">After Form</option>  '+
@@ -94,7 +94,7 @@ $(document).ready(function(){
 		' 				</div>    '+
 		' 				<div class="col-md-6">  '+
 		' 					<div class="form-group">  '+
-		' 						<label for="field_image_'+ fieldKey +'">Field Image</label>'+
+		' 						<label for="field_image_'+ fieldKey +'">Question Image</label>'+
 		' 						<input type="file" class="form-control field-image" accept="image/*" id="field_image_'+ fieldKey +'" name="field_image_['+ fieldKey +']"> '+
 		' 						<small>Maximum 1MB allowed.</small>'+
 		' 					</div>  '+
@@ -142,7 +142,6 @@ $(document).on('click','.remove-option',function(){
 
 	$(document).on("change",".email-collection",function(e){
 		var chckValue = $(this).prop('checked');
-		debugger
 		if(!chckValue){
 			$('.name-collection').bootstrapToggle('off');
 			$('.name-collection').bootstrapToggle('disable');
@@ -258,7 +257,7 @@ $(document).on('click','.remove-option',function(){
 			error =  true;
 		}
 		var chckValue = $('.convert-kit-opt').iCheck('update')[0].checked;
-		if($("#convert_kit_form_id").val() == ""){
+		if(chckValue && $("#convert_kit_form_id").val() == ""){
 			$("#convert_kit_form_id").parent('.form-group').addClass("has-error");
 			error =  true;
 		}
