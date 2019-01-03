@@ -57,7 +57,7 @@ $(document).ready(function(){
 		' 				<div class="col-md-12">'+
 		' 					<div class="form-group field_placeholder_container"> '+
 		' 						<label for="field_placeholder_'+ fieldKey +'">Question default value</label>'+
-		' 						<input type="text" class="form-control field-placeholder" name="field_placeholder_['+ fieldKey +']" id="field_placeholder_'+ fieldKey +'" placeholder="Question Placeholder (Optional)" value=""> '+
+		' 						<input type="text" class="form-control field-placeholder" name="field_placeholder_['+ fieldKey +']" id="field_placeholder_'+ fieldKey +'" placeholder="Question default value (Optional)" value=""> '+
 		' 					</div>'+
 		'<div class="form-group field_values_container " style="display:none" > ' + 
 		'	<label for="field_values_'+ fieldKey +'">Options <strong class="text-red">*</strong></label>' + 
@@ -73,13 +73,13 @@ $(document).ready(function(){
 		' 				<div class="col-md-6">  '+
 		' 					<div class="form-group">  '+
 		' 						<label for="field_before_'+ fieldKey +'">Before Text</label>  '+
-		' 						<input type="text" class="form-control field-before" name="field_before_['+ fieldKey +']" id="field_before_'+ fieldKey +'" placeholder="Text/Tag before Field (Optional)" value="">'+
+		' 						<input type="text" class="form-control field-before" name="field_before_['+ fieldKey +']" id="field_before_'+ fieldKey +'" placeholder="Text question Field (Optional)" value="">'+
 		' 					</div>'+
 		' 				</div>  '+
 		' 				<div class="col-md-6">  '+
 		' 					<div class="form-group">  '+
 		' 						<label for="field_after_'+ fieldKey +'">After Text</label>  '+
-		' 						<input id="field_after_'+ fieldKey +'" name="field_after_['+ fieldKey +']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)" value="">'+
+		' 						<input id="field_after_'+ fieldKey +'" name="field_after_['+ fieldKey +']" class="form-control field-after" placeholder="Text after question (Optional)" value="">'+
 		' 					</div>'+
 		' 				</div>'+
 		' 				<div class="clearfix"></div>  '+
@@ -120,6 +120,9 @@ $(document).on('click','.remove-option',function(){
 	$(this).parent(".option").remove();
 });
 
+$(document).on('keyup','.field-label',function(){
+	$(this).closest('.field').find('span.text').text($(this).val());
+});
 	// Detect field type
 	$(document).on("change",".field-type", function(){
 		$this = $(this);

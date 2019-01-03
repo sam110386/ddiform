@@ -150,7 +150,7 @@
 								<div class="col-md-12">
 									<div class="form-group"> 
 										<label for="field_label_{{$fieldKey}}">Question <strong class="text-red">*</strong></label> 
-										<input type="text" class="form-control field-label" id="field_label_{{$fieldKey}}" placeholder="Enter field label" name="field_label_['{{$fieldKey}}']" value="{{$field['label']}}" > 
+										<input type="text" class="form-control field-label" id="field_label_{{$fieldKey}}" placeholder="Enter question label" name="field_label_['{{$fieldKey}}']" value="{{$field['label']}}" > 
 									</div>
 								</div>
 							</div>
@@ -183,8 +183,8 @@
 								<div class="clearfix"></div>
 								<div class="col-md-12">
 									<div class="form-group field_placeholder_container" style="@if($field['fieldType'] > 4 ) display:none @endif"> 
-										<label for="field_placeholder_{{$fieldKey}}">Placeholder</label>
-										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Field Placeholder (Optional)" value="{{$field['placeholder']}}"> 
+										<label for="field_placeholder_{{$fieldKey}}">Question default value</label>
+										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Question default value (Optional)" value="{{$field['placeholder']}}"> 
 									</div>
 									<div class="form-group field_values_container " style="@if(in_array($field['fieldType'],[1,2,3,4,8,9])) display:none @endif" > 
 										<label for="field_values_{{$fieldKey}}">Options <strong class="text-red">*</strong></label> 
@@ -206,13 +206,13 @@
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_before_{{$fieldKey}}">Before Text</label>  
-										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Field (Optional)" value="{{$field['before']}}">
+										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text before question (Optional)" value="{{$field['before']}}">
 									</div>                      
 								</div>  
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_after_{{$fieldKey}}">After Text</label>  
-										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Field (Optional)" value="{{$field['after']}}">
+										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text  after question (Optional)" value="{{$field['after']}}">
 									</div>                          
 								</div>                    
 								<div class="clearfix"></div>  
@@ -296,7 +296,7 @@
 								<div class="col-md-12">
 									<div class="form-group field_placeholder_container"> 
 										<label for="field_placeholder_{{$fieldKey}}">Question default value</label>
-										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Question Placeholder (Optional)" value=""> 
+										<input type="text" class="form-control field-placeholder" name="field_placeholder_['{{$fieldKey}}']" id="field_placeholder_{{$fieldKey}}" placeholder="Question default value (Optional)" value=""> 
 									</div>
 									<div class="form-group field_values_container " style="display:none" > 
 										<label for="field_values_{{$fieldKey}}">Options <strong class="text-red">*</strong></label>
@@ -312,13 +312,13 @@
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_before_{{$fieldKey}}">Before Text</label>  
-										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text/Tag before Question (Optional)" value="">
+										<input type="text" class="form-control field-before" name="field_before_['{{$fieldKey}}']" id="field_before_{{$fieldKey}}" placeholder="Text before Question (Optional)" value="">
 									</div>                      
 								</div>  
 								<div class="col-md-6">  
 									<div class="form-group">  
 										<label for="field_after_{{$fieldKey}}">After Text</label>  
-										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text/Tag after Question (Optional)" value="">
+										<input id="field_after_{{$fieldKey}}" name="field_after_['{{$fieldKey}}']" class="form-control field-after" placeholder="Text after Question (Optional)" value="">
 									</div>                          
 								</div>                    
 								<div class="clearfix"></div>  
