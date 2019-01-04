@@ -70,7 +70,9 @@
 				<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
 				Google+</a>
 			</div-->
-
+			<a href="{{ route('password.request') }}" class="text-danger">
+				Forgot Your Password?
+			</a><br>
 			<a href="{{ route('login') }}" class="text-center">I already have an Account</a>
 		</div>
 		<!-- /.form-box -->
