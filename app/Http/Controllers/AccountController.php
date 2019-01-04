@@ -33,7 +33,7 @@ class AccountController extends Controller
 		if(!$profile['avatar']){
 			$profile['avatar'] = '/img/avatar5.png';
 		}
-		$recentForms = $this->getRecentForm(5);
+		$recentForms = $this->getRecentForm(3);
 		$pageData = ['title' => 'Dashboard','profile' => $profile,'recentForms' =>$recentForms];
 		return view('Account.dashboard',$pageData);
 	}
