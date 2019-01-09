@@ -14,5 +14,5 @@
 
     </div>
     <!-- Default to the left -->
-    <strong>Powered by <a href="https://github.com/z-song/laravel-admin" target="_blank">laravel-admin</a></strong>
+    <strong>Designed by <a href="http://www.semanticglobal.com" target="_blank">Semantic Global Services</a></strong>
 </footer>

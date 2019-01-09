@@ -261,7 +261,7 @@ class FormResponsesController extends Controller
 		foreach ($chartField as $key => $value) {
 			$chartData[$key]['label'] = $value['label'];
 			$chartData[$key]['options'] =  array_map(function($val)use($totalRes){
-				$percentage = (($val*100)/$totalRes);
+				$percentage = $totalRes==0?0:(($val*100)/$totalRes);
 				$percentage  = (is_float($percentage)) ? number_format((float)$percentage, 2, '.', '') : $percentage ;
 				return $percentage;
 			},
