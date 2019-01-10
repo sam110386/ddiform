@@ -15,8 +15,7 @@
 
 	<!-- Bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
 
@@ -36,9 +35,8 @@
 <body class="hold-transition">
 	<div id="app">
 		<nav class="navbar navbar-default navbar-static-top">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
-
 					<!-- Collapsed Hamburger -->
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
 						<span class="sr-only">Toggle Navigation</span>
@@ -46,25 +44,23 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-
 					<!-- Branding Image -->
 					<a class="navbar-brand" href="{{ url('/') }}">
-						{{ config('app.name', 'DDI Form') }}
+						<img class="pull-left img-responsive" width="25" src="{{ asset('img/logo.png') }}" /> &nbsp; {{ config('app.name', 'DDI Form') }}
 					</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="app-navbar-collapse">
-					<!-- Left Side Of Navbar -->
-					<ul class="nav navbar-nav">
-						&nbsp;
-					</ul>
 					<!-- Right Side Of Navbar -->
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Authentication Links -->
-						<li><a href="{{ route('home') }}">Home</a></li>
+						<!--<li><a href="{{ route('home') }}">Home</a></li> -->
+						<li><a href="{{ route('new-form') }}">Create Survey</a></li>
+						<li><a href="{{ route('pricing') }}">Pricing</a></li>
+						<li><a href="{{ route('help') }}">Help</a></li>
 						@guest
-						<li><a href="{{ route('login') }}">Login</a></li>
-						<li><a href="{{ route('register') }}">Register</a></li>
+						<li><a href="{{ route('login') }}">Sign in</a></li>
+						<li><a href="{{ route('register') }}" class="btn-light-blue">Sign up</a></li>
 						@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -103,7 +99,17 @@
 		{{session('error')}}
 	</div>
 	@endif
-	@yield('content')
+	<section id="main">
+		@yield('content')
+		
+	</section>
+	<footer class="ptb-40 text-center">
+		<div class="footer-links">
+			<a href="#" class="text-blue-grey">Privacy</a>
+			<a href="#"  class="text-blue-grey">Terms</a>
+			<a href="#"  class="text-blue-grey">Support</a>
+		</div>
+	</footer>
 </div>
 <div class="loader-overley">
 	<div class="loader"></div>

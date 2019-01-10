@@ -22,6 +22,10 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
 
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/pricing', 'HomeController@pricing')->name('pricing');
+Route::get('/help', 'HomeController@help')->name('help');
+
+
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
 Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name('save-email-collection');
 Route::post('/data/save/{key}','FormResponsesController@saveForm')->name('save-form-data');
