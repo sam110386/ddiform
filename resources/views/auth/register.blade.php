@@ -5,7 +5,7 @@
 	<div class="register-box">
 
 
-		<div class="register-box-body">
+		<div class="register-box-body panel panel-body panel-default ">
 			<p class="login-box-msg h3">Create Account</p>
 
 			<form action="{{ route('register') }}" method="post">

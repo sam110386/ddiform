@@ -35,7 +35,7 @@
 						<input id="success_message" type="text" class="form-control" rows="3" placeholder="Enter thank you message" name="success_message" value="{{ $form['success_message'] }}" />
 					</div>
 					<div class="form-group">
-						<label for="response_text">User response Question</label>
+						<label for="response_text">Message before View Results</label>
 						<input type="text" id="response_text" class="form-control" rows="3" placeholder="User response question" name="response_text" value="{{ $form['response_text'] }}" />
 					</div>
 					<div class="form-group">

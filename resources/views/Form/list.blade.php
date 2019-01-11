@@ -3,6 +3,18 @@
 <script type="text/javascript" src="{{ asset('js/pages/form.js') }}"></script>
 @endpush
 @section('content')
+<script type="text/javascript">
+      var $body = document.getElementsByTagName('body')[0];
+      function copyToClipboard(secretInfo) {
+        var $tempInput = document.createElement('INPUT');
+        $body.appendChild($tempInput);
+        $tempInput.setAttribute('value', secretInfo)
+        $tempInput.select();
+        document.execCommand('copy');
+        $body.removeChild($tempInput);
+      }
+      
+    </script>
 <div class="box">
 	<!-- /.box-header -->
 	<div class="box-body">
@@ -24,7 +36,7 @@
 				<tr>
 					<td>{{$loop->iteration}}</td>
 					<td>{{$form->name}}</td>
-					<td>{{route('render-form',$form->form_key)}}</td>
+					<td>{{route('render-form',$form->form_key)}} <a href="javascript:;" onclick='copyToClipboard("{{route('render-form',$form->form_key)}}")'><i class="fa fa-copy fa-lg"></i></a></td>
 					<td>{{$form->created_at->format('M d Y')}}</td>
 					<td><center class="@if($form->status) text-green @else text-red @endif" title="@if($form->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
 					<td class="form-actions">

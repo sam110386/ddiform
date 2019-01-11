@@ -2,7 +2,7 @@
 @section('content')
 <!--div class="login-page"-->
 	<div class="login-box ">
-		<div class="login-box-body panel-body ">
+		<div class="login-box-body panel panel-body panel-default  ">
 			<p class="login-box-msg">Sign in to start your session</p>
 
 			<form action="{{ route('login') }}" method="post">

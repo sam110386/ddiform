@@ -55,7 +55,12 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Authentication Links -->
 						<!--<li><a href="{{ route('home') }}">Home</a></li> -->
+						
+						@php if(Route::current()->getName()=='register'): @endphp
+						<li><a href="javascript:;">Create Survey</a></li>
+						@php else:@endphp
 						<li><a href="{{ route('new-form') }}" @guest data-toggle="modal" data-target="#signupModal" @endguest>Create Survey</a></li>
+						@php endif;@endphp
 						<li><a href="{{ route('pricing') }}">Pricing</a></li>
 						<li><a href="{{ route('help') }}">Help</a></li>
 						@guest
@@ -111,9 +116,7 @@
 		</div>
 	</footer>
 </div>
-<div class="loader-overley">
-	<div class="loader"></div>
-</div>
+
 
 <div class="modal fade " id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true" >
 	<div class="modal-dialog">

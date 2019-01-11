@@ -77,7 +77,7 @@ var saveData =  function(){
 			$('.user-reposnse').append(
 				"<div class='text-center'>" +
 				"<p>"+ responseText + "</p>" +
-				"<button class='btn btn-info get-response'>Yes</button>" +
+				"<button class='btn btn-info get-response'>View Results</button>" +
 				"<p>&nbsp;</p>" +
 				"</div>"
 				);
