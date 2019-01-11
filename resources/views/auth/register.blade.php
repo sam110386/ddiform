@@ -6,7 +6,7 @@
 
 
 		<div class="register-box-body">
-			<p class="login-box-msg">Register a new membership</p>
+			<p class="login-box-msg h3">Create Account</p>
 
 			<form action="{{ route('register') }}" method="post">
 				{{ csrf_field() }}

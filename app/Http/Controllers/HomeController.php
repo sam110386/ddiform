@@ -34,4 +34,10 @@ class HomeController extends Controller
     public function help(){
         return view('Frontend.help');
     }
+    public function privacy(){
+        return view('Frontend.privacy');
+    }
+    public function terms(){
+        return view('Frontend.terms');
+    }        
 }

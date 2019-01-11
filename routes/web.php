@@ -24,6 +24,8 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/pricing', 'HomeController@pricing')->name('pricing');
 Route::get('/help', 'HomeController@help')->name('help');
+Route::get('/privacy', 'HomeController@privacy')->name('privacy');
+Route::get('/terms', 'HomeController@terms')->name('terms');
 
 
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');

@@ -46,7 +46,7 @@
 					</button>
 					<!-- Branding Image -->
 					<a class="navbar-brand" href="{{ url('/') }}">
-						<img class="pull-left img-responsive" width="25" src="{{ asset('img/logo.png') }}" /> &nbsp; {{ config('app.name', 'DDI Form') }}
+						<img class="pull-left img-responsive" width="100" src="{{ asset('img/logo.png') }}" /> 
 					</a>
 				</div>
 
@@ -55,7 +55,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Authentication Links -->
 						<!--<li><a href="{{ route('home') }}">Home</a></li> -->
-						<li><a href="{{ route('new-form') }}">Create Survey</a></li>
+						<li><a href="{{ route('new-form') }}" @guest data-toggle="modal" data-target="#signupModal" @endguest>Create Survey</a></li>
 						<li><a href="{{ route('pricing') }}">Pricing</a></li>
 						<li><a href="{{ route('help') }}">Help</a></li>
 						@guest
@@ -105,14 +105,86 @@
 	</section>
 	<footer class="ptb-40 text-center">
 		<div class="footer-links">
-			<a href="#" class="text-blue-grey">Privacy</a>
-			<a href="#"  class="text-blue-grey">Terms</a>
-			<a href="#"  class="text-blue-grey">Support</a>
+			<a href="{{ route('privacy') }}" class="text-blue-grey">Privacy</a>
+			<a href="{{ route('terms') }}"  class="text-blue-grey">Terms</a>
+			<a href="{{ route('help') }}"  class="text-blue-grey">Help</a>
 		</div>
 	</footer>
 </div>
 <div class="loader-overley">
 	<div class="loader"></div>
+</div>
+
+<div class="modal fade " id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="register-box-body">
+					<p class="login-box-msg h3">Create Account</p>
+
+					<form action="{{ route('register') }}" method="post">
+						{{ csrf_field() }}
+						<div class="form-group has-feedback {{ $errors->has('name') ? ' has-error' : '' }}">
+							<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus placeholder="Full name">
+							@if ($errors->has('name'))
+							<span class="help-block">
+								<strong>{{ $errors->first('name') }}</strong>
+							</span>
+							@endif
+							<span class="glyphicon glyphicon-user form-control-feedback"></span>
+						</div>
+						<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
+							<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required>
+
+							@if ($errors->has('email'))
+							<span class="help-block">
+								<strong>{{ $errors->first('email') }}</strong>
+							</span>
+							@endif
+							<span class="glyphicon glyphicon-envelope form-control-feedback "></span>
+						</div>
+						<div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
+							<input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+							@if ($errors->has('password'))
+							<span class="help-block">
+								<strong>{{ $errors->first('password') }}</strong>
+							</span>
+							@endif
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						</div>
+						<div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
+							<input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Retype Password" required>
+							@if ($errors->has('password'))
+							<span class="help-block">
+								<strong>{{ $errors->first('password') }}</strong>
+							</span>
+							@endif					
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						</div>
+						<div class="row">
+							<div class="col-xs-8">
+								<div class="checkbox icheck">
+									<label>
+										<input type="checkbox" required=""> I agree to the <a href="#">terms</a>
+									</label>
+								</div>
+							</div>
+							<!-- /.col -->
+							<div class="col-xs-4">
+								<button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+							</div>
+							<!-- /.col -->
+						</div>
+					</form>
+					<a href="{{ route('password.request') }}" class="text-danger">
+						Forgot Your Password?
+					</a><br>
+					<a href="{{ route('login') }}" class="text-center">I already have an Account</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -130,6 +202,13 @@
 
 @stack('scripts')
 <script src="{{ asset('js/common.js') }}"></script>
+@if($errors->has('name') || $errors->has('email') || $errors->has('password'))
+<script type="text/javascript">
+	$(function(){
+		$('#signupModal').modal('show');
+	});
+</script>
+@endif
 </body>
 </html>
 
