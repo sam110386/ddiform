@@ -7,7 +7,7 @@
 			<div class="panel panel-default ">
 				<div class="panel-body help-block">
 					<div class="col-md-3">
-						<i class="ion-outlet"></i>
+						<i class="ion-help-circled"></i>
 					</div>
 					<div class="col-md-9">
 						<h4>Embedding</h4>
@@ -18,7 +18,7 @@
 			<div class="panel panel-default ">
 				<div class="panel-body help-block">
 					<div class="col-md-3">
-						<i class="ion-outlet"></i>
+						<i class="ion-help-circled"></i>
 					</div>
 					<div class="col-md-9">
 						<h4>Embedding</h4>
@@ -29,7 +29,7 @@
 			<div class="panel panel-default ">
 				<div class="panel-body help-block">
 					<div class="col-md-3">
-						<i class="ion-outlet"></i>
+						<i class="ion-help-circled"></i>
 					</div>
 					<div class="col-md-9">
 						<h4>Embedding</h4>
