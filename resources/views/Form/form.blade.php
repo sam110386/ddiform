@@ -85,7 +85,7 @@
 					<div class="form-group">
 						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="email" value="1" @if($form["email"] == 1) checked="checked" @endif>
 						<label> &nbsp;Email notification</label>
-						<span data-toggle="tooltip" title="" data-original-title="You will notify when anyone submit form"><i class="fa fa-question-circle"></i></span>
+						<span data-toggle="tooltip" title="You will be notified via email when a response is submitted." data-original-title="You will be notified via email when a response is submitted."><i class="fa fa-question-circle"></i></span>
 					</div>
 					<div class="form-group">
 						<input type="checkbox" class="switch" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" name="auto_response" value="1" @if($form["auto_response"] == 0) checked="checked" @endif>

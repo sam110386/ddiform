@@ -24,8 +24,7 @@
 				<tr>
 					<td>{{$loop->iteration}}</td>
 					<td>{{$form->name}}</td>
-					<td>{{route('home')}}/form/{{$form->form_key}}</td>
-					<!-- <td>{{$form->form_key}}.{{str_replace_first('http://','',route('home'))}}</td> -->
+					<td>{{route('render-form',$form->form_key)}}</td>
 					<td>{{$form->created_at->format('M d Y')}}</td>
 					<td><center class="@if($form->status) text-green @else text-red @endif" title="@if($form->status) Active @else Inactive @endif"><i class="fa fa-circle"></i></center></td>
 					<td class="form-actions">
