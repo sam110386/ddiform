@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'DDI FORM',
+    'name' => 'GriDBle',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>DDI</b> FORM',
+    'logo' => '<b>GriDBle</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>DDI</b>',
+    'logo-mini' => '<b>GDB</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -227,7 +227,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => 'skin-blue',
+    'skin' => 'skin-blue-light',
 
     /*
     |--------------------------------------------------------------------------

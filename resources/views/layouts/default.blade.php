@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'DDI Forms') }}</title>
+	<title>{{ config('app.name', 'GriDBle') }}</title>
 
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -56,16 +56,11 @@
 						<!-- Authentication Links -->
 						<!--<li><a href="{{ route('home') }}">Home</a></li> -->
 						
-						@php if(Route::current()->getName()=='register'): @endphp
-						<li><a href="javascript:;">Create Survey</a></li>
-						@php else:@endphp
-						<li><a href="{{ route('new-form') }}" @guest data-toggle="modal" data-target="#signupModal" @endguest>Create Survey</a></li>
-						@php endif;@endphp
 						<li><a href="{{ route('pricing') }}">Pricing</a></li>
 						<li><a href="{{ route('help') }}">Help</a></li>
 						@guest
-						<li><a href="{{ route('login') }}">Sign in</a></li>
-						<li><a href="{{ route('register') }}" class="btn-light-blue">Sign up</a></li>
+						<li><a href="{{ route('login') }}" class="btn-light-blue">Sign in</a></li>
+						<!--li><a href="{{ route('register') }}" class="btn-light-blue">Sign up</a></li-->
 						@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>

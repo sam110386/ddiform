@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'DDI Forms') }}</title>
+	<title>{{ config('app.name', 'GriDBle') }}</title>
 
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -42,16 +42,16 @@
 	<link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 	<div class="wrapper">
 
 		<header class="main-header">
 			<!-- Logo -->
 			<a href="index2.html" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
-				<span class="logo-mini"><b>DDI</b></span>
+				<span class="logo-mini"><b>GDB</b></span>
 				<!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>DDI</b>Forms</span>
+				<span class="logo-lg"><b>GriDBle</b></span>
 			</a>
 			<!-- Header Navbar: style can be found in header.less -->
 			<nav class="navbar navbar-static-top">
@@ -207,7 +207,7 @@
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 			
-			<strong>Copyright &copy; {{ date('Y')}} <a href="#">DDI Forms</a>.</strong> All rights
+			<strong>Copyright &copy; {{ date('Y')}} <a href="#">GriDBle</a>.</strong> All rights
 			reserved.
 		</footer>
 		<!-- /.control-sidebar -->

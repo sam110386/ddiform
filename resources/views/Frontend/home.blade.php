@@ -4,21 +4,19 @@
 <div class="container">
     <div class="row p-4">
         <div class="col-md-12 text-center">
-            <h1>Embeddable signup forms for Medium</h1>
+            <h1>Know your Audience Better, <br/>One Question at a Time</h1>
             <p class="text-blue-grey mb-3 font-17">
-                Just paste the link in a story and press enter to start collecting subscribers.
+                Embed your question and start collecting responses.
             </p>
-            <div class="col-md-6 col-md-offset-3 mb-2">
-                <form class='email-collection'>
-                    <div class="row form-group">
-                        <div class="col-md-8 pr-0">
-                            <input type="email" class="form-control input-lg br-0" id="email" placeholder="Email Address">
-                        </div>
-                        <div class="col-md-4 pl-0">
-                            <button type="submit" class="btn-block btn btn-lg btn-light-blue-solid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Create Form</button>
-                        </div>
-                    </div>
-                </form>
+            <div class="col-md-12">
+                <center>
+                    @guest
+                    <a href="{{ route('login') }}" class=" btn btn-lg btn-light-blue-solid" style="margin-bottom: 10px;">Start Asking</a>
+                    @else
+                    <a href="{{ route('new-form') }}" class=" btn btn-lg btn-light-blue-solid" style="margin-bottom: 10px;">Start Asking</a>
+                    @endguest
+                    
+                </center>
             </div>
             <div class="col-md-8 col-md-offset-2">
                 <img src="{{asset('img/flow.gif')}}" class="img-responsive" alt="DDI Forms" />
@@ -28,40 +26,41 @@
     <div class="row pb-40 mtb-5">
         <div class="col-md-3">
             <div class="feature text-center">
-                <i class="ion-ios-clock"></i>
-                <h3>Build</h3>
+                <i class="ion-android-list"></i>
+                <h3>Embed</h3>
                 <span class="text-blue-grey">
-                    Create your embeddable form in just seconds
+                    Just copy & paste link and we handle rest
                 </span>
             </div>
         </div>
         <div class="col-md-3">
             <div class="feature text-center">
-                <i class="ion-android-list"></i>
-                <h3>Share & Embed</h3>
+                <i class="ion-stats-bars"></i>
+                <h3>View Statistics</h3>
                 <span class="text-blue-grey">
-                    Embed your form by simply pasting the link and pressing enter
+                    View stastics visualization of responses
                 </span>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="feature text-center">
+                <i class="ion-email"></i>
+                <h3>Generate Leads</h3>
+                <span class="text-blue-grey">
+                    Collect leads and export them
+                </span>
+            </div>
+        </div>   
         <div class="col-md-3">
             <div class="feature text-center">
                 <i class="ion-outlet"></i>
                 <h3>Integrate</h3>
                 <span class="text-blue-grey">
-                    Integrate your form with Mailchimp and a bunch of other great services
+                    Integrate with Convertkit and other great stuff
                 </span>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="feature text-center">
-                <i class="ion-android-download"></i>
-                <h3>Easy Export</h3>
-                <span class="text-blue-grey">
-                    Export all of your signups at anytime. No problem!
-                </span>
-            </div>
-        </div>                        
+                             
     </div>
 </div>
 
@@ -80,7 +79,7 @@
                 <h4>Google Sheets</h4>
             </div>
         </div>
-        <div class="col-md-3">
+        <!--div class="col-md-3">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/zapier.png')}}" />
                 <h4>Zapier</h4>
@@ -139,14 +138,14 @@
                 <img width="50" class="" src="{{asset('img/constantcontact.png')}}" />
                 <h4>Constant Contact</h4>
             </div>
-        </div>
+        </div-->
         <div class="col-md-3">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/convertkit.png')}}" />
                 <h4>ConvertKit</h4>
             </div>
         </div>
-        <div class="col-md-3">
+        <!--div class="col-md-3">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/sendx.png')}}" />
                 <h4>SendX</h4>
@@ -193,7 +192,7 @@
                 <img width="50" class="" src="{{asset('img/salesforcemarketingcloud.png')}}" />
                 <h4>Salesforce Marketing Cloud</h4>
             </div>
-        </div>
+        </div-->
     </div>
 </div>
 @endsection
