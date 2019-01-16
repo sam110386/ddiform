@@ -15,16 +15,7 @@
 
 	<!-- Bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
 
-	<!-- Styles -->
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-	<!-- Theme style -->
-	<link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
 	<!-- Sweet Alert -->
@@ -45,7 +36,6 @@
 	<!-- jQuery 3 -->
 	<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<!-- Bootstrap 3.3.7 -->
 	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 	<!-- iCheck -->
 	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
@@ -53,7 +43,6 @@
 	<script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 	<!-- Validate Form -->
 	<script src="{{ asset('js/v-form.js') }}"></script>
-
 	@stack('scripts')
 	<script src="{{ asset('js/common.js') }}"></script>
 </body>

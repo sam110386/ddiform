@@ -9,20 +9,20 @@
 @endpush
 @section('content')
 <div class="container ddi-form-container">
-	<div class="box">
-		<div class="box-header with-border">
+	<div class="panel panel-info">
+		<div class="panel-heading">
 			<h3 class="box-title">{{$form->name}}</h3>
 		</div>
-		<div class="box-body">
-			@if($form['image'] && $form['image_pos'] == 0)
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<img src="{{$form['image']}}" class="img-responsive" />
-					</div>
+		@if($form['image'] && $form['image_pos'] == 0)
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<img src="{{$form['image']}}" class="img-responsive" />
 				</div>
 			</div>
-			@endif
+		</div>
+		@endif		
+		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<p>{!! nl2br(e($form->description)) !!}</p>
@@ -80,15 +80,16 @@
 						</div>
 					</div>
 				</div>
-			</form>			
-			@if($form['image'] && $form['image_pos'] == 1)
-			<div class="row">
-				<div class="col-md-12">
-					<img src="{{$form['image']}}" class="img-responsive" />
-				</div>
-			</div>
-			@endif		
+			</form>	
 		</div>
+		@if($form['image'] && $form['image_pos'] == 1)
+		<div class="row">
+			<div class="col-md-12">
+				<img src="{{$form['image']}}" class="img-responsive" />
+			</div>
+		</div>
+		@endif
+		<p class="text-center"><a class="text-muted" href="{{route('home')}}" target="_BLANK">Powered by GriDBle</a></p>	
 	</div>
 </div>
 @if($form['email_collection'])
@@ -96,15 +97,15 @@
 <div class="container email-collection-form-container" style="display:none;">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title">{{$form['email_collection_title']}}</h3>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3>{{$form['email_collection_title']}}</h3>
 				</div>
 				<!-- /.box-header -->
 				<!-- form start -->
 				<form id="email-collection-form" class="form-horizontal email-collection-form" action="{{route('save-email-collection',$form['form_key'])}}">
 					{{ csrf_field() }}
-					<div class="box-body">
+					<div class="panel-body">
 						@if($form['name_collection'])
 						<div class="form-group error-heading">
 							<label for="collection-name" class="col-sm-2 control-label">Name <small class="text-red">*</small></label>
@@ -119,13 +120,14 @@
 								<input type="email" class="form-control vf-required" id="collection-email" placeholder="Email" name="email">
 							</div>
 						</div>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
+						</div>
+						
 					</div>
 					<!-- /.box-body -->
-					<div class="box-footer text-center">
-						<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
-					</div>
-					<!-- /.box-footer -->
 				</form>
+				<p class="text-center"><a class="text-muted" href="{{route('home')}}" target="_BLANK">Powered by GriDBle</a></p>
 			</div>
 		</div>
 	</div>
@@ -133,16 +135,19 @@
 <!-- End email collection form -->
 @endif
 <div class="container response-container m-b-50 " style="display:none;">
-	<div class="box">
-		<div class="box-header with-border">
-			<h3 class="box-title">{{$form->name}} - Results</h3>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3>{{$form->name}} - Results</h3>
 		</div>
-		<div class="row">
-			<div class="col-md-12 user-reposnse">
-				<div class="chart p-b-50">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12 user-reposnse">
+					<div class="chart p-b-50">
+					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
+		<p class="text-center"><a class="text-muted" href="{{route('home')}}" target="_BLANK">Powered by GriDBle</a></p>
 	</div>
 </div>
 <div class="hidden">

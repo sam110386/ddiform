@@ -67,13 +67,13 @@
 <div class="row">
     <div class="container text-center">
         <h3>Integrate these awesome services...</h3>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/mailchimp.png')}}" />
                 <h4>MailChimp</h4>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/googlesheets.png')}}" />
                 <h4>Google Sheets</h4>
@@ -139,7 +139,7 @@
                 <h4>Constant Contact</h4>
             </div>
         </div-->
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="integrate">
                 <img width="50" class="" src="{{asset('img/convertkit.png')}}" />
                 <h4>ConvertKit</h4>

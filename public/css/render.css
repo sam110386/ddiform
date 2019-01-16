@@ -63,10 +63,10 @@
 .vf-invalid .form-control, .vf-invalid .input-group-addon{border-color: #dd4b39;box-shadow: none;}
 .custom-file-input input[type="file"] {display: none;}
 .custom-file-input .custom-file-label-before{position: relative; font-weight: 400;padding-left: 80px;}
-.custom-file-input .custom-file-label-before::before{
+.custom-file-input .custom-file-label-before::before,.custom-file-input .custom-file-label-before:hover::before{
     cursor: pointer;
     content: "Browse";
-    background: #3c8dbc;
+    background: #06BEF7;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -74,12 +74,16 @@
     padding: 5px 10px;
     color: #fff;
 }
-.custom-file-input .custom-file-label-before:hover::before{
-  background: #367fa9;
-}
+.btn.btn-primary,.btn.btn-primary:hover,.btn.btn-primary:focus,.btn.btn-primary:active,
+.btn.btn-info,.btn.btn-info:hover,.btn.btn-info:focus,.btn.btn-info:active{background: #06BEF7;border-color: #06BEF7;}
+.form-control{border-radius: 0;box-shadow: none;}
+.form-control:hover,.form-control:active,.form-control:focus{box-shadow: none; border-color: #06BEF7;}
 
+.icheckbox_square-blue, .iradio_square-blue{background-image: url('../img/blue.png')}
 .single-chart {border: 1px solid #ccc; padding: 0 5px;}
-.single-chart span{/*mix-blend-mode: difference;color: #fff;text-shadow: 0px 0px #FFF;*/color:#000;font-weight: bold;}
-.single-chart .progress{margin-bottom: 5px;}
+.single-chart span{color:#000;font-weight: bold;}
+.single-chart .progress{margin-bottom: 5px;border-radius: 0;box-shadow: none;}
 .single-chart .progress:first-child{margin-top:5px;}
 .single-chart .progress .chart-option{position: absolute;right: 20px;}
+.panel.panel-info > .panel-heading{background-color: transparent;}
+.panel.panel-info > .panel-heading h3{margin:5px 0;}

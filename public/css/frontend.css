@@ -116,14 +116,17 @@ h1,h2,h3,h4,h5{color: #333;margin-top: 0;margin-bottom: 25px;}
 .navbar.navbar-default .navbar-right{padding-right: 15px; padding-left: 15px;}
 .navbar.navbar-default .navbar-right > li > a{margin-right: 25px;padding: 8px 0px; color:#778899;}
 .navbar.navbar-default .navbar-right > li > a:hover{color: #333;}
-.navbar.navbar-default .navbar-right > li:last-child > a{border-radius: 5px; padding: 8px 10px;text-align: center;margin:0;}
+.navbar.navbar-default .navbar-right > li:last-child > a{padding: 8px 0px;margin:0;}
+.navbar.navbar-default .navbar-right > li:last-child > a.btn-light-blue{padding: 8px 10px; border-radius: 5px; text-align: center;}
 .navbar-default .navbar-toggle{
   margin-right: 15px;padding: 10px 15px;border: 1px solid rgba(0,0,0,.1);
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form{border:none;}
 .navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:active,.navbar-default .navbar-toggle:focus{background: #fff;}
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover{background: #fff; color: #333;}
-.dropdown-menu > li > a:hover{ background: #CBE9FF;}
+.navbar-default .dropdown-menu{padding: 0;}
+.navbar-default .dropdown-menu > li > a:hover{ background: #CBE9FF;}
+
 .email-collection input{border-top-left-radius:5px; border-bottom-left-radius:5px; }
 
 .feature > i {

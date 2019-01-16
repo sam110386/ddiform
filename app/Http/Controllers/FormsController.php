@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Exception;
 use \Examinecom\ConvertKit\ConvertKit;
 use App\User;
 use App\UserForm;
@@ -60,7 +61,12 @@ class FormsController extends Controller
 		$convKitCred = Auth::user()->convertKit;
 		if($convKitCred && $convKitCred->api_key && $convKitCred->api_secret){
 			$convertClient =  new ConvertKit($convKitCred->api_key,$convKitCred->api_secret);
-			$convKitForms = $convertClient->forms()->all(); 
+			try {
+				$convKitForms = $convertClient->forms()->all(); 
+			} catch (Exception $e) {
+				$convKitForms = false;
+			}
+			
 			$convKitForms = (isset($convKitForms['forms'])) ? $convKitForms['forms'] : false;
 		}else{
 			$convKitForms = false;
