@@ -29,12 +29,8 @@ class AccountController extends Controller
 	 */
 	public function index()
 	{
-		$profile = Auth::user();
-		if(!$profile['avatar']){
-			$profile['avatar'] = '/img/avatar5.png';
-		}
 		$recentForms = $this->getRecentForm(3);
-		$pageData = ['title' => 'Dashboard','profile' => $profile,'recentForms' =>$recentForms];
+		$pageData = ['title' => 'Dashboard','recentForms' =>$recentForms];
 		return view('Account.dashboard',$pageData);
 	}
 
@@ -50,7 +46,7 @@ class AccountController extends Controller
 	public function view(){
 		$profile = Auth::user();
 		if(!$profile['avatar']){
-			$profile['avatar'] = '/img/avatar5.png';
+			$profile['avatar'] = '/img/default_user.png';
 		}
 		$pageData = ['title' => 'Profile', 'description'=>'', 'profile' => $profile];
 		return view('Account.profile',$pageData);
