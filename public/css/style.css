@@ -165,19 +165,20 @@ textarea.form-description{min-height: 108px;}
 .box-shadow,.box{box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);}
 .box > hr{margin: 0;}
 .box .box-header{border-bottom: 1px solid #dedede;}
-.btn-collapse,.btn-collapse:active,.btn-collapse:hover ,.btn-collapse:focus {
+.btn-collapse,.btn-collapse:active,.btn-collapse:active:hover,.btn-collapse:hover ,.btn-collapse:focus,.btn-collapse:active:focus {
   background: transparent;
-  border: 1px solid #3C8DBC;
-  color: #3C8DBC;
+  border: 1px solid #06BEF7;
+  color: #06BEF7;
   border-radius: 40px;
   width: 30px;
   height: 30px;
   padding: 0;
+  box-shadow: none;
 }
 
-a.btn-collapse ,a.btn-collapse:hover,a.btn-collapse:active,a.btn-collapse:focus{padding: 5px 7.5px;}
+a.btn-collapse{padding: 5px 7.5px;}
+a.btn-collapse:hover,a.btn-collapse:active,a.btn-collapse:focus,a.btn-collapse:focus:active{background: #06BEF7; color:#fff; padding: 5px 7.5px;}
 label{font-weight: 400;}
-a.btn-collapse:hover{background: #3C8DBC; color: #fff !important;}
 .form-control {
   height: auto !important;
   border-radius: .1rem;
@@ -205,3 +206,6 @@ right: 5px;top: 6px;border: #dd4b39 1px solid;}
 .skin-blue-light .main-header .navbar,.skin-blue-light .main-header .logo:hover,.skin-blue-light .main-header .logo,.skin-blue-light .main-header li.user-header,.bg-blue,.btn-primary{background-color: #06BEF7 !important;}
 .box.box-primary{border-top-color:#06BEF7 !important;}
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover,.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{background-color: #06BEF7 !important;border-color: #06BEF7 !important;}
+.btn.btn-info,.btn.btn-info:hover,.btn.btn-info:active,.btn.btn-info:focus,
+.btn.bg-blue,.btn.bg-blue:hover,.btn.bg-blue:active,.btn.bg-blue:focus,
+.btn.btn-primary,.btn.btn-primary:active,.btn.btn-primary:focus,.btn.btn-primary:hover{background:#06BEF7; border-color:#06BEF7;color:#fff;box-shadow: none;}

@@ -47,7 +47,7 @@
 
 		<header class="main-header">
 			<!-- Logo -->
-			<a href="index2.html" class="logo">
+			<a href="{{ route('dashboard') }}" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>GDB</b></span>
 				<!-- logo for regular state and mobile devices -->
@@ -207,7 +207,7 @@
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 			
-			<strong>Copyright &copy; {{ date('Y')}} <a href="#">GriDBle</a>.</strong> All rights
+			<strong>Copyright &copy; {{ date('Y')}} <a href="{{route('home')}}">GriDBle</a>.</strong> All rights
 			reserved.
 		</footer>
 		<!-- /.control-sidebar -->
