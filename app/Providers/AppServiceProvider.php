@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('uppercase', function ($s) {
             return "<?php echo strtoupper(trans($s)); ?>";
         });
+        \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 
     /**

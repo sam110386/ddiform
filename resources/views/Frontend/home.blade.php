@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <center>
                     @guest
-                    <a href="{{ route('login') }}" class=" btn btn-lg btn-light-blue-solid" style="margin-bottom: 10px;">Start Asking</a>
+                    <a href="{{ route('register') }}" class=" btn btn-lg btn-light-blue-solid" style="margin-bottom: 10px;">Start Asking</a>
                     @else
                     <a href="{{ route('new-form') }}" class=" btn btn-lg btn-light-blue-solid" style="margin-bottom: 10px;">Start Asking</a>
                     @endguest
