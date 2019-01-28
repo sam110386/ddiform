@@ -33,6 +33,9 @@ Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name
 Route::post('/data/save/{key}','FormResponsesController@saveForm')->name('save-form-data');
 Route::match(['get', 'post'],'/response/chart/{key}','FormResponsesController@getResponseChartData')->name('form-response-chart');
 
+// Routes for oEmbed
+Route::match(['get','post'],'/oembed','FormResponsesController@renderOembed')->where('url', '(.*)');
+
 
 Route::group([
     'prefix'        => 'account',

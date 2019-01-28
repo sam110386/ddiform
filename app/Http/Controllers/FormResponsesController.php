@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
 use App\UserForm;
 use App\UserFormResponse;
 use App\UserFormEmailCollection;
-
 
 class FormResponsesController extends Controller
 {
@@ -69,6 +69,40 @@ class FormResponsesController extends Controller
 	}
 
 
+	public function renderOembed(Request $request){
+		require app_path() . '/Helpers/xml.php';
+		$params = [];
+		$url = $_GET['url'];
+		$formUrl = explode('/', $url);
+		$params['formKey'] = $formUrl[count($formUrl)-1];
+
+		if($params['formKey']){
+			$form = UserForm::where('form_key',$params['formKey'])->get()->first();
+			$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : false;
+			$pageData = ['title' => 'Form','form' => $form];
+			$formHtml = (string)View::make('Form.Render.form',$pageData);
+			$formHtml = str_replace('&nbsp;','&#xA0;',$formHtml);
+			$jsonResponse = [
+				'version' => '1.0',
+				"type"=> "rich",
+				"provider_name" => config('app.name', 'GriDBle'),
+				"provider_url" => route('home'),
+				"width" => '100%',
+				"height" => '100%',
+				"html" => $formHtml
+			];
+		}else{
+			$jsonResponse = ['error' => true, 'errroMessage' => 'Form not found.'];
+		}
+		if($_GET['format'] == 'json'){
+			return response()->json($jsonResponse);
+		}elseif ($_GET['format'] == 'xml') {
+			return response()->xml($jsonResponse,200,[],'oembed');
+		}else{
+			return response()->json(['error' => true, 'errroMessage' => 'Invalid Response Format!']);
+		}
+	}
+
 	public static function generateField($key,$field){
 		$fieldHtml = "";
 		// $fieldId = ($field['id']) ? $field['id'] : str_slug(str_random(5));
@@ -103,7 +137,8 @@ class FormResponsesController extends Controller
 			$values = ($field['values']) ? explode(',', $field['values']) : [] ;
 			$fieldHtml .= "<select name='{$key}' class='form-control {$required} ' id='{$fieldId}'>";
 			for($s=0; $s<count($values); $s++) {
-				$fieldHtml .= "<option value='{$values[$s]}'>{$values[$s]}</option>";
+				$val = trim($values[$s]);
+				$fieldHtml .= "<option value='{$val}'>{$val}</option>";
 			}
 			$fieldHtml .= "</select>";
 		}
