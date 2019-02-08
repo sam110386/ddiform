@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'GriDBle') }}</title>
+	<title>GriDBle</title>
 
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -56,7 +56,7 @@
 						<!-- Authentication Links -->
 						<!--<li><a href="{{ route('home') }}">Home</a></li> -->
 						
-						<li><a href="{{ route('pricing') }}">Pricing</a></li>
+						<!--li><a href="{{ route('pricing') }}">Pricing</a></li-->
 						<li><a href="{{ route('help') }}">Help</a></li>
 						@guest
 						<li><a href="{{ route('login') }}" class="btn-light-blue">Sign in</a></li>
@@ -106,6 +106,7 @@
 	<footer class="ptb-40 text-center">
 		<div class="footer-links">
 			<a href="{{ route('privacy') }}" class="text-blue-grey">Privacy</a>
+			<!--a href="{{ route('dnt-policy')}}" class="text-blue-grey">DNT Policy</a-->
 			<a href="{{ route('terms') }}"  class="text-blue-grey">Terms</a>
 			<a href="{{ route('help') }}"  class="text-blue-grey">Help</a>
 		</div>

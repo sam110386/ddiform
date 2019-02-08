@@ -77,19 +77,21 @@ class FormResponsesController extends Controller
 		$params['formKey'] = $formUrl[count($formUrl)-1];
 
 		if($params['formKey']){
-			$form = UserForm::where('form_key',$params['formKey'])->get()->first();
+			/*$form = UserForm::where('form_key',$params['formKey'])->get()->first();
 			$form['fields_arr'] = ($form->fields) ? json_decode($form->fields,true) : false;
 			$pageData = ['title' => 'Form','form' => $form];
 			$formHtml = (string)View::make('Form.Render.form',$pageData);
-			$formHtml = str_replace('&nbsp;','&#xA0;',$formHtml);
+			$formHtml = str_replace('&nbsp;','&#xA0;',$formHtml);route('render-form',$form->form_key)*/
+			$iframeUrl="<iframe src=\"".route('render-form',$params['formKey'])."\" width=\"700\" height=\"825\" scrolling=\"yes\" frameborder=\"0\" allowfullscreen></iframe>";
+			
 			$jsonResponse = [
 				'version' => '1.0',
 				"type"=> "rich",
-				"provider_name" => config('app.name', 'GriDBle'),
+				"provider_name" => 'GriDBle.io',
 				"provider_url" => route('home'),
-				"width" => '100%',
-				"height" => '100%',
-				"html" => $formHtml
+				"width" => '700',
+				"height" => '825',
+				"html" => $iframeUrl
 			];
 		}else{
 			$jsonResponse = ['error' => true, 'errroMessage' => 'Form not found.'];

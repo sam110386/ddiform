@@ -39,5 +39,9 @@ class HomeController extends Controller
     }
     public function terms(){
         return view('Frontend.terms');
-    }        
+    }
+
+    public function dnt_policy(){
+        return view('Frontend.dnt_policy');
+    }       
 }

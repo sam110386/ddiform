@@ -104,6 +104,13 @@
 					<p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 
 
+					<h2>Do Not Track</h2>
+
+					<p>gridDBle does not track its users over time and across third party website and therefore does not respond to Do Not Track (DNT) Signals. However, some of our partners may keep track of your browsing activities when they serve you content, which enables them to tailor what they present to you.</p>
+
+					<p>Third parties that have content embedded on griDBle's websites such as social features may set cookies on a user's browser and/or obtain information about the fact that a web browser visited a specific griDBle website from a certain IP address. Third parties cannot collect any other personally identifiable information from griDBle unless you provide to them directly</p>
+					
+
 					<h2>Contact Us</h2>
 					<p>If you have any questions about this Privacy Policy, please contact us:</p>
 					<ul>
