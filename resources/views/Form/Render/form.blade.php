@@ -5,6 +5,10 @@
 	var emailCollection = parseInt("{{$form['email_collection']}}");
 	var showResponse = parseInt("{{$form['auto_response']}}");
 	var responseText = "{{$form->response_text}}";
+	var bootCss = "{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}";
+	var renderCss = "{{ asset('css/render.css') }}";
+	var appLang = "{{ app()->getLocale() }}";
+	var formTitle = "{{$form->name}}";
 </script>
 @endpush
 @section('content')
@@ -117,13 +121,30 @@
 						<div class="form-group error-heading">
 							<label for="collection-email" class="col-sm-2 control-label">Email <small class="text-red">*</small></label>
 							<div class="col-sm-10">
-								<input type="email" class="form-control vf-required" id="collection-email" placeholder="Email" name="email">
+								<input type="email" class="form-control vf-required vf-email" id="collection-email" placeholder="Email" name="email">
 							</div>
 						</div>
-						<div class="form-group text-center">
-							<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
+						<div class="form-group">
+							<div class="col-sm-10 col-md-offset-2 col-sm-offset-2">
+								<button type="submit" class="btn btn-primary">{{$form['submit_text']}}</button>
+							</div>
 						</div>
-						
+						<div class="form-group agree-check error-heading">
+							<div class="">
+								<div class="col-md-2 col-xs-1 text-right">
+									<div class="checkbox icheck">
+										<label class="col-md-10 col-md-offset-2" style="padding-left: 0;">
+											<input id="agree-check" type="checkbox" name="agree-check" class="vf-required">
+										</label>
+									</div>
+								</div>
+								<label for="agree-check" class="col-md-10 col-xs-10">
+									I agree to leave Medium and submit this information, which will be collected and used according to <a target="_BLANK" href="{{route('privacy')}}">griDBle's privacy policy</a>.
+									<br>
+									<label class="error"><small>Please select the checkbox to proceed</small></label>
+								</label>
+							</div>
+						</div>				
 					</div>
 					<!-- /.box-body -->
 				</form>

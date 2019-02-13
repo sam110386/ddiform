@@ -65,7 +65,7 @@
           <h2>Contact Us</h2>
           <p>If you have any questions about this Policy, please contact us:</p>
           <ul>
-            <li>By email: info@gridble.io</li>
+            <li>By email: info@gridble.com</li>
             
           </ul>
 

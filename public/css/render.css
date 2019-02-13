@@ -87,3 +87,7 @@
 .single-chart .progress .chart-option{position: absolute;right: 20px;}
 .panel.panel-info > .panel-heading{background-color: transparent;}
 .panel.panel-info > .panel-heading h3{margin:5px 0;}
+
+
+.agree-check .error {display: none;}
+.agree-check.vf-invalid .error {display: block;}
