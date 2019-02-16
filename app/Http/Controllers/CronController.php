@@ -22,7 +22,7 @@ class CronController extends Controller
 			echo "No new record found.";
 			die;
 		}
-		echo "CRON START";
+		//echo "CRON START";
 		foreach ($emails as $email) {
 			$name = $email->name;
 			$emailId = $email->email;
@@ -30,9 +30,9 @@ class CronController extends Controller
 			$apiKey = $email->user->convertKit->api_key;
 			$apiSecret = $email->user->convertKit->api_secret;
 
-			echo "Name >>> " . $name;
-			echo "<br>Email >>> " . $emailId;
-			echo "<br>Form Id >>> " . $formId;
+			//echo "Name >>> " . $name;
+			//echo "<br>Email >>> " . $emailId;
+			//echo "<br>Form Id >>> " . $formId;
 
 			if($formId && $apiKey && $apiSecret){
 				$subscriber = ['first_name'=>$name,'email'=>$emailId];
@@ -43,7 +43,7 @@ class CronController extends Controller
 					$email->update();
 					echo "<br>Success";
 				}else{
-					echo "<br>Failed";
+					echo "<br>inner Failed";
 				}
 			}else{
 				echo "<br>Failed";

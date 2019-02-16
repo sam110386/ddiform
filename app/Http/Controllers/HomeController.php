@@ -42,6 +42,7 @@ class HomeController extends Controller
     }
 
     public function dnt_policy(){
-        return view('Frontend.dnt_policy');
+        return response()
+            ->json(["tracking"=>"N","compliance"=>["https://www.w3.org/2011/tracking-protection/drafts/tracking-compliance.html","http://eur-lex.europa.eu/legal-content/en/ALL/?uri=CELEX:32009L0136"],"policy"=>"https://www.gridble.io/privacy","controller"=>["https://www.gridble.io/privacy"]]);
     }       
 }

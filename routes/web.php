@@ -26,7 +26,8 @@ Route::get('/pricing', 'HomeController@pricing')->name('pricing');
 Route::get('/help', 'HomeController@help')->name('help');
 Route::get('/privacy', 'HomeController@privacy')->name('privacy');
 Route::get('/terms', 'HomeController@terms')->name('terms');
-Route::get('/dnt-policy', 'HomeController@dnt_policy')->name('dnt-policy');
+Route::get('/.well-known/dnt', 'HomeController@dnt_policy')->name('dnt-policy');
+Route::get('/.well-known/dnt/', 'HomeController@dnt_policy')->name('dnt-policy');
 
 Route::get('/form/{key}','FormResponsesController@render')->name('render-form');
 Route::post('/email/collection/{key}','FormResponsesController@saveEmail')->name('save-email-collection');

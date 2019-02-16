@@ -79,9 +79,14 @@ return [
             'visibility' => 'public'
         ],        
         'form_uploads' => [
-            'driver' => 'local',
-            'root'   => public_path() . '/uploads/form',
-            'url' => env('APP_URL').'/uploads/form',
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+            'root'   => 'images',
+            //'url' => env('APP_URL').'/uploads/form',
+            'url'=>'https://s3.us-east-2.amazonaws.com/gridblemedia',
             'visibility' => 'public'
         ],        
 
