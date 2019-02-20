@@ -3,12 +3,16 @@
         Options -MultiViews -Indexes
     </IfModule>
     # https redirect
-    #RewriteEngine On
-
-    #RewriteCond %{HTTPS} !on
-    #RewriteRule ^.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
     RewriteEngine On
+
+    #RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$
+    #RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301] 
+    
+    RewriteCond %{HTTPS} !=on
+    # This checks to make sure the connection is not already HTTPS
+    RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
+
+    #RewriteEngine On
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

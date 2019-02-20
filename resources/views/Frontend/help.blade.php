@@ -5,7 +5,7 @@
 	<div class="row p-4">
 		<div class="col-md-10 col-md-offset-1">
 			<div style="height: 400px;padding-top: 200px;">
-				<center><h4>Contact us at: info@gridble.com with your questions and we will get back to you ASAP!</h4></center>
+				<center><h4>Contact us at: support@gridble.com with your questions and we will get back to you ASAP!</h4></center>
 			</div>
 			<!--div class="panel panel-default ">
 				<div class="panel-body help-block">

@@ -35,7 +35,7 @@ html, body {background-color: #fff;
 <div class="flex-center position-ref full-height">
 	<div class="content">
 		<div class="title">
-			Sorry, the form you are looking for has been expired.
+			Sorry the form you are looking for has expired.
 		</div>
 	</div>
 </div>

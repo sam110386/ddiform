@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\UserConvertKit;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -23,9 +23,12 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')
-        //          ->hourly();
+    {    
+        //scedule for run the script, email content to convertkit
+        $schedule->call(function () {
+            UserConvertKit::processEmailsForConvertKit();
+        })->hourly();
+        
     }
 
     /**
