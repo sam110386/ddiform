@@ -83,15 +83,15 @@ class FormResponsesController extends Controller
 			$formHtml = (string)View::make('Form.Render.form',$pageData);
 			$formHtml = str_replace('&nbsp;','&#xA0;',$formHtml);route('render-form',$form->form_key)*/
 			// $iframeUrl="<iframe src=\"".route('render-form',$params['formKey'])."\" width=\"700\" height=\"825\" scrolling=\"yes\" frameborder=\"0\" allowfullscreen></iframe>";
-			$iframeUrl="<iframe src=\"".route('render-form',$params['formKey'])."\" width=\"700\" height=\"600\" frameborder=\"0\" allowfullscreen></iframe>";
+			$iframeUrl="<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src=\"".route('render-form',$params['formKey'])."\"  frameborder=\"0\" allowfullscreen></iframe></div>";
 			
 			$jsonResponse = [
 				'version' => '1.0',
 				"type"=> "rich",
 				"provider_name" => 'GriDBle.io',
 				"provider_url" => route('home'),
-				"width" => 700,
-				"height" => 600,
+				//"width" => 700,
+				//"height" => 600,
 				"html" => $iframeUrl
 			];
 		}else{
